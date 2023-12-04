@@ -94,9 +94,10 @@ export class MdcMenuComponent implements AfterViewInit {
 
             let menuHeight = this.menuContainer.el.nativeElement.offsetHeight;
             let menuWidth = this.menuContainer.el.nativeElement.offsetWidth + (baseSize * 1.5);
+            let buttonWidth = this.menuButton.el.nativeElement.offsetWidth;
 
             if (this.menuButton.el.nativeElement.classList.contains('mdc-text-field')) {
-                menuWidth = this.menuButton.el.nativeElement.offsetWidth;
+                menuWidth = buttonWidth;
             }
 
             let menuPosition = this.menuContainer.el.nativeElement.getBoundingClientRect();
@@ -131,7 +132,7 @@ export class MdcMenuComponent implements AfterViewInit {
                     position.left = "auto";
                 }
             } else if (menuDirection == 'rtl' || (menuDirection == 'ltr' && this.reverseDirection)) {
-                position.right = (viewportWidth - menuPosition.right).toString() + "px";
+                position.right = (viewportWidth - menuPosition.left + buttonWidth).toString() + "px";
                 position.left = "auto";
                 if ((menuPosition.right - menuWidth) < 0) {
                     position.left = '1rem';
