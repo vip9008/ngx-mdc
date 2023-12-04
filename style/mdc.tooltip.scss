@@ -1,0 +1,54 @@
+.md-theme-light .mdc-tooltip, .mdc-tooltip.md-theme-light, .mdc-tooltip {
+    --opacity-primary: 1;
+    --opacity-secondary: 0.7;
+    --opacity-hint: 0.5;
+    --opacity-divider: 0.12;
+
+    --foreground-color: 255, 255, 255;
+    --background-color: 48, 48, 48;
+}
+
+.md-theme-dark .mdc-tooltip, .mdc-tooltip.md-theme-dark {
+    --opacity-primary: 0.87;
+    --opacity-secondary: 0.6;
+    --opacity-hint: 0.38;
+    --opacity-divider: 0.12;
+
+    --foreground-color: 0, 0, 0;
+    --background-color: 250, 250, 250;
+}
+
+.mdc-tooltip {
+    position: fixed;
+    font-size: 0.625rem;
+    line-height: 1.5rem;
+    padding: 0 0.5rem;
+    border-radius: 0.25rem;
+    pointer-events: none;
+    cursor: default;
+    z-index: var(--z-axis-24-index);
+    color: rgba(var(--foreground-color), var(--opacity-primary));
+    background-color: rgb(var(--background-color));
+    -ms-transform: scale(0);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+    will-change: opacity, transform;
+    transition: opacity 75ms cubic-bezier(0.4, 0, 0.2, 1), transform 75ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mdc-tooltip.active {
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 719px) {
+    .mdc-tooltip {
+        font-size: 0.875rem;
+        line-height: 2rem;
+        padding: 0 1rem;
+    }
+}

@@ -1,0 +1,237 @@
+.mdc-tabs-group:not(.scrollable) {
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.mdc-tabs-group.align-start {
+    justify-content: start;
+}
+
+.mdc-tabs-group.align-end {
+    justify-content: end;
+}
+
+.mdc-tabs-group .mdc-tabs {
+    height: auto;
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    transform: none;
+    will-change: transform;
+}
+
+.mdc-tabs-group.full-width .mdc-tabs {
+    flex-grow: 1;
+}
+
+.mdc-tabs-group.scrollable .mdc-tabs .os-content {
+    height: auto;
+    position: relative;
+    display: flex;
+    flex: 1 0 auto;
+    transform: none;
+    will-change: transform;
+}
+
+.mdc-tabs-group.scrollable .mdc-tabs .os-scrollbar {
+    display: none;
+}
+
+.mdc-tabs .tab-item {
+    font-size: 0.875rem;
+    height: 3rem;
+    font-weight: 500;
+    letter-spacing: 0.0892857143em;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0 1.5rem 0.125rem;
+    position: relative;
+    display: flex;
+    flex: 1 0 auto;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.mdc-tabs.stacked .tab-item {
+    flex-direction: column;
+    height: 4.5rem;
+}
+
+.mdc-tabs .tab-item:not(.active) {
+    --foreground-color: var(--initial-foreground-color);
+}
+
+.mdc-tabs .tab-item.disabled, .mdc-tabs .tab-item[disabled], .mdc-tabs .tab-item:disabled {
+    --foreground-color: var(--initial-foreground-color) !important;
+
+    cursor: default !important;
+}
+
+.mdc-tabs .tab-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    will-change: opacity;
+    transition: all 0.2s;
+    background-color: rgb(var(--foreground-color));
+    opacity: 0;
+}
+
+.mdc-tabs .tab-item:hover::before {
+    opacity: var(--opacity-hover);
+}
+
+.mdc-tabs .tab-item:focus::before {
+    opacity: var(--opacity-focus);
+}
+
+.mdc-tabs .tab-item:active::before {
+    opacity: var(--opacity-pressed);
+}
+
+.mdc-tabs .tab-item:active::before {
+    opacity: var(--opacity-pressed);
+}
+
+.mdc-tabs .tab-item.disabled::before, .mdc-tabs .tab-item[disabled]::before, .mdc-tabs .tab-item:disabled::before {
+    display: none;
+}
+
+/* .mdc-tabs .tab-item::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 0.125rem;
+    z-index: 0;
+    will-change: opacity;
+    transition: all 0.2s;
+    background-color: rgb(var(--foreground-color));
+    opacity: 0;
+}
+
+.mdc-tabs .tab-item.active::after {
+    opacity: 1;
+} */
+
+.mdc-tabs .ink-bar {
+    position: absolute;
+    left: 0;
+    right: auto;
+    bottom: 0;
+    width: 0;
+    height: 0.125rem;
+    will-change: left, right, width;
+    pointer-events: none;
+    background-color: rgb(var(--foreground-color));
+}
+
+.mdc-tabs-group .animate .ink-bar {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[dir="ltr"] .mdc-tabs > .ink-bar,
+html[dir] *[dir="ltr"] .mdc-tabs > .ink-bar,
+html[dir] * .mdc-tabs[dir="ltr"] > .ink-bar {
+    left: 0;
+    right: auto;
+}
+
+html[dir="rtl"] .mdc-tabs > .ink-bar,
+html[dir] *[dir="rtl"] .mdc-tabs > .ink-bar,
+html[dir] * .mdc-tabs[dir="rtl"] > .ink-bar {
+    left: auto;
+    right: 0;
+}
+
+.mdc-tabs .tab-item > .icon,
+.mdc-tabs .tab-item > .title {
+    color: rgba(var(--foreground-color), var(--opacity-secondary));
+    line-height: 1;
+}
+
+.mdc-tabs .tab-item > .icon + .title {
+    margin-left: 0.5rem;
+}
+
+.mdc-tabs.stacked .tab-item > .title {
+    margin: 0.375rem 0 0.25rem;
+}
+
+.mdc-tabs .tab-item.active > .icon,
+.mdc-tabs .tab-item.active > .title {
+    color: rgb(var(--foreground-color));
+}
+
+html[dir="ltr"] .mdc-tabs:not(.stacked) .tab-item > .icon + .title,
+html[dir] *[dir="ltr"] .mdc-tabs:not(.stacked) .tab-item > .icon + .title,
+html[dir] * .mdc-tabs[dir="ltr"]:not(.stacked) .tab-item > .icon + .title {
+    margin-left: 0.5rem;
+    margin-right: 0;
+}
+
+html[dir="rtl"] .mdc-tabs:not(.stacked) .tab-item > .icon + .title,
+html[dir] *[dir="rtl"] .mdc-tabs:not(.stacked) .tab-item > .icon + .title,
+html[dir] * .mdc-tabs[dir="rtl"]:not(.stacked) .tab-item > .icon + .title {
+    margin-left: 0;
+    margin-right: 0.5rem;
+}
+
+.mdc-tabs .tab-item.disabled > .icon, .mdc-tabs .tab-item[disabled] > .icon, .mdc-tabs .tab-item:disabled > .icon,
+.mdc-tabs .tab-item.disabled > .title, .mdc-tabs .tab-item[disabled] > .title, .mdc-tabs .tab-item:disabled > .title {
+    color: rgba(var(--foreground-color), var(--opacity-hint)) !important;
+}
+
+.mdc-tabs-pages {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.mdc-tabs-pages .tab-page {
+    width: 100%;
+    min-height: 100%;
+    flex: 0 0 100%;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: auto;
+    padding: 1rem;
+    margin: 0;
+    will-change: left, right;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1), right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html[dir="ltr"] .mdc-tabs-pages .tab-page,
+html[dir] *[dir="ltr"] .mdc-tabs-pages .tab-page,
+html[dir] * .mdc-tabs-pages[dir="ltr"] .tab-page {
+    left: 0;
+    right: auto;
+}
+
+html[dir="rtl"] .mdc-tabs-pages .tab-page,
+html[dir] *[dir="rtl"] .mdc-tabs-pages .tab-page,
+html[dir] * .mdc-tabs-pages[dir="rtl"] .tab-page {
+    left: auto;
+    right: 0;
+}

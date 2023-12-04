@@ -1,0 +1,9 @@
+<ng-content select="[mdc-icon-element]"></ng-content>
+<div class="input" [class.disabled]="disabled">
+    <ng-content select="[text-input]"></ng-content>
+    <div class="outline" *ngIf="appearance == 'outlined'">
+        <div #outlineTopDiv class="top"></div>
+    </div>
+</div>
+<label #labelTag class="label">{{label}}</label>
+<input-error *ngIf="hasError" [label]="label" [input]="controlName.control"></input-error>

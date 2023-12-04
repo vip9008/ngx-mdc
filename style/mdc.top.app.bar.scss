@@ -1,0 +1,102 @@
+#mdc-top-app-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    background-color: rgb(var(--bg-app-bar));
+    color: rgba(var(--foreground-color), var(--opacity-primary));
+    position: absolute;
+    top: 0;
+    height: 4rem;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    padding: 0 1.5rem;
+    transition: top 0.6s, box-shadow 0.3s, transform 0.2s, opacity 0.2s, margin 0.3s;
+    z-index: var(--z-axis-4-index);
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &.standard {
+        position: fixed;
+    }
+
+    &.standard-hidden {
+        opacity: 0;
+        -ms-transform-origin: top;
+        -webkit-transform-origin: top;
+        transform-origin: top;
+        -ms-transform: scaleY(0);
+        -webkit-transform: scaleY(0);
+        transform: scaleY(0);
+    }
+
+    &.active {
+        position: fixed;
+        opacity: 1;
+        box-shadow: var(--z-axis-4-shadow);
+        -ms-transform: scaleY(1);
+        -webkit-transform: scaleY(1);
+        transform: scaleY(1);
+    }
+
+    .nav-icon {
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        position: relative;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        margin: 1.25rem;
+        margin-inline-start: 0;
+        border: none;
+        outline: none;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .title {
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -ms-flex-align: center;
+        align-items: center;
+        font-size: 1.25rem;
+        line-height: 2rem;
+        letter-spacing: 0.0125em;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .actions {
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -ms-flex-item-align: start;
+        align-self: flex-start;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 4rem;
+        margin: 0;
+        margin-inline-start: auto;
+        gap: 1.5rem;
+
+        .action-item {
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+        }
+    }
+
+    @media (max-width: 959px) {
+        padding: 0 1rem;
+    }
+}

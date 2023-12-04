@@ -1,0 +1,193 @@
+#mdc-banner {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-axis-4-index);
+    background-color: rgb(var(--bg-cards));
+    border-bottom: solid 0.0625rem rgba(var(--foreground-color), var(--opacity-divider));
+    -ms-transform-origin: top center;
+    -webkit-transform-origin: top center;
+    transform-origin: top center;
+    will-change: opacity, visibility;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mdc-top-app-bar ~ #mdc-main-content #mdc-banner {
+    top: 4rem;
+}
+
+body:not(.mdc-banner-active) #mdc-banner {
+    height: 0;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    -ms-transform: scaleY(0);
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+}
+
+#mdc-banner > .container, #mdc-banner > .container-fluid {
+    padding: 0;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#mdc-banner .text {
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-align: start;
+    align-items: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    width: 100%;
+    overflow: hidden;
+    font-size: 0.875rem;
+    letter-spacing: 0.017857em;
+    font-weight: 400;
+    line-height: 1.25rem;
+    padding: 0 1rem 0 1.5rem;
+    margin: 1.25rem 0 1rem;
+    color: rgba(var(--foreground-color), var(--opacity-secondary));
+}
+
+html[dir="ltr"] #mdc-banner .text,
+html[dir] #mdc-banner[dir="ltr"] .text {
+    padding: 0 1rem 0 1.5rem;
+}
+
+html[dir="rtl"] #mdc-banner .text,
+html[dir] #mdc-banner[dir="rtl"] .text {
+    padding: 0 1.5rem 0 1rem;
+}
+
+#mdc-banner .text > .graphic {
+    height: 2.5rem;
+    width: 2.5rem;
+    min-height: 2.5rem;
+    min-width: 2.5rem;
+    border-radius: 100%;
+    margin: 0 1.5rem 0 -0.5rem;
+}
+
+html[dir="ltr"] #mdc-banner .text > .graphic,
+html[dir] #mdc-banner[dir="ltr"] .text > .graphic {
+    margin: 0 1.5rem 0 -0.5rem;
+}
+
+html[dir="rtl"] #mdc-banner .text > .graphic,
+html[dir] #mdc-banner[dir="rtl"] .text > .graphic {
+    margin: 0 -0.5rem 0 1.5rem;
+}
+
+#mdc-banner .text > .graphic > .material-icon,
+#mdc-banner .text > .graphic > .material-icon.md-24 {
+    margin: 0.5rem 0.5rem 0;
+}
+
+#mdc-banner .text > .graphic > .material-icon.md-18 {
+    margin: 0.6875rem 0.6875rem 0;
+}
+
+#mdc-banner .text > .graphic > .material-icon.md-36 {
+    margin: 0.125rem 0.125rem 0;
+}
+
+#mdc-banner .text > .body {
+    -ms-flex-item-align: center;
+    align-self: center;
+    max-height: 3.75rem;
+}
+
+#mdc-banner .mdc-button-group {
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+    padding: 0 0 0 4.375rem;
+    margin: 0.5rem 0.25rem 0.5rem auto;
+}
+
+html[dir="ltr"] #mdc-banner .mdc-button-group,
+html[dir] #mdc-banner[dir="ltr"] .mdc-button-group {
+    padding: 0 0 0 4.375rem;
+    margin: 0.5rem 0.25rem 0.5rem auto;
+}
+
+html[dir="rtl"] #mdc-banner .mdc-button-group,
+html[dir] #mdc-banner[dir="rtl"] .mdc-button-group {
+    padding: 0 4.375rem 0 0;
+    margin: 0.5rem auto 0.5rem 0.25rem;
+}
+
+@media (max-width: 1023px) {
+    body.mdc-drawer-expand #mdc-banner .mdc-button-group,
+    html[dir="ltr"] body.mdc-drawer-expand #mdc-banner .mdc-button-group,
+    html[dir] body.mdc-drawer-expand #mdc-banner[dir="ltr"] .mdc-button-group,
+    html[dir="rtl"] body.mdc-drawer-expand #mdc-banner .mdc-button-group,
+    html[dir] body.mdc-drawer-expand #mdc-banner[dir="rtl"] .mdc-button-group {
+        padding: 0;
+    }
+}
+
+@media (max-width: 719px) {
+    #mdc-banner .text,
+    html[dir="ltr"] #mdc-banner .text,
+    html[dir] #mdc-banner[dir="ltr"] .text,
+    html[dir="rtl"] #mdc-banner .text,
+    html[dir] #mdc-banner[dir="rtl"] .text {
+        padding: 0 1rem 0;
+    }
+
+    #mdc-banner .text > .graphic,
+    html[dir="ltr"] #mdc-banner .text > .graphic,
+    html[dir] #mdc-banner[dir="ltr"] .text > .graphic {
+        margin: 0 1rem 0 0;
+    }
+
+    html[dir="rtl"] #mdc-banner .text > .graphic,
+    html[dir] #mdc-banner[dir="rtl"] .text > .graphic {
+        margin: 0 0 0 1rem;
+    }
+
+    #mdc-banner .mdc-button-group,
+    html[dir="ltr"] #mdc-banner .mdc-button-group,
+    html[dir] #mdc-banner[dir="ltr"] .mdc-button-group {
+        padding: 0 0 0 1rem;
+    }
+
+    html[dir="rtl"] #mdc-banner .mdc-button-group,
+    html[dir] #mdc-banner[dir="rtl"] .mdc-button-group {
+        padding: 0 1rem 0 0;
+    }
+
+    #mdc-banner .container, #mdc-banner .container-fluid {
+        -ms-flex-align: flex-start;
+        align-items: flex-start;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+
+    #mdc-banner .text {
+        margin-bottom: 0.25rem;
+    }
+
+    #mdc-banner .mdc-button-group,
+    html[dir="ltr"] #mdc-banner .mdc-button-group,
+    html[dir] #mdc-banner[dir="ltr"] .mdc-button-group,
+    html[dir="rtl"] #mdc-banner .mdc-button-group,
+    html[dir] #mdc-banner[dir="rtl"] .mdc-button-group {
+        padding: 0;
+    }
+}

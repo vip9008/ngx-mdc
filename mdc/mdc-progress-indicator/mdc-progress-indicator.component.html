@@ -1,0 +1,10 @@
+<ng-container *ngIf="buffer !== null">
+    <div class="buffered" [style.width]="buffered"></div>
+    <div class="buffer-indicator" [style.width]="buffering"></div>
+</ng-container>
+<ng-container *ngIf="progress !== null; else indeterminate;">
+    <div class="indicator" [ngClass]="{'determinate': buffer === null}" [style.width]="progressed"></div>
+</ng-container>
+<ng-template #indeterminate>
+    <div class="indicator indeterminate"></div>
+</ng-template>

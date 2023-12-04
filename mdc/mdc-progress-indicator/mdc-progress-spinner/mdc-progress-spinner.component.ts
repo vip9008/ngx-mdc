@@ -1,0 +1,26 @@
+import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
+
+@Component({
+    selector: 'mdc-progress-spinner',
+    templateUrl: './mdc-progress-spinner.component.html',
+    styleUrls: ['./mdc-progress-spinner.component.scss']
+})
+export class MdcProgressSpinnerComponent implements AfterViewInit {
+    @Input() active: boolean = true;
+    @Input() mini: boolean = false;
+
+    constructor(private el: ElementRef) {
+    }
+
+    ngAfterViewInit(): void {
+        this.el.nativeElement.classList.add('mdc-progress-wrapper');
+
+        if (this.active) {
+            this.el.nativeElement.classList.add('active');
+        }
+
+        if (this.mini) {
+            this.el.nativeElement.classList.add('mini');
+        }
+    }
+}
