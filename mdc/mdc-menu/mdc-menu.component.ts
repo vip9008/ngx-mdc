@@ -132,9 +132,9 @@ export class MdcMenuComponent implements AfterViewInit {
                     position.left = "auto";
                 }
             } else if (menuDirection == 'rtl' || (menuDirection == 'ltr' && this.reverseDirection)) {
-                position.right = (viewportWidth - menuPosition.right).toString() + "px";
+                position.right = (viewportWidth - menuPosition.right + adiitionalMargin).toString() + "px";
                 position.left = "auto";
-                if ((menuPosition.right - menuWidth + adiitionalMargin) < 0) {
+                if ((menuPosition.right - menuWidth) < 0) {
                     position.left = '1rem';
                     position.right = "auto";
                 }
