@@ -14,6 +14,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 })
 export class MdcMenuComponent implements AfterViewInit {
     @Input() closeOnAction: boolean = true;
+    @Input() reverseDirection: boolean = false;
 
     private activeMenu: boolean = false;
 
@@ -46,6 +47,10 @@ export class MdcMenuComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         this.el.nativeElement.classList.add('mdc-menu-container');
+
+        if (this.reverseDirection) {
+            this.el.nativeElement.classList.add('reverse');
+        }
 
         fromEvent(this.menuButton.el.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
             if (this.activeMenu) {
@@ -117,7 +122,7 @@ export class MdcMenuComponent implements AfterViewInit {
 
             let menuDirection = this.direction;
 
-            if (menuDirection == 'ltr') {
+            if (menuDirection == 'ltr' || (menuDirection == 'rtl' && this.reverseDirection)) {
                 position.left = menuPosition.left.toString() + "px";
                 position.right = "auto";
 
@@ -125,7 +130,7 @@ export class MdcMenuComponent implements AfterViewInit {
                     position.right = '1rem';
                     position.left = "auto";
                 }
-            } else {
+            } else if (menuDirection == 'rtl' || (menuDirection == 'ltr' && this.reverseDirection)) {
                 position.right = (viewportWidth - menuPosition.right).toString() + "px";
                 position.left = "auto";
                 if ((menuPosition.right - menuWidth) < 0) {
