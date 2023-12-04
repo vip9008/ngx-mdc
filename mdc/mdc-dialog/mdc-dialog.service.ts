@@ -1,4 +1,3 @@
-import { isPlatformBrowser } from '@angular/common';
 import { ApplicationRef, ComponentRef, Inject, Injectable, PLATFORM_ID, ViewContainerRef } from '@angular/core';
 import { MdcDialogContainerComponent } from './mdc-dialog-container/mdc-dialog-container.component';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -8,6 +7,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     providedIn: 'root'
 })
 export class MdcDialogService {
+    private dialogsStack: ComponentRef<MdcDialogContainerComponent>[] = [];
+
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private applicationRef: ApplicationRef
@@ -25,7 +26,15 @@ export class MdcDialogService {
         return appInstance.viewContainerRef;
     }
 
-    createDialog(dynamicComponent: any, data: Object = {}) {
+    private get currentDialog(): ComponentRef<MdcDialogContainerComponent> {
+        if (this.dialogsStack.length == 0) {
+            return null;
+        }
+
+        return this.dialogsStack[this.dialogsStack.length - 1];
+    }
+
+    public createDialog(dynamicComponent: any, data: Object = {}) {
         const componentRef: ComponentRef<any> = this.rootViewContainerRef.createComponent(dynamicComponent);
         Object.assign(componentRef.instance, data);
 
@@ -43,12 +52,22 @@ export class MdcDialogService {
 
         dialogRef.instance.dialogClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
             if (closed) {
+                this.dialogsStack.pop();
                 setTimeout(() => {dialogRef.destroy();}, 320);
             }
         });
 
         componentRef.instance.mdcDialogRef = dialogRef;
+        this.dialogsStack.push(dialogRef);
         
         return dialogRef;
+    }
+
+    public closeDialog() {
+        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.currentDialog;
+
+        if (dialogRef) {
+            dialogRef.instance.closeDialog();
+        }
     }
 }

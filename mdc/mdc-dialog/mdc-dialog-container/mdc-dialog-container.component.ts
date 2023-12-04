@@ -17,12 +17,12 @@ export class MdcDialogContainerComponent implements AfterViewInit {
         this.dialogLoaded.emit(true);
     }
 
-    openDialog() {
+    public openDialog() {
         this.el.nativeElement.classList.add('active');
         this.dialogClosed.emit(false);
     }
 
-    closeDialog() {
+    public closeDialog() {
         this.el.nativeElement.classList.remove('active');
         this.dialogClosed.emit(true);
     }
