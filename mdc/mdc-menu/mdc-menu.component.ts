@@ -123,7 +123,7 @@ export class MdcMenuComponent implements AfterViewInit {
 
             let menuDirection = this.direction;
 
-            if (menuDirection == 'ltr' || (menuDirection == 'rtl' && this.reverseDirection)) {
+            if ((menuDirection == 'ltr' && !this.reverseDirection) || (menuDirection == 'rtl' && this.reverseDirection)) {
                 position.left = menuPosition.left.toString() + "px";
                 position.right = "auto";
 
@@ -131,8 +131,8 @@ export class MdcMenuComponent implements AfterViewInit {
                     position.right = '1rem';
                     position.left = "auto";
                 }
-            } else if (menuDirection == 'rtl' || (menuDirection == 'ltr' && this.reverseDirection)) {
-                position.right = (viewportWidth - menuPosition.right + adiitionalMargin).toString() + "px";
+            } else if ((menuDirection == 'rtl' && !this.reverseDirection) || (menuDirection == 'ltr' && this.reverseDirection)) {
+                position.right = (viewportWidth - menuPosition.right).toString() + "px";
                 position.left = "auto";
                 if ((menuPosition.right - menuWidth) < 0) {
                     position.left = '1rem';
