@@ -93,11 +93,10 @@ export class MdcMenuComponent implements AfterViewInit {
             let viewportHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
             let menuHeight = this.menuContainer.el.nativeElement.offsetHeight;
-            let menuWidth = this.menuContainer.el.nativeElement.offsetWidth + (baseSize * 1.5);
-            let buttonWidth = this.menuButton.el.nativeElement.offsetWidth;
+            let menuWidth = this.menuContainer.el.nativeElement.offsetWidth;
 
             if (this.menuButton.el.nativeElement.classList.contains('mdc-text-field')) {
-                menuWidth = buttonWidth;
+                menuWidth = this.menuButton.el.nativeElement.offsetWidth;
             }
 
             let menuPosition = this.menuContainer.el.nativeElement.getBoundingClientRect();
@@ -119,8 +118,6 @@ export class MdcMenuComponent implements AfterViewInit {
                 position.top = menuPosition.top.toString() + 'px';
             }
 
-            position.width = menuWidth.toString() + 'px';
-
             let menuDirection = this.direction;
 
             if (menuDirection == 'ltr' || (menuDirection == 'rtl' && this.reverseDirection)) {
@@ -132,13 +129,15 @@ export class MdcMenuComponent implements AfterViewInit {
                     position.left = "auto";
                 }
             } else if (menuDirection == 'rtl' || (menuDirection == 'ltr' && this.reverseDirection)) {
-                position.right = (viewportWidth - menuPosition.left + buttonWidth).toString() + "px";
+                position.right = (viewportWidth - menuPosition.right).toString() + "px";
                 position.left = "auto";
                 if ((menuPosition.right - menuWidth) < 0) {
                     position.left = '1rem';
                     position.right = "auto";
                 }
             }
+
+            position.width = (menuWidth + (baseSize * 1.5)).toString() + 'px';
 
             Object.assign(this.menuContainer.el.nativeElement.style, position);
         }
