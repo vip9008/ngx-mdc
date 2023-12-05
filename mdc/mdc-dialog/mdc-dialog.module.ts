@@ -20,8 +20,7 @@ import { MdcDialogDirective } from './mdc-dialog.directive';
         MdcDialogContainerComponent,
         MdcDialogDirective,
         MdcDialogHeaderDirective,
-        MdcDialogBodyDirective,
-        MdcButtonModule
+        MdcDialogBodyDirective
     ]
 })
 export class MdcDialogModule { }
