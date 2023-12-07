@@ -1,6 +1,6 @@
 <ng-content select="[mdc-icon-element]"></ng-content>
 <div class="input" [class.disabled]="disabled">
-    <div class="input-element" *ngIf="fileInput">{{inputValue}}</div>
+    <div class="input-element" *ngIf="fileInput">{{textInput?.element?.nativeElement?.value}}</div>
     <ng-content select="[text-input]"></ng-content>
     <div class="outline" *ngIf="appearance == 'outlined'">
         <div #outlineTopDiv class="top"></div>
