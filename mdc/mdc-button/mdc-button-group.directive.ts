@@ -1,15 +1,13 @@
-import { Component, ElementRef, AfterViewInit } from '@angular/core';
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
-@Component({
+@Directive({
     selector: 'div[mdc-button-group], div[mdc-toggle-buttons]',
-    templateUrl: './mdc-button-group.component.html',
-    styleUrls: ['./mdc-button-group.component.scss']
 })
-export class MdcButtonGroupComponent implements AfterViewInit {
-    constructor(private el: ElementRef) {
+export class MdcButtonGroupDirective implements OnInit {
+    constructor(public el: ElementRef) {
     }
 
-    ngAfterViewInit(): void {
+    ngOnInit(): void {
         if ((this.el.nativeElement.attributes).hasOwnProperty('mdc-button-group')) {
             this.el.nativeElement.classList.add('mdc-button-group');
         } else if ((this.el.nativeElement.attributes).hasOwnProperty('mdc-toggle-buttons')) {
