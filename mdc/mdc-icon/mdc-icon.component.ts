@@ -6,7 +6,8 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
     styleUrls: ['./mdc-icon.component.scss']
 })
 export class MdcIconComponent implements AfterViewInit {
-    @Input() iconStyle: 'normal' | 'outlined' = 'normal';
+    @Input() iconVersion: 'MaterialIcons' | 'MaterialSymbols' = 'MaterialSymbols';
+    @Input() iconStyle: 'normal' | 'outlined' | 'rounded' | 'sharp' | 'two-tone' = 'normal';
     @Input() iconSize: 48 | 36 | 24 | 18 = 24;
 
     constructor(private el: ElementRef) {
@@ -15,8 +16,19 @@ export class MdcIconComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         let iconSize = 'md-' + this.iconSize.toString();
         this.el.nativeElement.classList.add('material-icon', iconSize);
-        if (this.iconStyle == 'outlined') {
-            this.el.nativeElement.classList.add('outlined');
+
+        let iconStyle = this.iconStyle == 'normal' ? null : this.iconStyle;
+
+        if (this.iconVersion == 'MaterialSymbols') {
+            this.el.nativeElement.classList.add('symbol');
+
+            if (iconStyle == 'two-tone') {
+                iconStyle = null;
+            }
+        }
+
+        if (iconStyle !== null) {
+            this.el.nativeElement.classList.add(iconStyle);
         }
     }
 }
