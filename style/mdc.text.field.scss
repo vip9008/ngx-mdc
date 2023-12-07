@@ -81,6 +81,12 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
+
+            &[type='file'] {
+                position: absolute;
+                inset: 0;
+                opacity: 0;
+            }
         }
 
         &.disabled {

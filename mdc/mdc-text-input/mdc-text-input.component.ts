@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, AfterViewInit, ContentChild, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, AfterViewInit, ContentChild, ViewChild, AfterContentInit } from '@angular/core';
 import { TextInputDirective } from './text-input.directive';
 import { FormControlName } from '@angular/forms';
 
@@ -7,7 +7,7 @@ import { FormControlName } from '@angular/forms';
     templateUrl: './mdc-text-input.component.html',
     styleUrls: ['./mdc-text-input.component.scss']
 })
-export class MdcTextInputComponent implements AfterViewInit {
+export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
     @ContentChild(TextInputDirective) textInput: TextInputDirective;
     @ContentChild(FormControlName) controlName: FormControlName;
     @ViewChild('outlineTopDiv') outlineTopDiv: ElementRef;
@@ -18,7 +18,9 @@ export class MdcTextInputComponent implements AfterViewInit {
     @Input() label: String = 'Label';
     @Input() disabled: boolean = false;
 
-    private inputValue = '';
+    public fileInput: boolean = false;
+    public inputValue = '';
+
     private get baseSize(): number {
         let baseSize = getComputedStyle(this.el.nativeElement).getPropertyValue('font-size');
         return Number(baseSize.match(/\d+/)[0]);
@@ -28,7 +30,13 @@ export class MdcTextInputComponent implements AfterViewInit {
         return this.controlName?.control?.invalid && (this.controlName?.control?.touched || this.controlName?.control?.dirty);
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {
+    constructor(private el: ElementRef) {
+    }
+
+    ngAfterContentInit(): void {
+        if (this.textInput?.element?.nativeElement?.attributes?.type?.nodeValue?.toLowerCase() == 'file') {
+            this.fileInput = true;
+        }
     }
 
     ngAfterViewInit(): void {
