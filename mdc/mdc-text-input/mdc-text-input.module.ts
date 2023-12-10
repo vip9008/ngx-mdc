@@ -2,20 +2,16 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MdcTextInputComponent } from './mdc-text-input.component';
 import { TextInputDirective } from './text-input.directive';
-import { InputErrorComponent } from './input-error/input-error.component';
-import { CapitalizePipe } from '@pipes';
-import { TranslateModule } from '@ngx-translate/core';
+import { MdcInputErrorComponent } from '../mdc-common/input-error/input-error.component';
 
 @NgModule({
     declarations: [
         MdcTextInputComponent,
-        TextInputDirective,
-        InputErrorComponent
+        TextInputDirective
     ],
     imports: [
         CommonModule,
-        TranslateModule,
-        CapitalizePipe
+        MdcInputErrorComponent
     ],
     exports: [
         MdcTextInputComponent,
