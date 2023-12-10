@@ -18,12 +18,12 @@ export class MdcDialogService {
     get rootViewContainerRef(): ViewContainerRef {
         const appInstance = this.applicationRef.components[0].instance;
     
-        if (!appInstance.viewContainerRef) {
+        if (!appInstance.mdcComponentContainer) {
             const appName = this.applicationRef.componentTypes[0].name;
-            throw new Error(`Missing 'viewContainerRef' declaration in ${appName} constructor`);
+            throw new Error(`Missing @ViewChild(MdcHostDirective) declaration in ${appName}`);
         }
     
-        return appInstance.viewContainerRef;
+        return appInstance.mdcComponentContainer.viewContainerRef;
     }
 
     private get currentDialog(): ComponentRef<MdcDialogContainerComponent> {
