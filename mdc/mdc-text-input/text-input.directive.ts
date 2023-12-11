@@ -7,7 +7,7 @@ export class TextInputDirective implements AfterViewInit, OnDestroy {
     private inputChanges: MutationObserver;
     @Output() public domChange = new EventEmitter();
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {
+    constructor(private el: ElementRef) {
         this.inputChanges = new MutationObserver((mutations: MutationRecord[]) => {
             mutations.forEach((mutation: MutationRecord) => this.domChange.emit(mutation));
         });
@@ -17,7 +17,7 @@ export class TextInputDirective implements AfterViewInit, OnDestroy {
         });
     }
 
-    ngAfterViewInit() {
+    ngAfterViewInit(): void {
         this.el.nativeElement.classList.add('input-element');
     }
 
