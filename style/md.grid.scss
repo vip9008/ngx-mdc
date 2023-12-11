@@ -94,6 +94,7 @@ html {
 
     &:lang(ar-BH) *, &[lang] *:lang(ar-BH), &[lang] *:lang(ar-BH) * {
         font-family: 'arabic_notosans_regular', 'Roboto', sans-serif;
+        letter-spacing: normal !important;
     }
 
     &[dir="ltr"] *, &[dir] *[dir="ltr"], &[dir] *[dir="ltr"] * {
@@ -1082,14 +1083,64 @@ a.material-icon, button.material-icon, .material-icon.interactive {
         display: inline-flex !important;
     }
 
-    &-initial-xsmall, &-block-xsmall, &-inline-xsmall, &-inline-block-xsmall, &-flex-xsmall, &-inline-flex-xsmall
-    &-initial-small, &-block-small, &-inline-small, &-inline-block-small, &-flex-small, &-inline-flex-small
-    &-initial-smallext, &-block-smallext, &-inline-smallext, &-inline-block-smallext, &-flex-smallext, &-inline-flex-smallext
-    &-initial-medium, &-block-medium, &-inline-medium, &-inline-block-medium, &-flex-medium, &-inline-flex-medium
-    &-initial-large, &-block-large, &-inline-large, &-inline-block-large, &-flex-large, &-inline-flex-large
-    &-initial-xlarge, &-block-xlarge, &-inline-xlarge, &-inline-block-xlarge, &-flex-xlarge, &-inline-flex-xlarge
+    &-initial-xsmall, &-block-xsmall, &-inline-xsmall, &-inline-block-xsmall, &-flex-xsmall, &-inline-flex-xsmall,
+    &-initial-small, &-block-small, &-inline-small, &-inline-block-small, &-flex-small, &-inline-flex-small,
+    &-initial-smallext, &-block-smallext, &-inline-smallext, &-inline-block-smallext, &-flex-smallext, &-inline-flex-smallext,
+    &-initial-medium, &-block-medium, &-inline-medium, &-inline-block-medium, &-flex-medium, &-inline-flex-medium,
+    &-initial-large, &-block-large, &-inline-large, &-inline-block-large, &-flex-large, &-inline-flex-large,
+    &-initial-xlarge, &-block-xlarge, &-inline-xlarge, &-inline-block-xlarge, &-flex-xlarge, &-inline-flex-xlarge,
     &-initial-print, &-block-print, &-inline-print, &-inline-block-print, &-flex-print, &-inline-flex-print {
         display: none !important;
+    }
+
+    &-flex, &-inline-flex,
+    &-flex-xsmall, &-inline-flex-xsmall,
+    &-flex-small, &-inline-flex-small,
+    &-flex-smallext, &-inline-flex-smallext,
+    &-flex-medium, &-inline-flex-medium,
+    &-flex-large, &-inline-flex-large,
+    &-flex-xlarge, &-inline-flex-xlarge,
+    &-flex-print, &-inline-flex-print {
+        &.align-items-start {
+            -ms-flex-align: start;
+            align-items: flex-start;
+        }
+    
+        &.align-items-center {
+            -ms-flex-align: center;
+            align-items: center;
+        }
+    
+        &.align-items-end {
+            -ms-flex-align: end !important;
+            align-items: flex-end !important;
+        }
+    
+        &.justify-content-start {
+            -ms-flex-pack: start !important;
+            justify-content: flex-start !important;
+        }
+    
+        &.justify-content-center {
+            -ms-flex-pack: center !important;
+            justify-content: center !important;
+        }
+    
+        &.justify-content-end {
+            -ms-flex-pack: end !important;
+            justify-content: flex-end !important;
+            justify-content: end !important;
+        }
+    
+        &.justify-content-space-around {
+            -ms-flex-pack: distribute !important;
+            justify-content: space-around !important;
+        }
+    
+        &.justify-content-space-between {
+            -ms-flex-pack: justify !important;
+            justify-content: space-between !important;
+        }
     }
 
     /* X-SMALL */
