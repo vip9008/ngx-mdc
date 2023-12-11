@@ -1102,13 +1102,13 @@ a.material-icon, button.material-icon, .material-icon.interactive {
     &-flex-xlarge, &-inline-flex-xlarge,
     &-flex-print, &-inline-flex-print {
         &.align-items-start {
-            -ms-flex-align: start;
-            align-items: flex-start;
+            -ms-flex-align: start !important;
+            align-items: flex-start !important;
         }
     
         &.align-items-center {
-            -ms-flex-align: center;
-            align-items: center;
+            -ms-flex-align: center !important;
+            align-items: center !important;
         }
     
         &.align-items-end {
