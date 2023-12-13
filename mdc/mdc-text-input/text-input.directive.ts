@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Renderer2, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Directive, ElementRef, AfterViewInit, Output, EventEmitter, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 
 @Directive({
     selector: '[text-input]'
@@ -7,14 +8,19 @@ export class TextInputDirective implements AfterViewInit, OnDestroy {
     private inputChanges: MutationObserver;
     @Output() public domChange = new EventEmitter();
 
-    constructor(private el: ElementRef) {
-        this.inputChanges = new MutationObserver((mutations: MutationRecord[]) => {
-            mutations.forEach((mutation: MutationRecord) => this.domChange.emit(mutation));
-        });
-
-        this.inputChanges.observe(this.el.nativeElement, {
-            attributes: true
-        });
+    constructor(
+        @Inject(PLATFORM_ID) private platformId,
+        private el: ElementRef
+    ) {
+        if (isPlatformBrowser(this.platformId)) {
+            this.inputChanges = new MutationObserver((mutations: MutationRecord[]) => {
+                mutations.forEach((mutation: MutationRecord) => this.domChange.emit(mutation));
+            });
+    
+            this.inputChanges.observe(this.el.nativeElement, {
+                attributes: true
+            });
+        }
     }
 
     ngAfterViewInit(): void {
@@ -22,7 +28,9 @@ export class TextInputDirective implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.inputChanges.disconnect();
+        if (isPlatformBrowser(this.platformId)) {
+            this.inputChanges.disconnect();
+        }
     }
 
     get element(): ElementRef {
