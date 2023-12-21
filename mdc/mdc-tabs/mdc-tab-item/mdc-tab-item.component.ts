@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { fromEvent } from 'rxjs';
+import { MdcTabPageComponent } from '../mdc-tab-page/mdc-tab-page.component';
 
 @UntilDestroy()
 @Component({
@@ -10,6 +10,8 @@ import { fromEvent } from 'rxjs';
 })
 export class MdcTabItemComponent {
     public activeState: EventEmitter<boolean> = new EventEmitter(false);
+    
+    @ContentChild(MdcTabPageComponent) tabPage: MdcTabPageComponent;
 
     constructor(private el: ElementRef) {
         this.el.nativeElement.classList.add('tab-item');
@@ -20,10 +22,6 @@ export class MdcTabItemComponent {
             } else {
                 this.el.nativeElement.classList.remove('active');
             }
-        });
-
-        fromEvent(this.el.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
-            this.activeState.emit(true);
         });
     }
 
