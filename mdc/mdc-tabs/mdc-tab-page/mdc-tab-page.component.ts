@@ -7,6 +7,8 @@ import { MdcTabItemComponent } from '../mdc-tab-item/mdc-tab-item.component';
     styleUrl: './mdc-tab-page.component.scss'
 })
 export class MdcTabPageComponent {
+    public index: number;
+
     constructor(private el: ElementRef) {
         this.el.nativeElement.classList.add('tab-page');
     }

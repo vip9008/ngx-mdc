@@ -1,7 +1,7 @@
 <div class="mdc-tabs-group" [ngClass]="tabsAlignment">
-    <div class="mdc-tabs" [ngClass]="colorClass">
+    <div class="mdc-tabs" [ngClass]="colorClass" #tabsContainer>
         <ng-content></ng-content>
-        <div class="ink-bar" #tabsIndicator></div>
+        <div class="ink-bar" #inkBar></div>
     </div>
 </div>
 <div class="mdc-tabs-pages display-none" #tabPages>
