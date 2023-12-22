@@ -150,12 +150,14 @@ export class MdcMenuComponent implements AfterViewInit {
     }
 
     private updateDomStatus(): void {
-        if (this.activeMenu) {
-            this.el.nativeElement.classList.add('active');
-            this.menuButton.el.nativeElement.classList.add('active');
-        } else {
-            this.el.nativeElement.classList.remove('active');
-            this.menuButton.el.nativeElement.classList.remove('active');
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.activeMenu) {
+                this.el.nativeElement.classList.add('active');
+                this.menuButton.el.nativeElement.classList.add('active');
+            } else {
+                this.el.nativeElement.classList.remove('active');
+                this.menuButton.el.nativeElement.classList.remove('active');
+            }
         }
     }
 }
