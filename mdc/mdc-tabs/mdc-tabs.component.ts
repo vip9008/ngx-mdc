@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, ElementRef, Inject, Input, PLATFORM_ID, QueryList, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Inject, Input, PLATFORM_ID, QueryList, Renderer2, ViewChild } from '@angular/core';
 import { MdcTabPageComponent } from './mdc-tab-page/mdc-tab-page.component';
 import { MdcTabItemComponent } from './mdc-tab-item/mdc-tab-item.component';
 import { fromEvent, timer } from 'rxjs';
@@ -12,7 +12,7 @@ import { isPlatformBrowser } from '@angular/common';
     templateUrl: './mdc-tabs.component.html',
     styleUrl: './mdc-tabs.component.scss'
 })
-export class MdcTabsComponent implements AfterViewInit {
+export class MdcTabsComponent implements AfterViewInit, AfterContentInit {
     @Input() colorClass: string = 'indigo';
     @Input() tabsAlignment: 'full-width' | 'align-start' | 'align-end' = null;
     @Input() scrollableTabs: boolean = false;
@@ -65,9 +65,13 @@ export class MdcTabsComponent implements AfterViewInit {
                     this.activatePage(index);
                 });
             });
-
-            this.activatePage(this.activeTab ?? 0);
         }
+    }
+
+    ngAfterContentInit(): void {
+        timer(300).pipe(untilDestroyed(this)).subscribe(() => {
+            this.activatePage(this.activeTab ?? 0);
+        });
     }
 
     private addTabPage(tabPage: MdcTabPageComponent) {
