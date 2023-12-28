@@ -1,7 +1,9 @@
 import { Component, ElementRef, Input, AfterViewInit, ContentChild, ViewChild, AfterContentInit } from '@angular/core';
 import { TextInputDirective } from './text-input.directive';
 import { FormControlName } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
     selector: 'mdc-text-field, mdc-text-area',
     templateUrl: './mdc-text-input.component.html',
@@ -33,12 +35,6 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
     constructor(private el: ElementRef) {
     }
 
-    ngAfterContentInit(): void {
-        if (this.textInput?.element?.nativeElement?.attributes?.type?.nodeValue?.toLowerCase() == 'file') {
-            this.fileInput = true;
-        }
-    }
-
     ngAfterViewInit(): void {
         let tagName: String = this.el.nativeElement.tagName.toLowerCase();
 
@@ -56,8 +52,6 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
             let labelWidth = Math.ceil(this.labelTag.nativeElement.offsetWidth * 0.75) / this.baseSize + 0.125;
             this.outlineTopDiv.nativeElement.style.width = 'calc(100% - ' + (labelWidth + 0.5) + 'rem)';
         }
-        
-        this.onBlur();
 
         this.textInput.element.nativeElement.onfocus = () => {
             this.el.nativeElement.classList.add('active');
@@ -69,6 +63,12 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
             this.onBlur();
         }
 
+        if (this.controlName) {
+            this.controlName.valueChanges.pipe(untilDestroyed(this)).subscribe(() => {
+                this.onBlur();
+            });
+        }
+
         if (this.disabled) {
             if (this.controlName) {
                 this.controlName?.control?.disable();
@@ -76,6 +76,14 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
                 this.textInput.element.nativeElement.disabled = true;
             }
         }
+    }
+
+    ngAfterContentInit(): void {
+        if (this.textInput?.element?.nativeElement?.attributes?.type?.nodeValue?.toLowerCase() == 'file') {
+            this.fileInput = true;
+        }
+        
+        this.onBlur();
     }
 
     private onBlur(): void {
