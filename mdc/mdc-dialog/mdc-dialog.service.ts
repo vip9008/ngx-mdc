@@ -64,7 +64,6 @@ export class MdcDialogService {
             }
         });
 
-        componentRef.instance.mdcDialogRef = dialogRef;
         this.dialogsStack.push(dialogRef);
         
         return dialogRef;
