@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Inject, Input, PLATFORM_ID, QueryList, Renderer2, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Inject, Input, PLATFORM_ID, QueryList, Renderer2, ViewChild, effect } from '@angular/core';
 import { MdcTabPageComponent } from './mdc-tab-page/mdc-tab-page.component';
 import { MdcTabItemComponent } from './mdc-tab-item/mdc-tab-item.component';
 import { fromEvent, timer } from 'rxjs';
@@ -32,7 +32,9 @@ export class MdcTabsComponent implements AfterViewInit, AfterContentInit {
     ) {
         this.el.nativeElement.classList.add('mdc-tabs-container');
 
-        this.directionService.layoutDirection.pipe(untilDestroyed(this)).subscribe((direction) => {
+        effect(() => {
+            const direction = this.directionService.directionValue;
+
             if (this.tabItems) {
                 Object.assign(this.inkBar.nativeElement.style, { width: 0 });
 
