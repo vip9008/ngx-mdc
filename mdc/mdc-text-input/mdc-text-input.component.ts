@@ -76,6 +76,23 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
                 this.textInput.element.nativeElement.disabled = true;
             }
         }
+
+        // let disableObserver = new MutationObserver((list) => {
+        //     let disabled: boolean = false;
+        //     for (const record of list) {
+        //         if (record && record.attributeName == 'disabled' && record.target && record.target['disabled'] !== undefined) {
+        //             disabled = true;
+        //         }
+        //     }
+
+        //     this.disabled = disabled;
+        // });
+
+        // disableObserver.observe(this.textInput.element.nativeElement, {
+        //     attributes: true,
+        //     childList: false,
+        //     subtree: false
+        // });
     }
 
     ngAfterContentInit(): void {
