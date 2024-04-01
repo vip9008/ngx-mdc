@@ -1,4 +1,4 @@
-import { ApplicationRef, ComponentRef, Inject, Injectable, PLATFORM_ID, ViewContainerRef } from '@angular/core';
+import { ApplicationRef, ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { MdcDialogContainerComponent } from './mdc-dialog-container/mdc-dialog-container.component';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { EventType, Router } from '@angular/router';
@@ -11,7 +11,6 @@ export class MdcDialogService {
     private dialogsStack: ComponentRef<MdcDialogContainerComponent>[] = [];
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
         private applicationRef: ApplicationRef,
         private router: Router
     ) {
