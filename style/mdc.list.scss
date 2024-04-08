@@ -293,10 +293,6 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
     }
 
     &.collapsed {
-        .mdc-list-item {
-            --foreground-color: var(--initial-foreground-color);
-        }
-
         .meta.icon {
             color: rgba(var(--foreground-color), var(--opacity-secondary));
         }

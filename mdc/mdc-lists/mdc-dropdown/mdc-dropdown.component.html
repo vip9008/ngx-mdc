@@ -1,0 +1,4 @@
+<button type="button" mdc-list-item (click)="toggleDropdown()" [ngClass]="activeColor" [class.active]="isOpen">
+    <ng-content></ng-content>
+</button>
+<ng-content select="[mdc-dropdown-list]"></ng-content>

@@ -7,6 +7,8 @@ import { MdcIconModule } from '../mdc-icon/mdc-icon.module';
 import { MdcListContainerDirective } from './mdc-list-container.directive';
 import { MdcListTextDirective } from './mdc-list-text.directive';
 import { MdcListGroupDirective } from './mdc-list-group.directive';
+import { MdcDropdownComponent } from './mdc-dropdown/mdc-dropdown.component';
+import { MdcDropdownListDirective } from './mdc-dropdown-list.directive';
 
 @NgModule({
     declarations: [
@@ -16,7 +18,9 @@ import { MdcListGroupDirective } from './mdc-list-group.directive';
         MdcListGraphicComponent,
         MdcListTextDirective,
         MdcListMetaComponent,
-        MdcListGroupDirective
+        MdcListGroupDirective,
+        MdcDropdownComponent,
+        MdcDropdownListDirective
     ],
     imports: [
         CommonModule
@@ -28,7 +32,9 @@ import { MdcListGroupDirective } from './mdc-list-group.directive';
         MdcListItemComponent,
         MdcListGraphicComponent,
         MdcListTextDirective,
-        MdcListMetaComponent
+        MdcListMetaComponent,
+        MdcDropdownComponent,
+        MdcDropdownListDirective
     ]
 })
 export class MdcListsModule { }
