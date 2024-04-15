@@ -1,2 +1,4 @@
-<mdc-icon *ngIf="icon?.length" class="icon">{{icon}}</mdc-icon>
+@if (icon?.length) {
+    <mdc-icon class="icon">{{icon}}</mdc-icon>
+}
 <ng-content></ng-content>

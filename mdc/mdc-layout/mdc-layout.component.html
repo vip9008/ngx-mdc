@@ -1,5 +1,7 @@
 <ng-content select="[id='mdc-nav-drawer']"></ng-content>
-<div *ngIf="navDrawer" class="mdc-drawer-scrim" (click)="navDrawerState(false)"></div>
+@if (navDrawer) {
+    <div class="mdc-drawer-scrim" (click)="navDrawerState(false)"></div>
+}
 <ng-content select="[id='mdc-top-app-bar']"></ng-content>
 <ng-content select="[id='mdc-main-content']"></ng-content>
 <ng-content></ng-content>
