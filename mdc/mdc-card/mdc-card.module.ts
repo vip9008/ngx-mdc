@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MdcCardComponent } from './mdc-card.component';
-import { CardActionComponent } from './card-action/card-action.component';
+import { CardActionDirective } from './card-action.directive';
 
 @NgModule({
     declarations: [
         MdcCardComponent,
-        CardActionComponent
+        CardActionDirective
     ],
     imports: [
         CommonModule,
@@ -15,7 +15,7 @@ import { CardActionComponent } from './card-action/card-action.component';
     ],
     exports: [
         MdcCardComponent,
-        CardActionComponent
+        CardActionDirective
     ]
 })
 export class MdcCardModule { }
