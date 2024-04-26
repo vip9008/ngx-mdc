@@ -9,6 +9,7 @@ export class MdcIconComponent implements AfterViewInit {
     @Input() iconVersion: 'MaterialIcons' | 'MaterialSymbols' = 'MaterialSymbols';
     @Input() iconStyle: 'normal' | 'outlined' | 'rounded' | 'sharp' | 'two-tone' = 'normal';
     @Input() iconSize: 48 | 36 | 24 | 18 = 24;
+    @Input() biDirectional: boolean = false;
 
     constructor(private el: ElementRef) {
     }
@@ -29,6 +30,10 @@ export class MdcIconComponent implements AfterViewInit {
 
         if (iconStyle !== null) {
             this.el.nativeElement.classList.add(iconStyle);
+        }
+
+        if (this.biDirectional) {
+            this.el.nativeElement.classList.add('bi-directional');
         }
     }
 }

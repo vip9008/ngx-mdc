@@ -490,22 +490,22 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
             font-family: 'Material Symbols Sharp' !important;
         }
     }
-}
 
-.material-icon.md-18 {
-    font-size: 1.125rem;
-}
-
-.material-icon.md-24 {
-    font-size: 1.5rem;
-}
-
-.material-icon.md-36 {
-    font-size: 2.25rem;
-}
-
-.material-icon.md-48 {
-    font-size: 3rem;
+    &.md-18 {
+        font-size: 1.125rem;
+    }
+    
+    &.md-24 {
+        font-size: 1.5rem;
+    }
+    
+    &.md-36 {
+        font-size: 2.25rem;
+    }
+    
+    &.md-48 {
+        font-size: 3rem;
+    }
 }
 
 a.material-icon, button.material-icon, .material-icon.interactive {
@@ -584,6 +584,13 @@ a.material-icon, button.material-icon, .material-icon.interactive {
 
     &.disabled::before, &[disabled]::before, &:disabled::before {
         display: none;
+    }
+}
+
+[dir="rtl"] .material-icon, [dir] .material-icon[dir="rtl"], [dir] *[dir="rtl"] .material-icon {
+    &.bi-directional {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
     }
 }
 
