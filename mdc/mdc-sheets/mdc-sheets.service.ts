@@ -1,22 +1,24 @@
-import { ApplicationRef, ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
+import { ApplicationRef, ComponentRef, effect, Injectable, ViewContainerRef } from '@angular/core';
 import { MdcSideSheetComponent } from './mdc-side-sheet/mdc-side-sheet.component';
 import { EventType, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { MdcLayoutService } from '../mdc-layout/mdc-layout.service';
 
 @UntilDestroy()
 @Injectable({
     providedIn: 'root'
 })
 export class MdcSheetsService {
-    private sideSheetsStack: ComponentRef<MdcSideSheetComponent>[] = [];
+    private sideSheetRef: ComponentRef<MdcSideSheetComponent> = null;
 
     constructor(
         private applicationRef: ApplicationRef,
-        private router: Router
+        private router: Router,
+        private layoutService: MdcLayoutService
     ) {
         this.router.events.pipe(untilDestroyed(this)).subscribe((event) => {
             if (event.type == EventType.NavigationStart) {
-                this.closeAllSideSheet();
+                this.closeSideSheet();
             }
         });
     }
@@ -33,11 +35,7 @@ export class MdcSheetsService {
     }
 
     private get currentSideSheet(): ComponentRef<MdcSideSheetComponent> {
-        if (this.sideSheetsStack.length == 0) {
-            return null;
-        }
-
-        return this.sideSheetsStack[this.sideSheetsStack.length - 1];
+        return this.sideSheetRef;
     }
 
     public createSideSheet(dynamicComponent: any, type: 'above-content' | 'coplanar' | 'modal' = 'above-content', data: Object = {}) {
@@ -55,17 +53,29 @@ export class MdcSheetsService {
         dialogRef.instance.sheetLoaded.pipe(untilDestroyed(this)).subscribe((loaded) => {
             if (loaded) {
                 setTimeout(() => {dialogRef.instance.openSheet();}, 80);
+
+                if (type == 'coplanar') {
+                    this.layoutService.layoutStatus = {
+                        sideSheetFixed: true
+                    };
+                }
             }
         });
 
         dialogRef.instance.sheetClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
             if (closed) {
-                this.sideSheetsStack.pop();
+                this.sideSheetRef = null;
                 setTimeout(() => {dialogRef.destroy();}, 320);
+
+                if (type == 'coplanar') {
+                    this.layoutService.layoutStatus = {
+                        sideSheetFixed: false
+                    };
+                }
             }
         });
 
-        this.sideSheetsStack.push(dialogRef);
+        this.sideSheetRef = dialogRef;
         
         return dialogRef;
     }
@@ -75,16 +85,6 @@ export class MdcSheetsService {
 
         if (dialogRef) {
             dialogRef.instance.closeSheet();
-        }
-    }
-
-    public closeAllSideSheet() {
-        if (this.sideSheetsStack.length == 0) {
-            return;
-        }
-
-        for (let index = this.sideSheetsStack.length - 1; index >= 0; index--) {
-            this.sideSheetsStack[index].instance.closeSheet();
         }
     }
 }

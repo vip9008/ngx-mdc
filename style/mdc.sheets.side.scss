@@ -28,6 +28,10 @@
     &.fixed {
         z-index: var(--z-axis-0-index);
         box-shadow: var(--z-axis-0-shadow);
+
+        &.app-bar-visible {
+            top: 4rem;
+        }
     }
 
     &.modal {
@@ -93,16 +97,6 @@
     }
 }
 
-mdc-layout {
-    &.mdc-top-app-bar-visible {
-        .mdc-sheets-side {
-            &.fixed {
-                top: 4rem;
-            }
-        }
-    }
-}
-
 .mdc-sheets-side-scrim {
     position: fixed;
     inset: 0;
@@ -114,7 +108,7 @@ mdc-layout {
 }
 
 @media (min-width: 1280px) {
-    body.mdc-sheets-side-fixed {
+    mdc-layout.mdc-sheets-side-fixed {
         margin-inline-end: 20rem !important;
     }
 }

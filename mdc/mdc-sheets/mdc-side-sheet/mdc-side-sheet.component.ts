@@ -1,4 +1,5 @@
-import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, effect, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MdcLayoutService } from '@ngx-mdc/mdc/mdc-layout/mdc-layout.service';
 
 @Component({
     selector: 'mdc-side-sheet',
@@ -7,12 +8,25 @@ import { AfterContentInit, AfterViewInit, Component, ElementRef, EventEmitter, I
 })
 export class MdcSideSheetComponent implements AfterViewInit, AfterContentInit {
     @Input() type: 'above-content' | 'coplanar' | 'modal' = 'above-content';
-    @Input() title: string;
     
     @Output() sheetLoaded: EventEmitter<boolean> = new EventEmitter(false);
     @Output() sheetClosed: EventEmitter<boolean> = new EventEmitter(true);
     
     @ViewChild('sideSheet') sideSheet!: ElementRef;
+
+    constructor(
+        private layoutService: MdcLayoutService
+    ) {
+        effect(() => {
+            const status = this.layoutService.layoutStatus;
+
+            if (status.topAppBarVisible) {
+                this.sideSheet.nativeElement.classList.add('app-bar-visible');
+            } else {
+                this.sideSheet.nativeElement.classList.remove('app-bar-visible');
+            }
+        });
+    }
 
     ngAfterViewInit(): void {
         switch (this.type) {
