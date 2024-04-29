@@ -7,7 +7,8 @@
     background-color: rgb(var(--bg-main-content));
     z-index: var(--z-axis-16-index);
     border: none;
-    transition: inset-inline-start 0.3s, left 0.3s, right 0.3s;
+    transition: inset-inline-start 0.3s, margin 0.3s;
+    will-change: inset-inline-start, margin;
     display: -ms-flexbox;
     display: flex;
     -webkit-flex-direction: column;
@@ -85,10 +86,7 @@
             &:not(.standard) {
                 .mdc-list-item {
                     &::before {
-                        top: 0.25rem;
-                        right: 0.5rem;
-                        bottom: 0.25rem;
-                        left: 0.5rem;
+                        inset: 0.25rem 0.5rem;
                         border-radius: 0.25rem;
                     }
                 }
@@ -100,10 +98,7 @@
         &:not(.standard) {
             .mdc-list-item {
                 &::before {
-                    top: 0.25rem;
-                    right: 0.5rem;
-                    bottom: 0.25rem;
-                    left: 0.5rem;
+                    inset: 0.25rem 0.5rem;
                     border-radius: 0.25rem;
                 }
             }
@@ -190,7 +185,6 @@ mdc-layout {
     padding: 4rem 0 0;
     max-height: 100%;
     overflow: hidden;
-    transition: margin 0.3s;
 
     &.mdc-drawer-modal {
         overflow: hidden;
@@ -204,10 +198,7 @@ mdc-layout {
                 & + .mdc-drawer-scrim {
                     visibility: visible;
                     position: fixed;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     background-color: black;
                     opacity: 0.5;
                 }
@@ -260,10 +251,7 @@ mdc-layout {
                 & + .mdc-drawer-scrim {
                     visibility: visible;
                     position: fixed;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    left: 0;
+                    inset: 0;
                     background-color: black;
                     opacity: 0.5;
                 }

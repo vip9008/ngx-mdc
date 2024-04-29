@@ -17,7 +17,6 @@ import { MdcDialogDirective } from './mdc-dialog.directive';
         CommonModule
     ],
     exports: [
-        MdcDialogContainerComponent,
         MdcDialogDirective,
         MdcDialogHeaderDirective,
         MdcDialogBodyDirective

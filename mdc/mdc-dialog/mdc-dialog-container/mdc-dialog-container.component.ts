@@ -16,8 +16,8 @@ export class MdcDialogContainerComponent implements AfterContentInit {
     
     ngAfterContentInit(): void {
         this.dialogLoaded.emit(true);
-        timer(4000).subscribe(() => {
-        });
+        // timer(4000).subscribe(() => {
+        // });
     }
 
     public openDialog() {

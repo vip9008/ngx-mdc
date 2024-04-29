@@ -4,6 +4,7 @@ import { MdcTopAppBarDirective } from './mdc-top-app-bar.directive';
 import { MdcLayoutComponent } from './mdc-layout.component';
 import { MdcNavDrawerComponent } from './mdc-nav-drawer/mdc-nav-drawer.component';
 import { NavDrawerToggleDirective } from './nav-drawer-toggle.directive';
+import { MdcMainContentDirective } from './mdc-main-content.directive';
 
 
 
@@ -12,7 +13,8 @@ import { NavDrawerToggleDirective } from './nav-drawer-toggle.directive';
         MdcLayoutComponent,
         MdcTopAppBarDirective,
         MdcNavDrawerComponent,
-        NavDrawerToggleDirective
+        NavDrawerToggleDirective,
+        MdcMainContentDirective
     ],
     imports: [
         CommonModule
@@ -21,7 +23,8 @@ import { NavDrawerToggleDirective } from './nav-drawer-toggle.directive';
         MdcLayoutComponent,
         MdcTopAppBarDirective,
         MdcNavDrawerComponent,
-        NavDrawerToggleDirective
+        NavDrawerToggleDirective,
+        MdcMainContentDirective
     ]
 })
 export class MdcLayoutModule { }

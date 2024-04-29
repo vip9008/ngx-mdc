@@ -100,3 +100,9 @@
         padding: 0 1rem;
     }
 }
+
+mdc-layout {
+    &.mdc-top-app-bar-hidden {
+        padding-top: 0;
+    }
+}

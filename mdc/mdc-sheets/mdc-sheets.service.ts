@@ -1,14 +1,14 @@
 import { ApplicationRef, ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
-import { MdcDialogContainerComponent } from './mdc-dialog-container/mdc-dialog-container.component';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { MdcSideSheetComponent } from './mdc-side-sheet/mdc-side-sheet.component';
 import { EventType, Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Injectable({
     providedIn: 'root'
 })
-export class MdcDialogService {
-    private dialogsStack: ComponentRef<MdcDialogContainerComponent>[] = [];
+export class MdcSheetsService {
+    private sideSheetsStack: ComponentRef<MdcSideSheetComponent>[] = [];
 
     constructor(
         private applicationRef: ApplicationRef,
@@ -16,7 +16,7 @@ export class MdcDialogService {
     ) {
         this.router.events.pipe(untilDestroyed(this)).subscribe((event) => {
             if (event.type == EventType.NavigationStart) {
-                this.closeAllDialogs();
+                this.closeAllSideSheet();
             }
         });
     }
@@ -32,57 +32,59 @@ export class MdcDialogService {
         return appInstance.mdcComponentContainer.viewContainerRef;
     }
 
-    private get currentDialog(): ComponentRef<MdcDialogContainerComponent> {
-        if (this.dialogsStack.length == 0) {
+    private get currentSideSheet(): ComponentRef<MdcSideSheetComponent> {
+        if (this.sideSheetsStack.length == 0) {
             return null;
         }
 
-        return this.dialogsStack[this.dialogsStack.length - 1];
+        return this.sideSheetsStack[this.sideSheetsStack.length - 1];
     }
 
-    public createDialog(dynamicComponent: any, data: Object = {}) {
+    public createSideSheet(dynamicComponent: any, type: 'above-content' | 'coplanar' | 'modal' = 'above-content', data: Object = {}) {
         const componentRef: ComponentRef<any> = this.rootViewContainerRef.createComponent(dynamicComponent);
         Object.assign(componentRef.instance, data);
 
-        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.rootViewContainerRef.createComponent(MdcDialogContainerComponent, {
+        const dialogRef: ComponentRef<MdcSideSheetComponent> = this.rootViewContainerRef.createComponent(MdcSideSheetComponent, {
             projectableNodes: [
                 [componentRef.location.nativeElement]
             ]
         });
 
-        dialogRef.instance.dialogLoaded.pipe(untilDestroyed(this)).subscribe((loaded) => {
+        dialogRef.instance.type = type;
+
+        dialogRef.instance.sheetLoaded.pipe(untilDestroyed(this)).subscribe((loaded) => {
             if (loaded) {
-                setTimeout(() => {dialogRef.instance.openDialog();}, 80);
+                setTimeout(() => {dialogRef.instance.openSheet();}, 80);
             }
         });
 
-        dialogRef.instance.dialogClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
+        dialogRef.instance.sheetClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
             if (closed) {
-                this.dialogsStack.pop();
+                this.sideSheetsStack.pop();
                 setTimeout(() => {dialogRef.destroy();}, 320);
             }
         });
 
-        this.dialogsStack.push(dialogRef);
+        this.sideSheetsStack.push(dialogRef);
         
         return dialogRef;
     }
 
-    public closeDialog() {
-        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.currentDialog;
+    public closeSideSheet() {
+        const dialogRef: ComponentRef<MdcSideSheetComponent> = this.currentSideSheet;
 
         if (dialogRef) {
-            dialogRef.instance.closeDialog();
+            dialogRef.instance.closeSheet();
         }
     }
 
-    public closeAllDialogs() {
-        if (this.dialogsStack.length == 0) {
+    public closeAllSideSheet() {
+        if (this.sideSheetsStack.length == 0) {
             return;
         }
 
-        for (let index = this.dialogsStack.length - 1; index >= 0; index--) {
-            this.dialogsStack[index].instance.closeDialog();
+        for (let index = this.sideSheetsStack.length - 1; index >= 0; index--) {
+            this.sideSheetsStack[index].instance.closeSheet();
         }
     }
 }

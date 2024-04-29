@@ -1,0 +1,17 @@
+<!-- <div class="mdc-sheets-side" [ngClass]="{
+    'active': isActive,
+    'fixed': type == 'coplanar',
+    'modal': type == 'modal'
+}"> -->
+<div #sideSheet class="mdc-sheets-side">
+    @if (title) {
+        <div class="header">
+            <div class="title">{{title}}</div>
+            <div class="close-action">
+                <button mdc-icon (click)="closeSheet()">close</button>
+            </div>
+        </div>
+    }
+    <ng-content></ng-content>
+</div>
+<div class="mdc-sheets-side-scrim" (click)="closeSheet()"></div>
