@@ -102,7 +102,7 @@
 }
 
 mdc-layout {
-    &.mdc-top-app-bar-hidden {
-        padding-top: 0;
+    &.mdc-top-app-bar-visible {
+        padding-top: 4rem;
     }
 }

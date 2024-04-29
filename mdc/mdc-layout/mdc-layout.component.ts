@@ -30,7 +30,7 @@ export class MdcLayoutComponent implements AfterContentInit {
     ngAfterContentInit(): void {
         if (this.topAppBar && this.fixedTopAppBar) {
             this.topAppBar.el.nativeElement.classList.add('fixed');
-            this.mainContent.el.nativeElement.classList.add('mdc-top-app-bar-visible');
+            this.el.nativeElement.classList.add('mdc-top-app-bar-visible');
         }
 
         if (this.navDrawer) {
@@ -64,7 +64,6 @@ export class MdcLayoutComponent implements AfterContentInit {
         }
 
         let scroll: number = this.mainContent.el.nativeElement.scrollTop;
-        let height: number = this.topAppBar.el.nativeElement.offsetHeight;
 
         if (this.fixedTopAppBar) {
             if (scroll > 0) {
@@ -77,7 +76,7 @@ export class MdcLayoutComponent implements AfterContentInit {
             return;
         }
 
-        if (scroll > height) {
+        if (scroll > 0) {
             if (scroll > this.lastScrollPosition) {
                 this.topAppBar.el.nativeElement.classList.remove('active');
 
