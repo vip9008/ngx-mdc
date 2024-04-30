@@ -15,8 +15,6 @@ import { LayoutStatus } from './layout-status.interface';
     styleUrls: ['./mdc-layout.component.scss']
 })
 export class MdcLayoutComponent implements AfterContentInit {
-    @Input() fixedTopAppBar: boolean = false;
-
     @ContentChild(MdcTopAppBarDirective) topAppBar: MdcTopAppBarDirective;
     @ContentChild(MdcNavDrawerComponent) navDrawer: MdcNavDrawerComponent;
     @ContentChild(NavDrawerToggleDirective) navDrawerToggle: NavDrawerToggleDirective;
@@ -53,7 +51,7 @@ export class MdcLayoutComponent implements AfterContentInit {
     ngAfterContentInit(): void {
         let layoutStatus: LayoutStatus = {};
 
-        if (this.topAppBar && this.fixedTopAppBar) {
+        if (this.topAppBar && this.topAppBar?.fixed) {
             this.topAppBar.el.nativeElement.classList.add('fixed');
             layoutStatus.topAppBarVisible = true;
         }
@@ -93,7 +91,7 @@ export class MdcLayoutComponent implements AfterContentInit {
         let scroll: number = this.mainContent.el.nativeElement.scrollTop;
         let layoutStatus: LayoutStatus = {};
 
-        if (this.fixedTopAppBar) {
+        if (this.topAppBar?.fixed) {
             if (scroll > 0) {
                 this.topAppBar.el.nativeElement.classList.add('active');
             } else {
