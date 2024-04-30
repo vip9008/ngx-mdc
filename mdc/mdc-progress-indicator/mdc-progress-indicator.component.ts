@@ -3,7 +3,10 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 @Component({
     selector: 'mdc-progress-indicator',
     templateUrl: './mdc-progress-indicator.component.html',
-    styleUrls: ['./mdc-progress-indicator.component.scss']
+    styleUrls: ['./mdc-progress-indicator.component.scss'],
+    host: {
+        'class': 'mdc-progress-track'
+    }
 })
 export class MdcProgressIndicatorComponent implements AfterViewInit {
     @Input() progress: number = null;
@@ -13,7 +16,6 @@ export class MdcProgressIndicatorComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('mdc-progress-track');
         if (this.progress !== null && this.buffer !== null) {
             this.el.nativeElement.classList.add('buffer');
         }

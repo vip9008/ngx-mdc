@@ -1,18 +1,14 @@
-import { AfterViewInit, Component, ContentChild, ElementRef } from '@angular/core';
+import { Component, ContentChild } from '@angular/core';
 import { MdcSwitchDirective } from './mdc-switch.directive';
 
 @Component({
     selector: 'mdc-switchcontrol',
     templateUrl: './mdc-switchcontrol.component.html',
-    styleUrls: ['./mdc-switchcontrol.component.scss']
+    styleUrls: ['./mdc-switchcontrol.component.scss'],
+    host: {
+        'class': 'mdc-switch'
+    }
 })
-export class MdcSwitchcontrolComponent implements AfterViewInit {
+export class MdcSwitchcontrolComponent {
     @ContentChild(MdcSwitchDirective) switchInput: MdcSwitchDirective;
-
-    constructor(private el: ElementRef) {
-    }
-
-    ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('mdc-switch');
-    }
 }

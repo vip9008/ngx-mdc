@@ -1,13 +1,10 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: 'mdc-dialog-body'
+    selector: 'mdc-dialog-body',
+    host: {
+        'class': 'body'
+    }
 })
-export class MdcDialogBodyDirective implements OnInit {
-    constructor(public el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('body');
-    }
+export class MdcDialogBodyDirective {
 }

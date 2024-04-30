@@ -12,7 +12,7 @@ export class MdcRadioDirective implements OnInit {
         return this.el.nativeElement as HTMLInputElement;
     }
 
-    constructor(public el: ElementRef) {
+    constructor(private el: ElementRef) {
     }
 
     ngOnInit(): void {

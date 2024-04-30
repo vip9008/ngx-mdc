@@ -3,18 +3,19 @@ import { Component, ElementRef, Input, OnInit } from '@angular/core';
 @Component({
     selector: 'mdc-dropdown',
     templateUrl: './mdc-dropdown.component.html',
-    styleUrl: './mdc-dropdown.component.scss'
+    styleUrl: './mdc-dropdown.component.scss',
+    host: {
+        'class': 'mdc-list-group'
+    }
 })
 export class MdcDropdownComponent implements OnInit {
     @Input() isOpen: boolean = false;
     @Input() activeColor: string = '';
 
-    constructor(public el: ElementRef) {
+    constructor(private el: ElementRef) {
     }
 
     ngOnInit(): void {
-        this.el.nativeElement.classList.add('mdc-list-group');
-
         if (this.isOpen) {
             this.el.nativeElement.classList.add('expanded');
         } else {

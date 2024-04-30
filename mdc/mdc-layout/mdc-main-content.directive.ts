@@ -4,6 +4,10 @@ import { Directive, ElementRef } from '@angular/core';
     selector: '[id="mdc-main-content"]'
 })
 export class MdcMainContentDirective {
-    constructor(public el: ElementRef) {
+    constructor(private el: ElementRef) {
+    }
+
+    public get element(): ElementRef {
+        return this.el;
     }
 }

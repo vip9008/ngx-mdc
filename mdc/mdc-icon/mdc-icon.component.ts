@@ -3,7 +3,10 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 @Component({
     selector: 'mdc-icon, div[mdc-icon], span[mdc-icon], a[mdc-icon], button[mdc-icon]',
     templateUrl: './mdc-icon.component.html',
-    styleUrls: ['./mdc-icon.component.scss']
+    styleUrls: ['./mdc-icon.component.scss'],
+    host: {
+        'class': 'material-icon'
+    }
 })
 export class MdcIconComponent implements AfterViewInit {
     @Input() iconVersion: 'MaterialIcons' | 'MaterialSymbols' = 'MaterialSymbols';
@@ -16,7 +19,7 @@ export class MdcIconComponent implements AfterViewInit {
 
     ngAfterViewInit(): void {
         let iconSize = 'md-' + this.iconSize.toString();
-        this.el.nativeElement.classList.add('material-icon', iconSize);
+        this.el.nativeElement.classList.add(iconSize);
 
         let iconStyle = this.iconStyle == 'normal' ? null : this.iconStyle;
 

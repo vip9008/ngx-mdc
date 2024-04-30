@@ -52,7 +52,7 @@ export class MdcLayoutComponent implements AfterContentInit {
         let layoutStatus: LayoutStatus = {};
 
         if (this.topAppBar && this.topAppBar?.fixed) {
-            this.topAppBar.el.nativeElement.classList.add('fixed');
+            this.topAppBar.element.nativeElement.classList.add('fixed');
             layoutStatus.topAppBarVisible = true;
         }
 
@@ -69,7 +69,7 @@ export class MdcLayoutComponent implements AfterContentInit {
                 }
             });
 
-            fromEvent(this.navDrawerToggle.el.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
+            fromEvent(this.navDrawerToggle.element.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
                 this.navDrawerState(!this.navDrawer.active.value);
             });
         }
@@ -78,7 +78,7 @@ export class MdcLayoutComponent implements AfterContentInit {
 
         this.topAppBarBehaviour();
 
-        this.mainContent.el.nativeElement.addEventListener('scroll', () => {
+        this.mainContent.element.nativeElement.addEventListener('scroll', () => {
             this.topAppBarBehaviour();
         });
     }
@@ -88,14 +88,14 @@ export class MdcLayoutComponent implements AfterContentInit {
             return;
         }
 
-        let scroll: number = this.mainContent.el.nativeElement.scrollTop;
+        let scroll: number = this.mainContent.element.nativeElement.scrollTop;
         let layoutStatus: LayoutStatus = {};
 
         if (this.topAppBar?.fixed) {
             if (scroll > 0) {
-                this.topAppBar.el.nativeElement.classList.add('active');
+                this.topAppBar.element.nativeElement.classList.add('active');
             } else {
-                this.topAppBar.el.nativeElement.classList.remove('active');
+                this.topAppBar.element.nativeElement.classList.remove('active');
             }
             
             this.lastScrollPosition = scroll;
@@ -104,24 +104,24 @@ export class MdcLayoutComponent implements AfterContentInit {
 
         if (scroll > 0) {
             if (scroll > this.lastScrollPosition) {
-                this.topAppBar.el.nativeElement.classList.remove('active');
+                this.topAppBar.element.nativeElement.classList.remove('active');
                 
                 layoutStatus.topAppBarHidden = true;
                 layoutStatus.topAppBarVisible = false;
             } else {
-                this.topAppBar.el.nativeElement.classList.add('active', 'standard');
+                this.topAppBar.element.nativeElement.classList.add('active', 'standard');
                 
                 layoutStatus.topAppBarHidden = false;
                 layoutStatus.topAppBarVisible = true;
             }
             
-            this.topAppBar.el.nativeElement.classList.add('standard-hidden');
+            this.topAppBar.element.nativeElement.classList.add('standard-hidden');
         } else {
             if (scroll == 0) {
-                this.topAppBar.el.nativeElement.classList.remove('active', 'standard');
+                this.topAppBar.element.nativeElement.classList.remove('active', 'standard');
             }
             
-            this.topAppBar.el.nativeElement.classList.remove('standard-hidden');
+            this.topAppBar.element.nativeElement.classList.remove('standard-hidden');
                 
             layoutStatus.topAppBarHidden = false;
             layoutStatus.topAppBarVisible = true;

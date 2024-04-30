@@ -1,13 +1,10 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-dialog]'
+    selector: '[mdc-dialog]',
+    host: {
+        'class': 'mdc-dialog'
+    }
 })
-export class MdcDialogDirective implements OnInit {
-    constructor(public el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('mdc-dialog');
-    }
+export class MdcDialogDirective {
 }

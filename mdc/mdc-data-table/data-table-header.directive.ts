@@ -1,13 +1,10 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: 'data-table-header'
+    selector: 'data-table-header',
+    host: {
+        'class': 'header'
+    }
 })
-export class DataTableHeaderDirective implements AfterViewInit {
-    constructor(private el: ElementRef) {
-    }
-
-    ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('header');
-    }
+export class DataTableHeaderDirective {
 }

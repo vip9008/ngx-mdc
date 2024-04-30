@@ -1,13 +1,10 @@
-import { AfterViewInit, Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: 'data-table-footer'
+    selector: 'data-table-footer',
+    host: {
+        'class': 'footer'
+    }
 })
-export class DataTableFooterDirective implements AfterViewInit {
-    constructor(private el: ElementRef) {
-    }
-
-    ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('footer');
-    }
+export class DataTableFooterDirective {
 }

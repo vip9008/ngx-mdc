@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, effect, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ComponentRef, effect, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MdcLayoutService } from '@ngx-mdc/mdc/mdc-layout/mdc-layout.service';
 
 @Component({
@@ -6,13 +6,15 @@ import { MdcLayoutService } from '@ngx-mdc/mdc/mdc-layout/mdc-layout.service';
     templateUrl: './mdc-side-sheet.component.html',
     styleUrl: './mdc-side-sheet.component.scss'
 })
-export class MdcSideSheetComponent implements AfterViewInit, AfterContentInit {
+export class MdcSideSheetComponent<T = any> implements AfterViewInit, AfterContentInit {
     @Input() type: 'above-content' | 'coplanar' | 'modal' = 'above-content';
     
     @Output() sheetLoaded: EventEmitter<boolean> = new EventEmitter(false);
     @Output() sheetClosed: EventEmitter<boolean> = new EventEmitter(true);
     
     @ViewChild('sideSheet') sideSheet!: ElementRef;
+
+    public componentRef: ComponentRef<T>;
 
     constructor(
         private layoutService: MdcLayoutService

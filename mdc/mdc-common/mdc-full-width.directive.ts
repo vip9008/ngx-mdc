@@ -1,13 +1,10 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-full-width]'
+    selector: '[mdc-full-width]',
+    host: {
+        'class': 'full-width'
+    }
 })
-export class MdcFullWidthDirective implements OnInit {
-    constructor(private el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('full-width');
-    }
+export class MdcFullWidthDirective {
 }

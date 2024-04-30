@@ -4,13 +4,15 @@ import { MdcTabItemComponent } from '../mdc-tab-item/mdc-tab-item.component';
 @Component({
     selector: 'mdc-tab-page',
     templateUrl: './mdc-tab-page.component.html',
-    styleUrl: './mdc-tab-page.component.scss'
+    styleUrl: './mdc-tab-page.component.scss',
+    host: {
+        'class': 'tab-page'
+    }
 })
 export class MdcTabPageComponent {
     public index: number;
 
     constructor(private el: ElementRef) {
-        this.el.nativeElement.classList.add('tab-page');
     }
 
     public get element(): ElementRef {

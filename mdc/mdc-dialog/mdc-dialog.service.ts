@@ -40,15 +40,17 @@ export class MdcDialogService {
         return this.dialogsStack[this.dialogsStack.length - 1];
     }
 
-    public createDialog(dynamicComponent: any, data: Object = {}) {
-        const componentRef: ComponentRef<any> = this.rootViewContainerRef.createComponent(dynamicComponent);
+    public createDialog<T = any>(dynamicComponent: any, data: Object = {}) {
+        const componentRef: ComponentRef<T> = this.rootViewContainerRef.createComponent(dynamicComponent) as ComponentRef<T>;
         Object.assign(componentRef.instance, data);
 
-        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.rootViewContainerRef.createComponent(MdcDialogContainerComponent, {
+        const dialogRef: ComponentRef<MdcDialogContainerComponent<T>> = this.rootViewContainerRef.createComponent(MdcDialogContainerComponent, {
             projectableNodes: [
                 [componentRef.location.nativeElement]
             ]
-        });
+        }) as ComponentRef<MdcDialogContainerComponent<T>>;
+
+        dialogRef.instance.componentRef = componentRef;
 
         dialogRef.instance.dialogLoaded.pipe(untilDestroyed(this)).subscribe((loaded) => {
             if (loaded) {

@@ -1,13 +1,10 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-icon-element]'
+    selector: '[mdc-icon-element]',
+    host: {
+        'class': 'icon'
+    }
 })
 export class MdcIconElementDirective {
-    constructor(private el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('icon');
-    }
 }

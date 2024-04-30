@@ -1,13 +1,16 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
-    selector: '[nav-drawer-toggle]'
+    selector: '[nav-drawer-toggle]',
+    host: {
+        'class': 'nav-icon'
+    }
 })
-export class NavDrawerToggleDirective implements OnInit {
-    constructor(public el: ElementRef) {
+export class NavDrawerToggleDirective {
+    constructor(private el: ElementRef) {
     }
 
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('nav-icon');
+    public get element(): ElementRef {
+        return this.el;
     }
 }

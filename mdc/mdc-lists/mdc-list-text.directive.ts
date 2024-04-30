@@ -1,13 +1,10 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: 'mdc-list-text'
+    selector: 'mdc-list-text',
+    host: {
+        'class': 'text'
+    }
 })
-export class MdcListTextDirective implements OnInit {
-    constructor(public el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('text');
-    }
+export class MdcListTextDirective {
 }

@@ -16,7 +16,7 @@ export class MdcCheckDirective implements OnInit {
         this.inputStatus.next((event.target as HTMLInputElement).checked);
     }
 
-    constructor(public el: ElementRef) {
+    constructor(private el: ElementRef) {
         this.inputStatus.pipe(untilDestroyed(this)).subscribe((value: boolean | null) => {
             this.updateElementStatus(value);
         });

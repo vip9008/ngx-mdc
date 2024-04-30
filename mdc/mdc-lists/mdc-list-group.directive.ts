@@ -1,13 +1,10 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-list-group]'
+    selector: '[mdc-list-group]',
+    host: {
+        'class': 'mdc-list-group'
+    }
 })
-export class MdcListGroupDirective implements OnInit {
-    constructor(public el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('mdc-list-group');
-    }
+export class MdcListGroupDirective {
 }

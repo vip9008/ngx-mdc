@@ -1,13 +1,10 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-dropdown-list]'
+    selector: '[mdc-dropdown-list]',
+    host: {
+        'class': 'mdc-dropdown'
+    }
 })
 export class MdcDropdownListDirective {
-    constructor(public el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('mdc-dropdown');
-    }
 }

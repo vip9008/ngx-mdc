@@ -1,13 +1,10 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-card-action]'
+    selector: '[mdc-card-action]',
+    host: {
+        'class': 'mdc-card-primary'
+    }
 })
 export class CardActionDirective {
-    constructor(public el: ElementRef) {
-    }
-
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('mdc-card-primary');
-    }
 }

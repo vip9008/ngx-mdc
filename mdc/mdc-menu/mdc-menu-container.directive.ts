@@ -1,10 +1,16 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-menu-container]'
+    selector: '[mdc-menu-container]',
+    host: {
+        'class': 'menu-container'
+    }
 })
 export class MdcMenuContainerDirective {
-    constructor(public el: ElementRef) {
-        this.el.nativeElement.classList.add('menu-container');
+    constructor(private el: ElementRef) {
+    }
+
+    public get element(): ElementRef {
+        return this.el;
     }
 }

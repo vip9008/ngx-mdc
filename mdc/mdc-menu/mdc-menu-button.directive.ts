@@ -1,13 +1,16 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-menu-button]'
+    selector: '[mdc-menu-button]',
+    host: {
+        'class': 'menu-button'
+    }
 })
-export class MdcMenuButtonDirective implements OnInit {
-    constructor(public el: ElementRef) {
+export class MdcMenuButtonDirective {
+    constructor(private el: ElementRef) {
     }
 
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('menu-button');
+    public get element(): ElementRef {
+        return this.el;
     }
 }

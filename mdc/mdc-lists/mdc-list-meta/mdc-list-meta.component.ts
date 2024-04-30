@@ -3,7 +3,10 @@ import { Component, ElementRef, AfterViewInit, Input } from '@angular/core';
 @Component({
     selector: 'mdc-list-meta',
     templateUrl: './mdc-list-meta.component.html',
-    styleUrls: ['./mdc-list-meta.component.scss']
+    styleUrls: ['./mdc-list-meta.component.scss'],
+    host: {
+        'class': 'meta'
+    }
 })
 export class MdcListMetaComponent implements AfterViewInit {
     @Input() icon: boolean = false;
@@ -15,7 +18,5 @@ export class MdcListMetaComponent implements AfterViewInit {
         if (this.icon) {
             this.el.nativeElement.classList.add('icon');
         }
-
-        this.el.nativeElement.classList.add('meta');
     }
 }

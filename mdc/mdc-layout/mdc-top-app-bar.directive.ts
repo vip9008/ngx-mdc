@@ -6,6 +6,10 @@ import { Directive, ElementRef, Input } from '@angular/core';
 export class MdcTopAppBarDirective {
     @Input() fixed: boolean = false;
 
-    constructor(public el: ElementRef) {
+    constructor(private el: ElementRef) {
+    }
+
+    public get element(): ElementRef {
+        return this.el;
     }
 }

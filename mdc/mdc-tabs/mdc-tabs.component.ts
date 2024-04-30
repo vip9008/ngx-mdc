@@ -10,7 +10,10 @@ import { isPlatformBrowser } from '@angular/common';
 @Component({
     selector: 'mdc-tabs',
     templateUrl: './mdc-tabs.component.html',
-    styleUrl: './mdc-tabs.component.scss'
+    styleUrl: './mdc-tabs.component.scss',
+    host: {
+        'class': 'mdc-tabs-container'
+    }
 })
 export class MdcTabsComponent implements AfterViewInit, AfterContentInit {
     @Input() colorClass: string = 'indigo';
@@ -30,8 +33,6 @@ export class MdcTabsComponent implements AfterViewInit, AfterContentInit {
         private renderer: Renderer2,
         private directionService: LayoutDirectionService
     ) {
-        this.el.nativeElement.classList.add('mdc-tabs-container');
-
         effect(() => {
             const direction = this.directionService.directionValue;
 

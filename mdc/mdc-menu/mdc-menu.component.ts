@@ -10,7 +10,10 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 @Component({
     selector: 'mdc-menu',
     templateUrl: './mdc-menu.component.html',
-    styleUrls: ['./mdc-menu.component.scss']
+    styleUrls: ['./mdc-menu.component.scss'],
+    host: {
+        'class': 'mdc-menu-container'
+    }
 })
 export class MdcMenuComponent implements AfterViewInit {
     @Input() closeOnAction: boolean = true;
@@ -36,7 +39,7 @@ export class MdcMenuComponent implements AfterViewInit {
     }
 
     private get direction(): 'ltr' | 'rtl' {
-        return getComputedStyle(this.menuContainer.el.nativeElement).direction.toLowerCase() as 'ltr' | 'rtl';
+        return getComputedStyle(this.menuContainer.element.nativeElement).direction.toLowerCase() as 'ltr' | 'rtl';
     }
 
     constructor(
@@ -46,15 +49,13 @@ export class MdcMenuComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('mdc-menu-container');
-
         if (this.reverseDirection) {
             this.el.nativeElement.classList.add('reverse');
         }
 
-        fromEvent(this.menuButton.el.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
+        fromEvent(this.menuButton.element.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
             if (this.activeMenu) {
-                let classList = this.menuButton.el.nativeElement.classList;
+                let classList = this.menuButton.element.nativeElement.classList;
 
                 if (classList.contains('mdc-text-field') && (classList.contains('mdc-searchable') || classList.contains('mdc-editable'))) {
                     return;
@@ -67,13 +68,13 @@ export class MdcMenuComponent implements AfterViewInit {
         });
 
         this.menuCloseItems.forEach((menuClose, index) => {
-            fromEvent(menuClose.el.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
+            fromEvent(menuClose.element.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event) => {
                 this.closeMenu();
             });
         });
 
         if (this.closeOnAction) {
-            fromEvent(this.menuContainer.el.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event: any) => {
+            fromEvent(this.menuContainer.element.nativeElement, 'click').pipe(untilDestroyed(this)).subscribe((event: any) => {
                 if (event.target instanceof HTMLButtonElement || event.target instanceof HTMLAnchorElement) {
                     this.closeMenu();
                 }
@@ -87,20 +88,20 @@ export class MdcMenuComponent implements AfterViewInit {
 
         if (isPlatformBrowser(this.platformId)) {
             let baseSize = this.baseSize;
-            this.menuContainer.el.nativeElement.removeAttribute('style');
+            this.menuContainer.element.nativeElement.removeAttribute('style');
 
             let viewportWidth = document.documentElement.clientWidth || document.body.clientWidth;
             let viewportHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
             let adiitionalMargin = baseSize * 1.5;
-            let menuHeight = this.menuContainer.el.nativeElement.offsetHeight;
-            let menuWidth = this.menuContainer.el.nativeElement.offsetWidth + adiitionalMargin;
+            let menuHeight = this.menuContainer.element.nativeElement.offsetHeight;
+            let menuWidth = this.menuContainer.element.nativeElement.offsetWidth + adiitionalMargin;
 
-            if (this.menuButton.el.nativeElement.classList.contains('mdc-text-field')) {
-                menuWidth = this.menuButton.el.nativeElement.offsetWidth;
+            if (this.menuButton.element.nativeElement.classList.contains('mdc-text-field')) {
+                menuWidth = this.menuButton.element.nativeElement.offsetWidth;
             }
 
-            let menuPosition = this.menuContainer.el.nativeElement.getBoundingClientRect();
+            let menuPosition = this.menuContainer.element.nativeElement.getBoundingClientRect();
 
             let position: any = {
                 "top": "auto",
@@ -140,7 +141,7 @@ export class MdcMenuComponent implements AfterViewInit {
                 }
             }
 
-            Object.assign(this.menuContainer.el.nativeElement.style, position);
+            Object.assign(this.menuContainer.element.nativeElement.style, position);
         }
     }
 
@@ -153,10 +154,10 @@ export class MdcMenuComponent implements AfterViewInit {
         if (isPlatformBrowser(this.platformId)) {
             if (this.activeMenu) {
                 this.el.nativeElement.classList.add('active');
-                this.menuButton.el.nativeElement.classList.add('active');
+                this.menuButton.element.nativeElement.classList.add('active');
             } else {
                 this.el.nativeElement.classList.remove('active');
-                this.menuButton.el.nativeElement.classList.remove('active');
+                this.menuButton.element.nativeElement.classList.remove('active');
             }
         }
     }

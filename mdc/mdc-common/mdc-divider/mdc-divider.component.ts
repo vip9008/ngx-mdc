@@ -3,7 +3,10 @@ import { Component, AfterViewInit, ElementRef, Input } from '@angular/core';
 @Component({
     selector: 'mdc-divider',
     templateUrl: './mdc-divider.component.html',
-    styleUrls: ['./mdc-divider.component.scss']
+    styleUrls: ['./mdc-divider.component.scss'],
+    host: {
+        'class': 'mdc-divider'
+    }
 })
 export class MdcDividerComponent implements AfterViewInit {
     @Input() inset: boolean = false;
@@ -13,8 +16,6 @@ export class MdcDividerComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('mdc-divider');
-
         if (this.inset) {
             this.el.nativeElement.classList.add('inset');
             

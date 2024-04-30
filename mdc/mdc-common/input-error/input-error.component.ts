@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, AfterViewInit, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CapitalizePipe } from '@pipes';
@@ -13,17 +13,16 @@ import { CapitalizePipe } from '@pipes';
     ],
     selector: 'mdc-input-error',
     templateUrl: './input-error.component.html',
-    styleUrls: ['./input-error.component.scss']
+    styleUrls: ['./input-error.component.scss'],
+    host: {
+        'class': 'help-block'
+    }
 })
-export class MdcInputErrorComponent implements AfterViewInit {
+export class MdcInputErrorComponent {
     @Input() label: String | string;
     @Input() input: FormControl | AbstractControl;
 
     constructor(private el: ElementRef) {
-    }
-    
-    ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('help-block');
     }
 
     get element(): ElementRef {

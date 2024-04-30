@@ -1,10 +1,13 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, AfterViewInit, Output, EventEmitter, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
+import { Directive, ElementRef, Output, EventEmitter, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 
 @Directive({
-    selector: '[text-input]'
+    selector: '[text-input]',
+    host: {
+        'class': 'input-element'
+    }
 })
-export class TextInputDirective implements AfterViewInit, OnDestroy {
+export class TextInputDirective implements OnDestroy {
     private inputChanges: MutationObserver;
     @Output() public domChange = new EventEmitter();
 
@@ -21,10 +24,6 @@ export class TextInputDirective implements AfterViewInit, OnDestroy {
                 attributes: true
             });
         }
-    }
-
-    ngAfterViewInit(): void {
-        this.el.nativeElement.classList.add('input-element');
     }
 
     ngOnDestroy(): void {

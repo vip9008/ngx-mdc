@@ -38,21 +38,26 @@ export class MdcSheetsService {
         return this.sideSheetRef;
     }
 
-    public createSideSheet(dynamicComponent: any, type: 'above-content' | 'coplanar' | 'modal' = 'above-content', data: Object = {}) {
-        const componentRef: ComponentRef<any> = this.rootViewContainerRef.createComponent(dynamicComponent);
+    public createSideSheet<T = any>(dynamicComponent: any, type: 'above-content' | 'coplanar' | 'modal' = 'above-content', data: Object = {}): ComponentRef<MdcSideSheetComponent<T>> | null {
+        if (this.currentSideSheet) {
+            return null;
+        }
+
+        const componentRef: ComponentRef<T> = this.rootViewContainerRef.createComponent(dynamicComponent) as ComponentRef<T>;
         Object.assign(componentRef.instance, data);
 
-        const dialogRef: ComponentRef<MdcSideSheetComponent> = this.rootViewContainerRef.createComponent(MdcSideSheetComponent, {
+        const sheetRef: ComponentRef<MdcSideSheetComponent<T>> = this.rootViewContainerRef.createComponent(MdcSideSheetComponent, {
             projectableNodes: [
                 [componentRef.location.nativeElement]
             ]
-        });
+        }) as ComponentRef<MdcSideSheetComponent<T>>;
 
-        dialogRef.instance.type = type;
+        sheetRef.instance.type = type;
+        sheetRef.instance.componentRef = componentRef;
 
-        dialogRef.instance.sheetLoaded.pipe(untilDestroyed(this)).subscribe((loaded) => {
+        sheetRef.instance.sheetLoaded.pipe(untilDestroyed(this)).subscribe((loaded) => {
             if (loaded) {
-                setTimeout(() => {dialogRef.instance.openSheet();}, 80);
+                setTimeout(() => {sheetRef.instance.openSheet();}, 80);
 
                 if (type == 'coplanar') {
                     this.layoutService.layoutStatus = {
@@ -62,10 +67,10 @@ export class MdcSheetsService {
             }
         });
 
-        dialogRef.instance.sheetClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
+        sheetRef.instance.sheetClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
             if (closed) {
                 this.sideSheetRef = null;
-                setTimeout(() => {dialogRef.destroy();}, 320);
+                setTimeout(() => {sheetRef.destroy();}, 320);
 
                 if (type == 'coplanar') {
                     this.layoutService.layoutStatus = {
@@ -75,16 +80,16 @@ export class MdcSheetsService {
             }
         });
 
-        this.sideSheetRef = dialogRef;
+        this.sideSheetRef = sheetRef;
         
-        return dialogRef;
+        return sheetRef;
     }
 
     public closeSideSheet() {
-        const dialogRef: ComponentRef<MdcSideSheetComponent> = this.currentSideSheet;
+        const sheetRef: ComponentRef<MdcSideSheetComponent> = this.currentSideSheet;
 
-        if (dialogRef) {
-            dialogRef.instance.closeSheet();
+        if (sheetRef) {
+            sheetRef.instance.closeSheet();
         }
     }
 }

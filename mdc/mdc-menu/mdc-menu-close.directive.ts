@@ -1,13 +1,16 @@
-import { Directive, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
-    selector: '[mdc-menu-close]'
+    selector: '[mdc-menu-close]',
+    host: {
+        'class': 'menu-close'
+    }
 })
-export class MdcMenuCloseDirective implements OnInit {
-    constructor(public el: ElementRef) {
+export class MdcMenuCloseDirective {
+    constructor(private el: ElementRef) {
     }
 
-    ngOnInit(): void {
-        this.el.nativeElement.classList.add('menu-close');
+    public get element(): ElementRef {
+        return this.el;
     }
 }
