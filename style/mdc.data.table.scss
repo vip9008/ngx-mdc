@@ -308,10 +308,8 @@
         width: 100%;
         -ms-flex-align: center;
         align-items: center;
-        -ms-flex-pack: start;
-        justify-content: flex-start;
-        -webkit-flex-direction: row-reverse;
-        flex-direction: row-reverse;
+        -ms-flex-pack: end;
+        justify-content: flex-end;
         margin: 0;
         padding: 0 1rem;
         text-align: inherit;
