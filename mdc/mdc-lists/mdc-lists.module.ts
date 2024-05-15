@@ -9,6 +9,7 @@ import { MdcListTextDirective } from './mdc-list-text.directive';
 import { MdcListGroupDirective } from './mdc-list-group.directive';
 import { MdcDropdownComponent } from './mdc-dropdown/mdc-dropdown.component';
 import { MdcDropdownListDirective } from './mdc-dropdown-list.directive';
+import { ListItemActionDirective } from './list-item-action.directive';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,8 @@ import { MdcDropdownListDirective } from './mdc-dropdown-list.directive';
         MdcListMetaComponent,
         MdcListGroupDirective,
         MdcDropdownComponent,
-        MdcDropdownListDirective
+        MdcDropdownListDirective,
+        ListItemActionDirective
     ],
     imports: [
         CommonModule
@@ -34,7 +36,8 @@ import { MdcDropdownListDirective } from './mdc-dropdown-list.directive';
         MdcListTextDirective,
         MdcListMetaComponent,
         MdcDropdownComponent,
-        MdcDropdownListDirective
+        MdcDropdownListDirective,
+        ListItemActionDirective
     ]
 })
 export class MdcListsModule { }

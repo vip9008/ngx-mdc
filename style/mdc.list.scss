@@ -88,7 +88,7 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
         }
     }
 
-    & .primary-action {
+    & .mdc-list-item-primary {
         display: block;
         position: absolute;
         top: 0;
@@ -204,7 +204,7 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
             cursor: pointer;
         }
 
-        & + .meta {
+        & ~ .meta {
             margin-inline-start: 0;
             padding-inline-start: 0;
         }

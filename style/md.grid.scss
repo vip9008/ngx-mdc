@@ -535,12 +535,12 @@ a.material-icon, button.material-icon, .material-icon.interactive {
         border-radius: 100%;
         position: absolute;
         z-index: 0;
-        height: 1.5rem;
-        width: 1.5rem;
+        height: 2em;
+        width: 2em;
         top: 50%;
         left: 50%;
-        margin-top: -0.75rem;
-        margin-left: -0.75rem;
+        margin-top: -1em;
+        margin-left: -1em;
         transition: all 0.2s;
         -ms-transform: scale(0);
         -webkit-transform: scale(0);
@@ -549,47 +549,70 @@ a.material-icon, button.material-icon, .material-icon.interactive {
 
     &:hover::before {
         opacity: var(--opacity-hover);
-        -ms-transform: scale(2);
-        -webkit-transform: scale(2);
-        transform: scale(2);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
     }
 
     &:active::before {
         opacity: var(--opacity-pressed);
-        -ms-transform: scale(2);
-        -webkit-transform: scale(2);
-        transform: scale(2);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
     }
 
     &:focus::before {
         opacity: var(--opacity-focus);
-        -ms-transform: scale(2);
-        -webkit-transform: scale(2);
-        transform: scale(2);
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
     }
 
     &.dense:hover::before {
         opacity: var(--opacity-hover);
-        -ms-transform: scale(1.5);
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
+        -ms-transform: scale(0.75);
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75);
     }
     
     &.dense:active::before {
         opacity: var(--opacity-pressed);
-        -ms-transform: scale(1.5);
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
+        -ms-transform: scale(0.75);
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75);
     }
     
     &.dense:focus::before {
         opacity: var(--opacity-focus);
-        -ms-transform: scale(1.5);
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
+        -ms-transform: scale(0.75);
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75);
     }
 
-    &.disabled::before, &[disabled]::before, &:disabled::before {
+    &::after {
+        content: '';
+        display: inline-block;
+        opacity: 0;
+        border-radius: 100%;
+        position: absolute;
+        z-index: 0;
+        height: 2em;
+        width: 2em;
+        top: 50%;
+        left: 50%;
+        margin-top: -1em;
+        margin-left: -1em;
+    }
+
+    &.dense::after {
+        height: 1.5em;
+        width: 1.5em;
+        margin-top: -0.75em;
+        margin-left: -0.75em;
+    }
+
+    &.disabled::before, &[disabled]::before, &:disabled::before,
+    &.disabled::after, &[disabled]::after, &:disabled::after {
         display: none;
     }
 }
