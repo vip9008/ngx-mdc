@@ -203,6 +203,11 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
             border: none;
             cursor: pointer;
         }
+
+        & + .meta {
+            margin-inline-start: 0;
+            padding-inline-start: 0;
+        }
     }
 
     .graphic {
