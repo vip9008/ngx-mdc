@@ -238,19 +238,19 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
             object-fit: cover;
         }
 
-        .md-40 {
+        &.md-40 {
             border-radius: 100%;
             width: 2.5rem;
             height: 2.5rem;
         }
         
-        .md-56 {
+        &.md-56 {
             border-radius: 4px;
             width: 3.5rem;
             height: 3.5rem;
         }
         
-        .md-100 {
+        &.md-100 {
             border-radius: 0;
             margin: 0.5rem 0;
             width: 6.25rem;
