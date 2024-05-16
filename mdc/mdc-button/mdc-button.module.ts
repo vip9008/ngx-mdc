@@ -4,11 +4,13 @@ import { RouterModule } from '@angular/router';
 import { MdcButtonComponent } from './mdc-button.component';
 import { MdcIconModule } from '../mdc-icon/mdc-icon.module';
 import { MdcButtonGroupDirective } from './mdc-button-group.directive';
+import { MdcButtonIconDirective } from './mdc-button-icon.directive';
 
 @NgModule({
     declarations: [
         MdcButtonComponent,
-        MdcButtonGroupDirective
+        MdcButtonGroupDirective,
+        MdcButtonIconDirective
     ],
     imports: [
         CommonModule,
@@ -17,7 +19,8 @@ import { MdcButtonGroupDirective } from './mdc-button-group.directive';
     ],
     exports: [
         MdcButtonComponent,
-        MdcButtonGroupDirective
+        MdcButtonGroupDirective,
+        MdcButtonIconDirective
     ]
 })
 export class MdcButtonModule {}

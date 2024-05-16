@@ -763,6 +763,7 @@ a.material-icon, button.material-icon, .material-icon.interactive {
     &.align-self-start {
         -ms-flex-item-align: start;
         align-self: flex-start;
+        align-self: start;
     }
     
     &.align-self-center {

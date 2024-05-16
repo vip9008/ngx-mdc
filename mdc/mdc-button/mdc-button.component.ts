@@ -9,8 +9,6 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
     }
 })
 export class MdcButtonComponent implements AfterViewInit {
-    @Input() icon: String;
-
     constructor(private el: ElementRef) {
     }
 
