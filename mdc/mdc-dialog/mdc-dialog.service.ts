@@ -32,7 +32,7 @@ export class MdcDialogService {
         return appInstance.mdcComponentContainer.viewContainerRef;
     }
 
-    private get currentDialog(): ComponentRef<MdcDialogContainerComponent> {
+    public getCurrentDialog<T = any>(): ComponentRef<MdcDialogContainerComponent<T>> {
         if (this.dialogsStack.length == 0) {
             return null;
         }
@@ -70,8 +70,24 @@ export class MdcDialogService {
         return dialogRef;
     }
 
+    public showDialog() {
+        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.getCurrentDialog();
+
+        if (dialogRef) {
+            dialogRef.instance.showDialog();
+        }
+    }
+
+    public hideDialog() {
+        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.getCurrentDialog();
+
+        if (dialogRef) {
+            dialogRef.instance.hideDialog();
+        }
+    }
+
     public closeDialog() {
-        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.currentDialog;
+        const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.getCurrentDialog();
 
         if (dialogRef) {
             dialogRef.instance.closeDialog();
