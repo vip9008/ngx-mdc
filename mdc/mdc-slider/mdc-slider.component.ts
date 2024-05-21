@@ -77,6 +77,9 @@ export class MdcSliderComponent implements AfterViewInit {
             if (change.type == 'attributes' && change.attributeName == 'disabled') {
                 this.disabledState.emit(this.sliderInput.element.nativeElement.disabled as boolean);
             }
+            if (['min', 'max', 'step', 'value'].includes(change.attributeName)) {
+                this.updateSlider();
+            }
         });
 
         this.sliderInput.element.nativeElement.addEventListener('input', () => {
