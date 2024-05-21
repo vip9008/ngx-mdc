@@ -54,21 +54,21 @@
             cursor: pointer;
         }
 
-        &:hover + .highlight::before {
+        &:hover + .mdc-slider-highlight::before {
             opacity: var(--opacity-hover);
             -ms-transform: scale(1);
             -webkit-transform: scale(1);
             transform: scale(1);
         }
         
-        &:focus + .highlight::before {
+        &:focus + .mdc-slider-highlight::before {
             opacity: var(--opacity-focus);
             -ms-transform: scale(1);
             -webkit-transform: scale(1);
             transform: scale(1);
         }
         
-        &:active + .highlight::before {
+        &:active + .mdc-slider-highlight::before {
             opacity: var(--opacity-pressed);
             -ms-transform: scale(1);
             -webkit-transform: scale(1);
@@ -76,7 +76,7 @@
         }
     }
     
-    .highlight {
+    .mdc-slider-highlight {
         position: absolute;
         top: 50%;
         inset-inline-start: 0;
@@ -159,7 +159,7 @@
             background-size: calc(var(--slider-point) - 0.1%) 0.125rem;
         }
 
-        .highlight {
+        .mdc-slider-highlight {
             background: linear-gradient(90deg, rgba(255, 255, 255, var(--switch-opacity)) 0.125rem, rgb(var(--foreground-color)) 0);
             background-position: center left;
 
@@ -190,7 +190,7 @@
             }
         }
 
-        .highlight {
+        .mdc-slider-highlight {
             &::before {
                 display: none;
             }
@@ -202,41 +202,41 @@
     }
 }
 
-html[dir="ltr"] .mdc-slider.discrete > .highlight > .value,
-html[dir] *[dir="ltr"] > .mdc-slider.discrete > .highlight > .value {
+html[dir="ltr"] .mdc-slider.discrete > .mdc-slider-highlight > .value,
+html[dir] *[dir="ltr"] > .mdc-slider.discrete > .mdc-slider-highlight > .value {
     -ms-transform: translateX(50%) scale(0);
     -webkit-transform: translateX(50%) scale(0);
     transform: translateX(50%) scale(0);
 }
 
-html[dir="rtl"] .mdc-slider.discrete > .highlight > .value,
-html[dir] *[dir="rtl"] > .mdc-slider.discrete > .highlight > .value {
+html[dir="rtl"] .mdc-slider.discrete > .mdc-slider-highlight > .value,
+html[dir] *[dir="rtl"] > .mdc-slider.discrete > .mdc-slider-highlight > .value {
     -ms-transform: translateX(-50%) scale(0);
     -webkit-transform: translateX(-50%) scale(0);
     transform: translateX(-50%) scale(0);
 }
 
-.mdc-slider > input:focus + .highlight > .value,
-.mdc-slider > input:active + .highlight > .value {
+.mdc-slider > input:focus + .mdc-slider-highlight > .value,
+.mdc-slider > input:active + .mdc-slider-highlight > .value {
     opacity: 1;
     -ms-transform: translateX(50%) scale(1);
     -webkit-transform: translateX(50%) scale(1);
     transform: translateX(50%) scale(1);
 }
 
-html[dir="ltr"] .mdc-slider > input:focus + .highlight > .value,
-html[dir] *[dir="ltr"] > .mdc-slider > input:focus + .highlight > .value,
-html[dir="ltr"] .mdc-slider > input:active + .highlight > .value,
-html[dir] *[dir="ltr"] > .mdc-slider > input:active + .highlight > .value {
+html[dir="ltr"] .mdc-slider > input:focus + .mdc-slider-highlight > .value,
+html[dir] *[dir="ltr"] > .mdc-slider > input:focus + .mdc-slider-highlight > .value,
+html[dir="ltr"] .mdc-slider > input:active + .mdc-slider-highlight > .value,
+html[dir] *[dir="ltr"] > .mdc-slider > input:active + .mdc-slider-highlight > .value {
     -ms-transform: translateX(50%) scale(1);
     -webkit-transform: translateX(50%) scale(1);
     transform: translateX(50%) scale(1);
 }
 
-html[dir="rtl"] .mdc-slider > input:focus + .highlight > .value,
-html[dir] *[dir="rtl"] > .mdc-slider > input:focus + .highlight > .value,
-html[dir="rtl"] .mdc-slider > input:active + .highlight > .value,
-html[dir] *[dir="rtl"] > .mdc-slider > input:active + .highlight > .value {
+html[dir="rtl"] .mdc-slider > input:focus + .mdc-slider-highlight > .value,
+html[dir] *[dir="rtl"] > .mdc-slider > input:focus + .mdc-slider-highlight > .value,
+html[dir="rtl"] .mdc-slider > input:active + .mdc-slider-highlight > .value,
+html[dir] *[dir="rtl"] > .mdc-slider > input:active + .mdc-slider-highlight > .value {
     -ms-transform: translateX(-50%) scale(1);
     -webkit-transform: translateX(-50%) scale(1);
     transform: translateX(-50%) scale(1);
