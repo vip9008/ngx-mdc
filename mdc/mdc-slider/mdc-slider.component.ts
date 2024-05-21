@@ -20,32 +20,43 @@ export class MdcSliderComponent implements AfterViewInit {
     private disabledState: EventEmitter<boolean> = new EventEmitter<boolean>(false);
     private disabled: boolean = false;
 
+    private get sliderInputElement(): HTMLInputElement {
+        return this.sliderInput.element.nativeElement;
+    }
+
     private get min(): number {
-        if (!this.sliderInput.element.nativeElement.min) {
+        let value = this.sliderInputElement.min;
+
+        if (!value) {
             return 0;
         }
 
-        return Number(this.sliderInput.element.nativeElement.min);
+        return Number(value);
     }
 
     private get max(): number {
-        return Number(this.sliderInput.element.nativeElement.max);
+        let value = this.sliderInputElement.max;
+        return Number(value);
     }
 
     private get step(): number {
-        if (!this.sliderInput.element.nativeElement.step) {
-            return 1;
+        let value = this.sliderInputElement.step;
+
+        if (!value) {
+            return 0;
         }
 
-        return Number(this.sliderInput.element.nativeElement.step);
+        return Number(value);
     }
 
     public get value(): number {
-        if (!this.sliderInput.element.nativeElement.value) {
+        let value = this.sliderInputElement.value;
+
+        if (!value) {
             return this.min;
         }
 
-        return Number(this.sliderInput.element.nativeElement.value);
+        return Number(value);
     }
 
     constructor(
@@ -71,18 +82,18 @@ export class MdcSliderComponent implements AfterViewInit {
 
         this.updateSlider();
 
-        this.disabledState.emit(this.sliderInput.element.nativeElement.disabled as boolean);
+        this.disabledState.emit(this.sliderInputElement.disabled as boolean);
 
         this.sliderInput.domChange.pipe(untilDestroyed(this)).subscribe((change: MutationRecord) => {
             if (change.type == 'attributes' && change.attributeName == 'disabled') {
-                this.disabledState.emit(this.sliderInput.element.nativeElement.disabled as boolean);
+                this.disabledState.emit(this.sliderInputElement.disabled as boolean);
             }
             if (['min', 'max', 'step', 'value'].includes(change.attributeName)) {
                 this.updateSlider();
             }
         });
 
-        this.sliderInput.element.nativeElement.addEventListener('input', () => {
+        this.sliderInputElement.addEventListener('input', () => {
             if (!this.disabled) {
                 this.updateSlider();
             }
@@ -90,12 +101,12 @@ export class MdcSliderComponent implements AfterViewInit {
     }
 
     private updateSlider() {
-        let percent: number = Math.min((this.value - this.min) / (this.max - this.min) * 100, 100);
-        this.highlight.nativeElement.style.width = `${percent}%`;
+        let percent: number = Number(Math.min((this.value - this.min) / (this.max - this.min) * 100, 100).toFixed(2));
+        this.renderer.setStyle(this.highlight.nativeElement, 'width', `${percent}%`);
 
         if (this.discrete) {
-            let step: number = 100 / ((this.max - this.min) / this.step);
-            let point: number = 100 / percent * step;
+            let step: number = Number((100 / ((this.max - this.min) / this.step)).toFixed(3));
+            let point: number = Number((100 / percent * step).toFixed(3));
 
             this.renderer.setProperty(this.element.nativeElement, 'style', `--slider-point: ${step}%`);
             this.renderer.setStyle(this.highlight.nativeElement, 'background-size', `${point}% 0.125rem`);
