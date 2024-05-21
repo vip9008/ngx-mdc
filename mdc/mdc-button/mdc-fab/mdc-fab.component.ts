@@ -19,6 +19,10 @@ export class MdcFabComponent implements AfterContentInit {
             throw new Error(`Missing @ContentChild(MdcFabButtonDirective) declaration in MdcFabComponent`);
         }
 
+        if (this.type == 'extended' && !this.fabButton.fabLabel) {
+            throw new Error(`Missing @ContentChild(MdcFabLabelDirective) declaration in MdcFabButtonDirective`);
+        }
+
         this.fabButton.element.nativeElement.classList.remove('mini', 'extended');
 
         if (this.type != 'regular') {
