@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Input, ElementRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
     selector: 'mdc-progress-indicator',
@@ -8,7 +8,7 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
         'class': 'mdc-progress-track'
     }
 })
-export class MdcProgressIndicatorComponent implements AfterViewInit {
+export class MdcProgressIndicatorComponent implements AfterViewInit, OnChanges {
     @Input() progress: number = null;
     @Input() buffer: number = null;
 
@@ -16,8 +16,18 @@ export class MdcProgressIndicatorComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
+        this.checkBufferState();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.checkBufferState();
+    }
+
+    private checkBufferState() {
         if (this.progress !== null && this.buffer !== null) {
             this.el.nativeElement.classList.add('buffer');
+        } else {
+            this.el.nativeElement.classList.remove('buffer');
         }
     }
 
