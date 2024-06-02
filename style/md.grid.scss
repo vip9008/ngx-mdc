@@ -89,11 +89,11 @@ html {
         text-size-adjust: 100%;
     }
 
-    &:lang(en-US) *, &[lang] *:lang(en-US), &[lang] *:lang(en-US) * {
+    &:lang(en-US) *, &[lang] *:lang(en-US), *:lang(en-US) {
         font-family: 'Roboto', sans-serif;
     }
 
-    &:lang(ar-BH) *, &[lang] *:lang(ar-BH), &[lang] *:lang(ar-BH) * {
+    &:lang(ar-BH) *, &[lang] *:lang(ar-BH), *:lang(ar-BH) {
         font-family: 'Noto Sans Arabic', 'Roboto', sans-serif;
         letter-spacing: normal !important;
         font-optical-sizing: auto;
@@ -763,6 +763,7 @@ a.material-icon, button.material-icon, .material-icon.interactive {
     &.align-self-start {
         -ms-flex-item-align: start;
         align-self: flex-start;
+        align-self: start;
     }
     
     &.align-self-center {

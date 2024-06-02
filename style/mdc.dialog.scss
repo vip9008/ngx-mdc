@@ -19,8 +19,10 @@
     cursor: default;
     margin: 0 !important;
     padding: 0 !important;
+    pointer-events: none;
 
     &.active {
+        pointer-events: all;
         visibility: visible;
         opacity: 1;
     }
