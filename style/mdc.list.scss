@@ -173,10 +173,19 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
     }
     
     .meta {
+        display: flex;
+        font-size: 0.75rem;
+        line-height: 1rem;
+        letter-spacing: 0.033333em;
+        white-space: nowrap;
+        border: none;
         margin: 1rem;
         margin-inline-start: auto;
         padding: 0;
         padding-inline-start: 0.75rem;
+        -webkit-align-self: flex-start;
+        align-self: flex-start;
+        color: rgba(var(--foreground-color), var(--opacity-secondary));
 
         &.icon {
             margin: 0.75rem 1rem;
