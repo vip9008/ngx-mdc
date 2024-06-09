@@ -7,6 +7,18 @@
     BOLD 700
     BLACK 900
 */
+@import "https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i";
+@import "https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap";
+
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Sharp";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone";
+
+@import "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200";
+@import "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200";
+@import "https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200";
 
 @-ms-viewport {
     width: device-width;
@@ -479,6 +491,10 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
     &.two-tone {
         font-family: 'Material Icons Two Tone' !important;
+        color: transparent !important;
+        background: rgb(var(--foreground-color)) !important;
+        -webkit-background-clip: text !important;
+        background-clip: text !important;
     }
 
     &.symbol {
