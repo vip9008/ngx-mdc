@@ -58,11 +58,12 @@ export class MdcDialogService {
             }
         });
 
-        dialogRef.instance.dialogClosed.pipe(untilDestroyed(this)).subscribe((closed) => {
-            if (closed) {
-                this.dialogsStack.pop();
-                setTimeout(() => {dialogRef.destroy();}, 320);
-            }
+        dialogRef.instance.dialogResult.pipe(untilDestroyed(this)).subscribe((result) => {
+            this.dialogsStack.pop();
+            setTimeout(() => {
+                dialogRef.instance.dialogClosed.emit(true);
+                dialogRef.destroy();
+            }, 320);
         });
 
         this.dialogsStack.push(dialogRef);
@@ -86,11 +87,11 @@ export class MdcDialogService {
         }
     }
 
-    public closeDialog() {
+    public closeDialog(result: any = null) {
         const dialogRef: ComponentRef<MdcDialogContainerComponent> = this.getCurrentDialog();
 
         if (dialogRef) {
-            dialogRef.instance.closeDialog();
+            dialogRef.instance.closeDialog(result);
         }
     }
 

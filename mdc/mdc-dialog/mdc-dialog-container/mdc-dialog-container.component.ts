@@ -12,6 +12,7 @@ import { timer } from 'rxjs';
 export class MdcDialogContainerComponent<T = any> implements AfterContentInit {
     @Output() dialogLoaded: EventEmitter<boolean> = new EventEmitter(false);
     @Output() dialogClosed: EventEmitter<boolean> = new EventEmitter(true);
+    @Output() dialogResult: EventEmitter<any> = new EventEmitter(null);
 
     public componentRef: ComponentRef<T>;
 
@@ -35,8 +36,8 @@ export class MdcDialogContainerComponent<T = any> implements AfterContentInit {
         this.el.nativeElement.classList.remove('active');
     }
 
-    public closeDialog() {
+    public closeDialog(result: any = null) {
         this.hideDialog();
-        this.dialogClosed.emit(true);
+        this.dialogResult.emit(result);
     }
 }
