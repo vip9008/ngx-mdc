@@ -136,4 +136,9 @@
             }
         }
     }
+
+    .mdc-menu-container > .mdc-fab-button {
+        z-index: var(--z-axis-6-index) !important;
+        box-shadow: var(--z-axis-6-shadow) !important;
+    }
 }
