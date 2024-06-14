@@ -18,6 +18,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class MdcMenuComponent implements AfterViewInit {
     @Input() closeOnAction: boolean = true;
     @Input() reverseDirection: boolean = false;
+    @Input() openDirection: 'top' | 'bottom' = 'top';
 
     private activeMenu: boolean = false;
 
@@ -101,7 +102,7 @@ export class MdcMenuComponent implements AfterViewInit {
                 menuWidth = this.menuButton.element.nativeElement.offsetWidth;
             }
 
-            let menuPosition = this.menuContainer.element.nativeElement.getBoundingClientRect();
+            let menuPosition = this.menuButton.element.nativeElement.getBoundingClientRect();
 
             let position: any = {
                 "top": "auto",
@@ -115,9 +116,19 @@ export class MdcMenuComponent implements AfterViewInit {
             };
 
             if ((menuPosition.top + menuHeight) > viewportHeight) {
-                position.bottom = '1rem';
+                position.bottom = baseSize.toString() + 'rem';
             } else {
                 position.top = menuPosition.top.toString() + 'px';
+            }
+
+            if (this.openDirection == 'bottom') {
+                if (menuPosition.bottom - menuHeight > baseSize) {
+                    this.el.nativeElement.classList.add('bottom');
+                    position.top = 'auto';
+                    position.bottom = (viewportHeight - menuPosition.bottom).toString() + 'px';
+                } else {
+                    this.el.nativeElement.classList.remove('bottom');
+                }
             }
 
             position.width = menuWidth.toString() + 'px';
