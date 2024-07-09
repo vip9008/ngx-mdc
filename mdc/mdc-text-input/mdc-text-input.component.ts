@@ -52,7 +52,9 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
             let labelWidth = Math.ceil(this.labelTag.nativeElement.offsetWidth * 0.75) / this.baseSize + 0.125;
             this.outlineTopDiv.nativeElement.style.width = 'calc(100% - ' + (labelWidth + 0.5) + 'rem)';
         }
+    }
 
+    ngAfterContentInit(): void {
         this.textInput.element.nativeElement.onfocus = () => {
             this.el.nativeElement.classList.add('active');
         }
@@ -83,9 +85,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
                 this.onBlur();
             }
         });
-    }
 
-    ngAfterContentInit(): void {
         if (this.textInput?.element?.nativeElement?.attributes?.type?.nodeValue?.toLowerCase() == 'file') {
             this.fileInput = true;
         }
