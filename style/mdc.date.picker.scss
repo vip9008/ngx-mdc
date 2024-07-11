@@ -115,13 +115,19 @@
             }
         }
 
-        table.month-days {
+        .month-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            grid-column-gap: 0;
+            grid-row-gap: 0;
+
             margin: 0 0.625rem;
             width: auto;
             will-change: visibility, opacity, transform;
             transition: visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-            th {
+            .week-day {
                 font-size: 0.75rem;
                 text-align: center;
                 color: rgba(var(--initial-foreground-color), var(--opacity-secondary));
@@ -132,55 +138,48 @@
                 width: 2.75rem;
             }
 
-            td {
+            .month-day {
                 font-size: 0.75rem;
                 text-align: center;
                 padding: 0;
                 border: none;
-                width: 2.75rem;
-                height: 2.5rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                margin: 0.125rem 0.25rem;
+                line-height: 2.25rem;
+                border-radius: 100%;
+                color: rgba(var(--initial-foreground-color), var(--opacity-primary));
+                position: relative;
+                cursor: pointer;
+                will-change: background-color, color;
+                transition: background-color 0.3s, color 0.3s;
 
-                .month-day {
-                    font-size: 0.75rem;
-                    padding: 0;
-                    margin: 0.125rem 0.25rem;
-                    width: 2.25rem;
-                    height: 2.25rem;
-                    line-height: 2.25rem;
+                &.active:not(.disabled) {
+                    background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)));
+                    color: rgba(var(--mdc-theme, var(--foreground-color)), var(--opacity-primary));
+                    font-weight: 500;
+                }
+
+                &.today::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
                     border-radius: 100%;
-                    color: rgba(var(--initial-foreground-color), var(--opacity-primary));
-                    position: relative;
-                    cursor: pointer;
-                    will-change: background-color, color;
-                    transition: background-color 0.3s, color 0.3s;
-
-                    &.active:not(.disabled) {
-                        background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)));
-                        color: rgba(var(--mdc-theme, var(--foreground-color)), var(--opacity-primary));
-                        font-weight: 500;
-                    }
-    
-                    &.today::before {
-                        content: '';
-                        position: absolute;
-                        top: 0;
-                        right: 0;
-                        bottom: 0;
-                        left: 0;
-                        border-radius: 100%;
-                        pointer-events: none;
-                        border: solid 0.0625rem rgba(var(--foreground-color), var(--opacity-divider));
-                    }
-
-                    &.today.active::before {
-                        display: none;
-                    }
+                    pointer-events: none;
+                    border: solid 0.0625rem rgba(var(--foreground-color), var(--opacity-divider));
                 }
 
-                div.month-day, .month-day.disabled {
-                    cursor: default;
-                    color: rgba(var(--initial-foreground-color), var(--opacity-hint));
+                &.today.active::before {
+                    display: none;
                 }
+            }
+
+            div.month-day, .month-day.disabled {
+                cursor: default;
+                color: rgba(var(--initial-foreground-color), var(--opacity-hint));
             }
         }
 
@@ -321,10 +320,10 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
                 margin-bottom: 0.5rem;
             }
 
-            table.month-days {
+            .month-days {
                 margin: 0 1.125rem;
 
-                th {
+                .week-day {
                     line-height: 1.75rem;
                     padding: 0 0.25rem;
                 }
@@ -386,26 +385,21 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
                 }
             }
 
-            table.month-days {
+            .month-days {
                 margin: 0 1rem 0.5rem;
 
-                th {
+                .week-day {
                     line-height: 1.75rem;
                     padding: 0;
                     width: 2rem;
                     height: 1.75rem;
                 }
-
-                td {
-                    width: 2rem;
-                    height: 2rem;
-
-                    .month-day {
-                        margin: 0.125rem;
-                        width: 1.75rem;
-                        height: 1.75rem;
-                        line-height: 1.75rem;
-                    }
+                
+                .month-day {
+                    margin: 0.125rem;
+                    width: 1.75rem;
+                    height: 1.75rem;
+                    line-height: 1.75rem;
                 }
             }
 

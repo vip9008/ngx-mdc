@@ -133,6 +133,11 @@ body {
 }
 
 mdc-layout {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
     transition: margin 0.3s, padding 0.3s;
     will-change: margin, padding;
 }
@@ -140,6 +145,7 @@ mdc-layout {
 #mdc-main-content {
     position: relative;
     overflow-y: auto;
+    flex: 0 1 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {

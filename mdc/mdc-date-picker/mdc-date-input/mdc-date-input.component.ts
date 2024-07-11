@@ -14,4 +14,24 @@ export class MdcDateInputComponent {
     @Input() currentMonth: Date = new Date();
     @Input() dateFormat: string = 'dd/MM/yyyy';
     @Input() colorClass: string = 'purple-900';
+
+    public monthData: {
+        startingDay: any[],
+        monthDays: any[],
+        nextMonthDays: any[];
+    };
+
+    constructor() {
+        this.getMonthData();
+    }
+
+    private getMonthData() {
+        this.monthData = {
+            startingDay: new Array((new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), 1)).getDay()),
+            monthDays: new Array((new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1, 0)).getDate()),
+            nextMonthDays: [],
+        };
+
+        this.monthData.nextMonthDays = new Array((42 - this.monthData.startingDay.length - this.monthData.monthDays.length));
+    }
 }
