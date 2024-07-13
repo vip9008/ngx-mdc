@@ -1,16 +1,20 @@
 <ng-content></ng-content>
 
 <div class="mdc-datepicker-container inline active">
-    <div class="mdc-datepicker" [ngClass]="colorClass">
+    <div class="mdc-datepicker" [ngClass]="pickerClasses">
         <div class="header">
             <div class="label">Date</div>
-            <div class="selected-date"><span>Thu, </span>Jul 11</div>
+            <div class="selected-date">
+                <span>{{selectedDate | date: 'E' : null : locale }}, </span>
+                {{selectedDate | date: 'MMM d' : null : locale }}
+            </div>
         </div>
         <div class="mdc-calendar-controls">
-            <div class="selected-month">July 2024</div>
-            <button class="material-icon dense toggle-years">arrow_drop_down</button>
-            <div class="month-controls"><button class="material-icon dense prev">chevron_left</button>
-                <button class="material-icon dense next">chevron_right</button>
+            <div class="selected-month">{{currentMonth | date: 'MMMM y' : null : locale }}</div>
+            <button mdc-icon class="dense toggle-years" (click)="toggleYears()">arrow_drop_down</button>
+            <div class="month-controls">
+                <button mdc-icon [biDirectional]="true" class="dense" (click)="prevMonth()">chevron_left</button>
+                <button mdc-icon [biDirectional]="true" class="dense" (click)="nextMonth()">chevron_right</button>
             </div>
         </div>
         <div class="month-days">
@@ -31,8 +35,6 @@
             @for (x of monthData.monthDays; track monthData.monthDays.length; let index = $index) {
                 <button class="month-day">{{index + 1}}</button>
             }
-            <!-- <button class="month-day" data-date="2024-07-02">2</button>
-            <button class="month-day today active" data-date="2024-07-11">11</button> -->
             
             @for (x of monthData.nextMonthDays; track monthData.nextMonthDays.length; let index = $index) {
                 <div class="month-day disabled">{{index + 1}}</div>
@@ -40,18 +42,18 @@
         </div>
         <div class="years-list">
             <div class="years-items">
-                <div class="year-box"><button class="year-1924" data-year="1924">1924</button></div>
-                <div class="year-box"><button class="year-1925" data-year="1925">1925</button></div>
-                <div class="year-box"><button class="year-1926" data-year="1926">1926</button></div>
-                <div class="year-box"><button class="year-1927" data-year="1927">1927</button></div>
-                <div class="year-box"><button class="year-1928" data-year="1928">1928</button></div>
-                <div class="year-box"><button class="year-1929" data-year="1929">1929</button></div>
-                <div class="year-box"><button class="year-1930" data-year="1930">1930</button></div>
-                <div class="year-box"><button class="year-1931" data-year="1931">1931</button></div>
-                <div class="year-box"><button class="year-1932" data-year="1932">1932</button></div>
-                <div class="year-box"><button class="year-1933" data-year="1933">1933</button></div>
-                <div class="year-box"><button class="year-1934" data-year="1934">1934</button></div>
-                <div class="year-box"><button class="year-1935" data-year="1935">1935</button></div>
+                <div class="year-box"><button>1924</button></div>
+                <div class="year-box"><button>1925</button></div>
+                <div class="year-box"><button>1926</button></div>
+                <div class="year-box"><button>1927</button></div>
+                <div class="year-box"><button>1928</button></div>
+                <div class="year-box"><button>1929</button></div>
+                <div class="year-box"><button>1930</button></div>
+                <div class="year-box"><button>1931</button></div>
+                <div class="year-box"><button>1932</button></div>
+                <div class="year-box"><button>1933</button></div>
+                <div class="year-box"><button>1934</button></div>
+                <div class="year-box"><button>1935</button></div>
             </div>
         </div>
         <div class="mdc-button-group">

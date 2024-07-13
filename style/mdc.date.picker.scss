@@ -215,9 +215,15 @@
             background-color: rgb(var(--bg-cards));
             will-change: visibility, opacity, transform;
             transition: visibility 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+
+            &::-webkit-scrollbar {
+                width: 0.25rem;
+            }
 
             .years-items {
-                padding: 0 1.25rem;
+                padding: 0;
+                padding-inline-start: 1.25rem;
                 bottom: auto;
                 height: auto;
                 -webkit-box-sizing: inherit;
@@ -334,7 +340,6 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
                 inset-inline-start: 10.5rem;
                 inset-inline-end: auto;
                 width: 21.5rem;
-                height: 16.25rem;
 
                 .years-items {
                     .year-box {
@@ -413,9 +418,7 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
 
                 .years-items {
                     padding-top: 0.25rem;
-                    padding-bottom: 0;
                     padding-inline-start: 0.75rem;
-                    padding-inline-end: 1.25rem;
 
                     .year-box {
                         width: 3.5rem;

@@ -1526,6 +1526,25 @@ a.material-icon, button.material-icon, .material-icon.interactive {
     }
 }
 
+::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+
+    @media (max-width: 960px) {
+        width: 0.25rem;
+        height: 0.25rem;
+    }
+}
+::-webkit-scrollbar-track {
+    background: rgba(var(--initial-foreground-color), var(--opacity-divider)); 
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(var(--initial-foreground-color), var(--opacity-hint));
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--initial-foreground-color), var(--opacity-secondary));
+}
+
 /* MATERIAL GUIDELINES BREAKPOINTS */
 // @media (min-width: 1920px) {
 // }
