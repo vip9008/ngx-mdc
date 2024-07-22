@@ -76,4 +76,52 @@ export class MdcDateInputComponent {
     public toggleYears() {
         this.pickerClasses['show-years'] = !this.pickerClasses['show-years'];
     }
+
+    public checkIsSelected(day: number) {
+        return this.selectedDate.getFullYear() == this.currentMonth.getFullYear()
+            && this.selectedDate.getMonth() == this.currentMonth.getMonth()
+            && this.selectedDate.getDate() == day;
+    }
+
+    public checkIsToday(day: number) {
+        let today = new Date();
+
+        return today.getFullYear() == this.currentMonth.getFullYear()
+            && today.getMonth() == this.currentMonth.getMonth()
+            && today.getDate() == day;
+    }
+
+    public changeYear(year: number) {
+        if (year == this.currentMonth.getFullYear()) {
+            return;
+        }
+
+        let month = this.currentMonth.getMonth();
+
+        if (year == this.startDate.getFullYear() && month < this.startDate.getMonth()) {
+            month = this.startDate.getMonth();
+        }
+
+        if (year == this.endDate.getFullYear() && month > this.endDate.getMonth()) {
+            month = this.endDate.getMonth();
+        }
+
+        if (!this.canChangeMonth(year, month)) {
+            return;
+        }
+
+        this.currentMonth = new Date(year, month, 1);
+        this.getMonthData();
+        this.pickerClasses['show-years'] = false;
+    }
+
+    public selectDate(day: number) {
+        var newDate = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), day);
+
+        if (newDate < this.startDate || newDate > this.endDate) {
+            return;
+        }
+
+        this.selectedDate = newDate;
+    }
 }
