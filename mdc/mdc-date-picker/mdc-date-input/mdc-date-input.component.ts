@@ -25,6 +25,18 @@ export class MdcDateInputComponent {
         'show-years': false,
     };
 
+    public get availableYears(): number[] {
+        let startingYear: number = this.startDate.getFullYear();
+        let totalYears: number = this.endDate.getFullYear() - startingYear;
+        let years: number[] = [];
+
+        for (let i = 0; i < totalYears; i++) {
+            years.push(startingYear + i);
+        }
+
+        return years;
+    }
+
     constructor() {
         this.currentMonth = this.selectedDate;
         this.pickerClasses[this.colorClass] = true;
@@ -44,11 +56,11 @@ export class MdcDateInputComponent {
         };
     }
 
-    private canChangeMonth(month: number): boolean {
-        if ((this.currentMonth.getFullYear() == this.startDate.getFullYear() && month < this.startDate.getMonth()) || (this.currentMonth.getFullYear() == this.endDate.getFullYear() && month > this.endDate.getMonth())) {
+    private canChangeMonth(year: number, month: number): boolean {
+        if ((year == this.startDate.getFullYear() && month < this.startDate.getMonth()) || (year == this.endDate.getFullYear() && month > this.endDate.getMonth())) {
             return false;
         } else {
-            if (this.currentMonth.getFullYear() < this.startDate.getFullYear() || this.currentMonth.getFullYear() > this.endDate.getFullYear()) {
+            if (year < this.startDate.getFullYear() || year > this.endDate.getFullYear()) {
                 return false;
             }
         }
@@ -57,7 +69,7 @@ export class MdcDateInputComponent {
     }
 
     private changeMonth(month: number) {
-        if (!this.canChangeMonth(month)) {
+        if (!this.canChangeMonth(this.currentMonth.getFullYear(), month)) {
             return;
         }
 
@@ -76,7 +88,7 @@ export class MdcDateInputComponent {
     public toggleYears() {
         this.pickerClasses['show-years'] = !this.pickerClasses['show-years'];
     }
-
+s
     public checkIsSelected(day: number) {
         return this.selectedDate.getFullYear() == this.currentMonth.getFullYear()
             && this.selectedDate.getMonth() == this.currentMonth.getMonth()
