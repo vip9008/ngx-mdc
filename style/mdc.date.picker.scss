@@ -154,6 +154,10 @@
                 will-change: background-color, color;
                 transition: background-color 0.3s, color 0.3s;
 
+                &:hover {
+                    background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)), var(--opacity-pressed));
+                }
+
                 &.active:not(.disabled) {
                     background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)));
                     color: rgba(var(--mdc-theme, var(--foreground-color)), var(--opacity-primary));
@@ -169,7 +173,7 @@
                     left: 0;
                     border-radius: 100%;
                     pointer-events: none;
-                    border: solid 0.0625rem rgba(var(--foreground-color), var(--opacity-divider));
+                    border: solid 0.0625rem rgba(var(--initial-foreground-color), var(--opacity-secondary));
                 }
 
                 &.today.active::before {
@@ -251,6 +255,10 @@
                         font-size: 1rem;
                         border-radius: 2.25rem;
                         cursor: pointer;
+
+                        &:hover {
+                            background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)), var(--opacity-pressed));
+                        }
 
                         &.active {
                             background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)));

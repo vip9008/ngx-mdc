@@ -88,7 +88,7 @@ export class MdcDateInputComponent {
     public toggleYears() {
         this.pickerClasses['show-years'] = !this.pickerClasses['show-years'];
     }
-s
+
     public checkIsSelected(day: number) {
         return this.selectedDate.getFullYear() == this.currentMonth.getFullYear()
             && this.selectedDate.getMonth() == this.currentMonth.getMonth()

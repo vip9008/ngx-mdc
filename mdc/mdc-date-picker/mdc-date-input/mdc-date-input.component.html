@@ -33,7 +33,7 @@
             }
             
             @for (x of monthData.monthDays; track monthData.monthDays.length; let index = $index) {
-                <button class="month-day">{{index + 1}}</button>
+                <button class="month-day" [class.today]="checkIsToday(index + 1)" [class.active]="checkIsSelected(index + 1)" (click)="selectDate(index + 1)">{{index + 1}}</button>
             }
             
             @for (x of monthData.nextMonthDays; track monthData.nextMonthDays.length; let index = $index) {
@@ -42,18 +42,11 @@
         </div>
         <div class="years-list">
             <div class="years-items">
-                <div class="year-box"><button>1924</button></div>
-                <div class="year-box"><button>1925</button></div>
-                <div class="year-box"><button>1926</button></div>
-                <div class="year-box"><button>1927</button></div>
-                <div class="year-box"><button>1928</button></div>
-                <div class="year-box"><button>1929</button></div>
-                <div class="year-box"><button>1930</button></div>
-                <div class="year-box"><button>1931</button></div>
-                <div class="year-box"><button>1932</button></div>
-                <div class="year-box"><button>1933</button></div>
-                <div class="year-box"><button>1934</button></div>
-                <div class="year-box"><button>1935</button></div>
+                @for (year of availableYears; track availableYears.length) {
+                    <div class="year-box">
+                        <button [class.active]="year == currentMonth.getFullYear()" (click)="changeYear(year)">{{year}}</button>
+                    </div>
+                }
             </div>
         </div>
         <div class="mdc-button-group">
