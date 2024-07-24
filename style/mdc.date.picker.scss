@@ -153,7 +153,9 @@
                 cursor: pointer;
                 will-change: background-color, color;
                 transition: background-color 0.3s, color 0.3s;
+            }
 
+            button.month-day {
                 &:hover {
                     background-color: rgb(var(--mdc-foreground, var(--bg-status-bar)), var(--opacity-pressed));
                 }
@@ -325,7 +327,11 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
                     margin-top: 3.125rem;
 
                     span {
-                        display: block;
+                        white-space: nowrap;
+
+                        &.first {
+                            display: block;
+                        }
                     }
                 }
             }
@@ -451,6 +457,16 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
 
             .mdc-button-group {
                 display: none;
+            }
+        }
+    }
+}
+
+.mdc-datepicker-container:lang(ar-BH) {
+    .mdc-datepicker {
+        .header {
+            .selected-date {
+                font-size: 1.625rem;
             }
         }
     }

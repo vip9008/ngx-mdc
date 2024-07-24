@@ -13,6 +13,19 @@ export class MdcDateInputComponent {
     @Input() colorClass: string = 'purple-900';
     @Input() locale: string = 'en-US';
 
+    private _weekDays = {
+        'en-US': ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+        'ar-BH': ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
+    }
+
+    public get weekDays(): string[] {
+        if (!this._weekDays[this.locale]) {
+            return this._weekDays['en-US'];
+        }
+
+        return this._weekDays[this.locale];
+    }
+
     public currentMonth: Date;
 
     public monthData: {

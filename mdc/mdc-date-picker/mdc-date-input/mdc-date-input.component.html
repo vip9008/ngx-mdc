@@ -1,12 +1,12 @@
 <ng-content></ng-content>
 
-<div class="mdc-datepicker-container inline active">
+<div class="mdc-datepicker-container inline active" [lang]="locale">
     <div class="mdc-datepicker" [ngClass]="pickerClasses">
         <div class="header">
             <div class="label">Date</div>
             <div class="selected-date">
-                <span>{{selectedDate | date: 'E' : null : locale }}, </span>
-                {{selectedDate | date: 'MMM d' : null : locale }}
+                <span class="first">{{selectedDate | date: 'E' : null : locale }}, </span>
+                <span class="second">{{selectedDate | date: 'MMM d' : null : locale }}</span>
             </div>
         </div>
         <div class="mdc-calendar-controls">
@@ -18,13 +18,9 @@
             </div>
         </div>
         <div class="month-days">
-            <div class="week-day">S</div>
-            <div class="week-day">M</div>
-            <div class="week-day">T</div>
-            <div class="week-day">W</div>
-            <div class="week-day">T</div>
-            <div class="week-day">F</div>
-            <div class="week-day">S</div>
+            @for (day of weekDays; track day) {
+                <div class="week-day">{{day}}</div>
+            }
 
             @if (monthData.startingDay.length > 0) {
                 @for (i of monthData.startingDay; track monthData.startingDay.length) {
@@ -50,8 +46,8 @@
             </div>
         </div>
         <div class="mdc-button-group">
-            <button class="mdc-button close-picker">Cancel</button>
-            <button class="mdc-button confirm-date">OK</button>
+            <button class="mdc-button">Cancel</button>
+            <button class="mdc-button">OK</button>
         </div>
     </div>
 </div>
