@@ -109,4 +109,15 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
             this.el.nativeElement.classList.remove('has-error');
         }
     }
+
+    public setValue(value: any) {
+        if (!this.disabled) {
+            if (this.controlName) {
+                this.controlName?.control?.setValue(value);
+            } else {
+                this.textInput.element.nativeElement.value = value;
+            }
+            this.onBlur();
+        }
+    }
 }

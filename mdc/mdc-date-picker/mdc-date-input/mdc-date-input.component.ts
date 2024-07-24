@@ -1,17 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
+import { MdcTextInputComponent } from '../../mdc-text-input/mdc-text-input.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'mdc-date-input',
     templateUrl: './mdc-date-input.component.html',
-    styleUrl: './mdc-date-input.component.scss'
+    styleUrl: './mdc-date-input.component.scss',
+    providers: [
+        DatePipe,
+    ],
 })
 export class MdcDateInputComponent {
+    @ContentChild(MdcTextInputComponent) input?: MdcTextInputComponent;
+
     @Input() startDate: Date = new Date((new Date()).getFullYear() - 100, (new Date()).getMonth(), 1);
     @Input() endDate: Date = new Date((new Date()).getFullYear() + 100, (new Date()).getMonth() + 1, 0);
     @Input() selectedDate: Date = new Date();
-    @Input() dateFormat: string = 'dd/MM/yyyy';
-    @Input() colorClass: string = 'purple-900';
+    @Input() dateFormat: string = 'yyyy-MM-dd';
     @Input() locale: string = 'en-US';
+
+    @Output() dateValue: EventEmitter<Date> = new EventEmitter<Date>(null);
 
     private _weekDays = {
         'en-US': ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -34,9 +42,7 @@ export class MdcDateInputComponent {
         nextMonthDays: any[];
     };
 
-    public pickerClasses = {
-        'show-years': false,
-    };
+    public showYears: boolean = false;
 
     public get availableYears(): number[] {
         let startingYear: number = this.startDate.getFullYear();
@@ -50,9 +56,10 @@ export class MdcDateInputComponent {
         return years;
     }
 
-    constructor() {
+    constructor(
+        private datePipe: DatePipe
+    ) {
         this.currentMonth = this.selectedDate;
-        this.pickerClasses[this.colorClass] = true;
 
         this.getMonthData();
     }
@@ -98,14 +105,10 @@ export class MdcDateInputComponent {
         this.changeMonth(this.currentMonth.getMonth() - 1);
     }
 
-    public toggleYears() {
-        this.pickerClasses['show-years'] = !this.pickerClasses['show-years'];
-    }
-
     public checkIsSelected(day: number) {
-        return this.selectedDate.getFullYear() == this.currentMonth.getFullYear()
-            && this.selectedDate.getMonth() == this.currentMonth.getMonth()
-            && this.selectedDate.getDate() == day;
+        return this.selectedDate?.getFullYear() == this.currentMonth.getFullYear()
+            && this.selectedDate?.getMonth() == this.currentMonth.getMonth()
+            && this.selectedDate?.getDate() == day;
     }
 
     public checkIsToday(day: number) {
@@ -137,7 +140,7 @@ export class MdcDateInputComponent {
 
         this.currentMonth = new Date(year, month, 1);
         this.getMonthData();
-        this.pickerClasses['show-years'] = false;
+        this.showYears = false;
     }
 
     public selectDate(day: number) {
@@ -148,5 +151,11 @@ export class MdcDateInputComponent {
         }
 
         this.selectedDate = newDate;
+        this.setInputValue();
+    }
+
+    private setInputValue() {
+        this.input?.setValue(this.datePipe.transform(this.selectedDate, this.dateFormat));
+        this.dateValue.emit(this.selectedDate);
     }
 }
