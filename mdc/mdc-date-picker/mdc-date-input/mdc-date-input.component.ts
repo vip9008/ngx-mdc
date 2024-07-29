@@ -19,6 +19,8 @@ export class MdcDateInputComponent implements AfterContentInit {
     @Input() selectedDate: Date = new Date();
     @Input() dateFormat: string = 'yyyy-MM-dd';
     @Input() locale: string = 'en-US';
+    @Input() okButton: string = 'Ok';
+    @Input() cancelButton: string = 'Cancel';
 
     @Output() dateValue: EventEmitter<Date> = new EventEmitter<Date>(null);
 
@@ -57,6 +59,10 @@ export class MdcDateInputComponent implements AfterContentInit {
         return years;
     }
 
+    public get label(): string {
+        return this.input?.label || 'Date';
+    }
+
     private activeCalendar: boolean = false;
     private isInline: boolean = false;
 
@@ -91,6 +97,7 @@ export class MdcDateInputComponent implements AfterContentInit {
         if (this.input) {
             this.input.textInput.element.nativeElement.onfocus = () => {
                 this.openCalendar();
+                this.input.textInput.element.nativeElement.blur();
             }
         }
     }

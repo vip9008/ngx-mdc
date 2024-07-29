@@ -38,20 +38,20 @@ export class MdcProgressIndicatorComponent implements AfterViewInit, OnChanges {
         return x;
     }
 
-    get buffered(): String {
+    get buffered(): string {
         let percent = this.constrainPercentage(this.buffer);
 
         return percent.toString() + '%';
     }
 
-    get buffering(): String {
+    get buffering(): string {
         let percent = this.constrainPercentage(this.buffer);
         percent = 100 - percent;
 
         return percent.toString() + '%';
     }
 
-    get progressed(): String {
+    get progressed(): string {
         let percent = this.constrainPercentage(this.progress);
 
         if (this.buffer !== null) {

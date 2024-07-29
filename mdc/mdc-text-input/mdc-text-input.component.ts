@@ -17,7 +17,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
 
     @Input() staticLabel: boolean = false;
     @Input() appearance: 'default' | 'standard' | 'outlined' = 'default';
-    @Input() label: String = 'Label';
+    @Input() label: string = 'Label';
     @Input() disabled: boolean = false;
 
     public fileInput: boolean = false;
@@ -36,7 +36,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        let tagName: String = this.el.nativeElement.tagName.toLowerCase();
+        let tagName: string = this.el.nativeElement.tagName.toLowerCase();
 
         if (tagName == 'mdc-text-field') {
             this.el.nativeElement.classList.add('mdc-text-field');

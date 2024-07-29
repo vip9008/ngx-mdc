@@ -19,7 +19,7 @@ import { CapitalizePipe } from '@pipes';
     }
 })
 export class MdcInputErrorComponent {
-    @Input() label: String | string;
+    @Input() label: string | string;
     @Input() input: FormControl | AbstractControl;
 
     constructor(private el: ElementRef) {
