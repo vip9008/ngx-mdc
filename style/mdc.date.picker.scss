@@ -20,6 +20,13 @@
     margin: 0 !important;
     padding: 0 !important;
 
+    & + .mdc-datepicker-scrim {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: calc(var(--z-axis-24-index) - 1);
+    }
+    
     &.active {
         visibility: visible;
         opacity: 1;
@@ -386,6 +393,10 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
         background-color: transparent;
         border-radius: 0.25rem;
         box-shadow: var(--z-axis-2-shadow);
+        
+        &.active + .mdc-datepicker-scrim {
+            display: block;
+        }
 
         .mdc-datepicker {
             padding-inline-start: 0;

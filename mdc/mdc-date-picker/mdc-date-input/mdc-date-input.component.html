@@ -1,6 +1,6 @@
 <ng-content></ng-content>
 
-<div class="mdc-datepicker-container inline active" [lang]="locale">
+<div #mdcCalendar class="mdc-datepicker-container" [lang]="locale">
     <div class="mdc-datepicker" [class.show-years]="showYears">
         <div class="header">
             <div class="label">Date</div>
@@ -49,8 +49,9 @@
             </div>
         </div>
         <div class="mdc-button-group">
-            <button class="mdc-button">Cancel</button>
-            <button class="mdc-button">OK</button>
+            <button class="mdc-button" (click)="closeCalendar()">Cancel</button>
+            <button class="mdc-button" (click)="confirmDate()">OK</button>
         </div>
     </div>
 </div>
+<div class="mdc-datepicker-scrim" (click)="closeCalendar()"></div>

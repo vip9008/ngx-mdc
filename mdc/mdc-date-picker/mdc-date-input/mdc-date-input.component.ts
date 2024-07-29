@@ -1,6 +1,6 @@
-import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Inject, Input, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MdcTextInputComponent } from '../../mdc-text-input/mdc-text-input.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'mdc-date-input',
@@ -10,8 +10,9 @@ import { DatePipe } from '@angular/common';
         DatePipe,
     ],
 })
-export class MdcDateInputComponent {
+export class MdcDateInputComponent implements AfterContentInit {
     @ContentChild(MdcTextInputComponent) input?: MdcTextInputComponent;
+    @ViewChild('mdcCalendar') calendar!: ElementRef;
 
     @Input() startDate: Date = new Date((new Date()).getFullYear() - 100, (new Date()).getMonth(), 1);
     @Input() endDate: Date = new Date((new Date()).getFullYear() + 100, (new Date()).getMonth() + 1, 0);
@@ -56,12 +57,42 @@ export class MdcDateInputComponent {
         return years;
     }
 
+    private activeCalendar: boolean = false;
+    private isInline: boolean = false;
+
+    @HostListener('window:resize', ['$event'])
+    @HostListener('window:scroll', ['$event'])
+    private closeEvent(event) {
+        if (this.activeCalendar) {
+            this.closeCalendar();
+        }
+    }
+
+    private get baseSize(): number {
+        let baseSize = getComputedStyle(this.el.nativeElement).getPropertyValue('font-size');
+        return Number(baseSize.match(/\d+/)[0]);
+    }
+
+    private get direction(): 'ltr' | 'rtl' {
+        return getComputedStyle(this.el.nativeElement).direction.toLowerCase() as 'ltr' | 'rtl';
+    }
+
     constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        private el: ElementRef,
         private datePipe: DatePipe
     ) {
         this.currentMonth = this.selectedDate;
 
         this.getMonthData();
+    }
+
+    ngAfterContentInit(): void {
+        if (this.input) {
+            this.input.textInput.element.nativeElement.onfocus = () => {
+                this.openCalendar();
+            }
+        }
     }
 
     private getMonthData() {
@@ -151,11 +182,96 @@ export class MdcDateInputComponent {
         }
 
         this.selectedDate = newDate;
-        this.setInputValue();
+        if (this.isInline) {
+            this.confirmDate();
+        }
     }
 
-    private setInputValue() {
+    public confirmDate() {
         this.input?.setValue(this.datePipe.transform(this.selectedDate, this.dateFormat));
         this.dateValue.emit(this.selectedDate);
+        this.closeCalendar();
+    }
+
+    private updateDomStatus(): void {
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.activeCalendar) {
+                this.calendar.nativeElement.classList.add('active');
+            } else {
+                this.calendar.nativeElement.classList.remove('active');
+            }
+        }
+    }
+
+    public closeCalendar(): void {
+        if (!this.activeCalendar) {
+            return;
+        }
+
+        this.activeCalendar = false;
+        this.updateDomStatus();
+    }
+
+    public openCalendar(): void {
+        if (this.activeCalendar) {
+            return;
+        }
+
+        this.activeCalendar = true;
+        this.updateDomStatus();
+
+        if (isPlatformBrowser(this.platformId)) {
+            let baseSize = this.baseSize;
+            this.calendar.nativeElement.removeAttribute('style');
+
+            let viewportWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            let viewportHeight = document.documentElement.clientHeight || document.body.clientHeight;
+            
+            if (viewportWidth >= 960) {
+                this.isInline = true;
+
+                let calHeight = 284;
+                let calWidth = 256;
+                let calPosition = this.el.nativeElement.getBoundingClientRect();
+
+                let position: any = {
+                    "top": "auto",
+                    "right": "auto",
+                    "bottom": "auto",
+                    "left": "auto",
+                    "position": "fixed"
+                };
+    
+                if ((calPosition.top + calHeight) > viewportHeight) {
+                    position.bottom = (1 * baseSize).toString() + 'px';
+                } else {
+                    position.top = calPosition.top.toString() + 'px';
+                }
+
+                let direction = this.direction;
+    
+                if (direction == 'ltr') {
+                    position.left = calPosition.left.toString() + 'px';
+                    position.right = "auto";
+
+                    if ((calPosition.left + calWidth) > viewportWidth) {
+                        position.right = (1 * baseSize).toString() + 'px';
+                        position.left = "auto";
+                    }
+                } else {
+                    position.right = (viewportWidth - calPosition.right).toString() + 'px';
+                    position.left = "auto";
+
+                    if ((calPosition.right - calWidth) < 0) {
+                        position.left = (1 * baseSize).toString() + 'px';
+                        position.right = "auto";
+                    }
+                }
+
+                Object.assign(this.calendar.nativeElement.style, position);
+            } else {
+                this.isInline = false;
+            }
+        }
     }
 }

@@ -28,7 +28,7 @@ export class MdcMenuComponent implements AfterViewInit {
 
     @HostListener('window:resize', ['$event'])
     @HostListener('window:scroll', ['$event'])
-    closeEvent(event) {
+    private closeEvent(event) {
         if (this.activeMenu) {
             this.closeMenu();
         }
@@ -83,7 +83,7 @@ export class MdcMenuComponent implements AfterViewInit {
         }
     }
 
-    openMenu(): void {
+    public openMenu(): void {
         this.activeMenu = true;
         this.updateDomStatus();
 
@@ -156,7 +156,7 @@ export class MdcMenuComponent implements AfterViewInit {
         }
     }
 
-    closeMenu(): void {
+    public closeMenu(): void {
         this.activeMenu = false;
         this.updateDomStatus();
     }
