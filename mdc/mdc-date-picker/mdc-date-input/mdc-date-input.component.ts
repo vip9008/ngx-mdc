@@ -1,6 +1,7 @@
-import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Inject, Input, Output, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, HostListener, Inject, Input, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { MdcTextInputComponent } from '../../mdc-text-input/mdc-text-input.component';
 import { DatePipe, isPlatformBrowser } from '@angular/common';
+import { MdcDateInputConfig } from '../mdc-date-input.interface';
 
 @Component({
     selector: 'mdc-date-input',
@@ -10,19 +11,17 @@ import { DatePipe, isPlatformBrowser } from '@angular/common';
         DatePipe,
     ],
 })
-export class MdcDateInputComponent implements AfterContentInit {
+export class MdcDateInputComponent implements OnInit, AfterContentInit {
     @ContentChild(MdcTextInputComponent) input?: MdcTextInputComponent;
     @ViewChild('mdcCalendar') calendar!: ElementRef;
 
-    @Input() startDate: Date = new Date((new Date()).getFullYear() - 100, (new Date()).getMonth(), 1);
-    @Input() endDate: Date = new Date((new Date()).getFullYear() + 100, (new Date()).getMonth() + 1, 0);
-    @Input() selectedDate: Date = new Date();
-    @Input() dateFormat: string = 'yyyy-MM-dd';
-    @Input() locale: string = 'en-US';
-    @Input() okButton: string = 'Ok';
-    @Input() cancelButton: string = 'Cancel';
-
+    @Input() config: MdcDateInputConfig;
     @Output() dateValue: EventEmitter<Date> = new EventEmitter<Date>(null);
+
+    public startDate: Date = new Date((new Date()).getFullYear() - 100, (new Date()).getMonth(), 1);
+    public endDate: Date = new Date((new Date()).getFullYear() + 100, (new Date()).getMonth() + 1, 0);
+    public selectedDate: Date = new Date();
+    private dateFormat: string = 'yyyy-MM-dd';
 
     private _weekDays = {
         'en-US': ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
@@ -30,11 +29,11 @@ export class MdcDateInputComponent implements AfterContentInit {
     }
 
     public get weekDays(): string[] {
-        if (!this._weekDays[this.locale]) {
+        if (!this._weekDays[this.config.locale]) {
             return this._weekDays['en-US'];
         }
 
-        return this._weekDays[this.locale];
+        return this._weekDays[this.config.locale];
     }
 
     public currentMonth: Date;
@@ -46,13 +45,16 @@ export class MdcDateInputComponent implements AfterContentInit {
     };
 
     public showYears: boolean = false;
+    public showYearsList: boolean = false;
 
     public get availableYears(): number[] {
         let startingYear: number = this.startDate.getFullYear();
         let totalYears: number = this.endDate.getFullYear() - startingYear;
         let years: number[] = [];
 
-        for (let i = 0; i < totalYears; i++) {
+        this.showYearsList = totalYears > 1;
+
+        for (let i = 0; i <= totalYears; i++) {
             years.push(startingYear + i);
         }
 
@@ -88,8 +90,26 @@ export class MdcDateInputComponent implements AfterContentInit {
         private el: ElementRef,
         private datePipe: DatePipe
     ) {
-        this.currentMonth = this.selectedDate;
+    }
 
+    ngOnInit(): void {
+        Object.keys(this.config).forEach((key: string) => {
+            if (this[key]) {
+                this[key] = this.config[key];
+            }
+        });
+
+        this.dateFormat = this.config?.dateFormat ?? 'yyyy-MM-dd';
+
+        if (this.selectedDate > this.endDate) {
+            this.selectedDate = new Date(this.endDate);
+        }
+
+        if (this.selectedDate < this.startDate) {
+            this.selectedDate = new Date(this.startDate);
+        }
+
+        this.currentMonth = new Date(this.selectedDate);
         this.getMonthData();
     }
 
@@ -131,8 +151,16 @@ export class MdcDateInputComponent implements AfterContentInit {
             return;
         }
 
-        this.currentMonth = new Date(this.currentMonth.getFullYear(), month, 1);
+        this.currentMonth = new Date(this.currentMonth.getFullYear(), month, this.currentMonth.getDate());
         this.getMonthData();
+    }
+
+    public get canGoNextMonth(): boolean {
+        return this.canChangeMonth(this.currentMonth.getFullYear(), this.currentMonth.getMonth() + 1);
+    }
+
+    public get canGoPrevMonth(): boolean {
+        return this.canChangeMonth(this.currentMonth.getFullYear(), this.currentMonth.getMonth() - 1);
     }
 
     public nextMonth() {
@@ -176,19 +204,31 @@ export class MdcDateInputComponent implements AfterContentInit {
             return;
         }
 
-        this.currentMonth = new Date(year, month, 1);
+        this.currentMonth = new Date(year, month, this.currentMonth.getDate());
+
         this.getMonthData();
         this.showYears = false;
     }
 
-    public selectDate(day: number) {
-        var newDate = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), day);
+    public isDayAvailable(day: number): boolean {
+        let newDate = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), day);
+        return this.isDateAvailable(newDate);
+    }
 
-        if (newDate < this.startDate || newDate > this.endDate) {
+    public isDateAvailable(date: Date): boolean {
+        return (date >= this.startDate && date <= this.endDate);
+    }
+
+    public selectDate(day: number) {
+        let newDate = new Date(this.currentMonth.getFullYear(), this.currentMonth.getMonth(), day);
+
+        if (!this.isDateAvailable(newDate)) {
             return;
         }
 
-        this.selectedDate = newDate;
+        this.selectedDate = new Date(newDate);
+        this.currentMonth = new Date(newDate);
+
         if (this.isInline) {
             this.confirmDate();
         }
