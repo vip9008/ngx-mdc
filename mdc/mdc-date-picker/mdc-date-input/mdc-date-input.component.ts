@@ -93,12 +93,9 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit(): void {
-        Object.keys(this.config).forEach((key: string) => {
-            if (this[key]) {
-                this[key] = this.config[key];
-            }
-        });
-
+        this.startDate = this.config?.startDate ?? new Date((new Date()).getFullYear() - 100, (new Date()).getMonth(), 1);
+        this.endDate = this.config?.endDate ?? new Date((new Date()).getFullYear() + 100, (new Date()).getMonth() + 1, 0);
+        this.selectedDate = this.config?.selectedDate ?? new Date();
         this.dateFormat = this.config?.dateFormat ?? 'yyyy-MM-dd';
 
         if (this.selectedDate > this.endDate) {
