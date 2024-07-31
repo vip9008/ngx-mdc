@@ -46,20 +46,7 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
 
     public showYears: boolean = false;
     public showYearsList: boolean = false;
-
-    public get availableYears(): number[] {
-        let startingYear: number = this.startDate.getFullYear();
-        let totalYears: number = this.endDate.getFullYear() - startingYear;
-        let years: number[] = [];
-
-        this.showYearsList = totalYears > 1;
-
-        for (let i = 0; i <= totalYears; i++) {
-            years.push(startingYear + i);
-        }
-
-        return years;
-    }
+    public availableYears: number[] = [];
 
     public get label(): string {
         return this.input?.label || 'Date';
@@ -107,6 +94,8 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
         }
 
         this.currentMonth = new Date(this.selectedDate);
+
+        this.getAvailableYears();
         this.getMonthData();
     }
 
@@ -116,6 +105,18 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
                 this.openCalendar();
                 this.input.textInput.element.nativeElement.blur();
             }
+        }
+    }
+
+    private getAvailableYears() {
+        let startingYear: number = this.startDate.getFullYear();
+        let totalYears: number = this.endDate.getFullYear() - startingYear;
+        
+        this.availableYears = [];
+        this.showYearsList = totalYears > 1;
+
+        for (let i = 0; i <= totalYears; i++) {
+            this.availableYears.push(startingYear + i);
         }
     }
 

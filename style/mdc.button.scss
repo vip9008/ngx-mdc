@@ -7,8 +7,17 @@
     margin: 0;
 
     &.direction-reverse {
-        -webkit-flex-direction: row-reverse;
         flex-direction: row-reverse;
+    }
+
+    &.justify-start {
+        justify-content: start;
+        justify-content: flex-start;
+    }
+
+    &.justify-end {
+        justify-content: end;
+        justify-content: flex-end;
     }
 }
 
