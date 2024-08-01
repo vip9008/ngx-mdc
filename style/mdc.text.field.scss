@@ -510,7 +510,7 @@
     --number-of-lines: 4;
 
     .input {
-        padding: 1.5rem 0 0;
+        padding: 1.75rem 0 0;
         cursor: text;
 
         .input-element {
@@ -519,6 +519,12 @@
             height: calc(1.75rem * var(--number-of-lines) + var(--border-size)); /*1.75 * LINES_NUMBER + .0625 rem*/
             padding: 0 0.75rem;
             resize: none;
+            overflow-y: auto;
+            white-space: normal;
+
+            &::-webkit-scrollbar {
+                width: 0.25rem;
+            }
         }
     }
 
