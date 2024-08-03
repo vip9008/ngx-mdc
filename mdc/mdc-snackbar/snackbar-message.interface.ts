@@ -1,5 +1,8 @@
 export interface SnackbarMessage {
-    message: string,
+    message: string | {
+        msg: string,
+        args: Object
+    },
     closeButton: string,
     duration?: number
 }

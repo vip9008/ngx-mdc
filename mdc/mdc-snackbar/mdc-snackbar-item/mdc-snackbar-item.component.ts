@@ -1,4 +1,5 @@
 import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { SnackbarMessage } from '../snackbar-message.interface';
 
 @Component({
     selector: 'mdc-snackbar-item',
@@ -9,9 +10,24 @@ import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/cor
     }
 })
 export class MdcSnackbarItemComponent {
-    @Input() message: string;
-    @Input() closeButton: string = null;
+    @Input() message: SnackbarMessage;
     @Output() hideMessage: EventEmitter<boolean> = new EventEmitter<boolean>(false);
+
+    public get messageString(): string {
+        if (typeof this.message?.message != 'string') {
+            return this.message?.message?.msg;
+        }
+
+        return this.message?.message;
+    }
+
+    public get messageArgs(): Object {
+        if (typeof this.message?.message != 'string') {
+            return this.message?.message?.args;
+        }
+
+        return {};
+    }
 
     constructor(private el: ElementRef) {
     }

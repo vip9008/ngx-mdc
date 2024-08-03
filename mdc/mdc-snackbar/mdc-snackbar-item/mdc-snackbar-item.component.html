@@ -1,6 +1,6 @@
-<div class="text">{{message | translate}}</div>
-@if (closeButton?.length) {
+<div class="text">{{messageString | translate: messageArgs}}</div>
+@if (message?.closeButton?.length) {
     <div mdc-button-group>
-        <button mdc-button class="primary-color" (click)="hideMessage.emit(true)">{{closeButton | translate}}</button>
+        <button mdc-button class="primary-color" (click)="hideMessage.emit(true)">{{message?.closeButton | translate}}</button>
     </div>
 }

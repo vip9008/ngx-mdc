@@ -1,4 +1,4 @@
 <div id="mdc-snackbars" [class.position-start]="startPosition" [class.standard]="standardStyle">
-    <mdc-snackbar-item [message]="activeMessage?.message" [closeButton]="activeMessage?.closeButton" (hideMessage)="dismiss($event);">
+    <mdc-snackbar-item [message]="activeMessage" (hideMessage)="dismiss($event);">
     </mdc-snackbar-item>
 </div>
