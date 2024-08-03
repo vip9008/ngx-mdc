@@ -19,6 +19,15 @@ export class MdcSnackbarsComponent implements AfterViewInit {
 
     @Input() startPosition: boolean = false;
     @Input() standardStyle: boolean = false;
+    @Input() theme: 'light' | 'dark' | '' = '';
+
+    public get themeClass(): string {
+        switch (this.theme) {
+            case 'light': return 'md-theme-dark';
+            case 'dark': return 'md-theme-light';
+            default: return '';
+        }
+    }
 
     constructor(
         private snackbarsService: SnackbarsService
