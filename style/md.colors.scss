@@ -18,6 +18,11 @@
     --foreground-color: 0, 0, 0;
     --error-color: 176, 0, 32;
 
+    --initial-bg-status-bar: 224, 224, 224;
+    --initial-bg-app-bar: 245, 245, 245;
+    --initial-bg-main-content: 250, 250, 250;
+    --initial-bg-cards: 255, 255, 255;
+
     --bg-status-bar: 224, 224, 224;
     --bg-app-bar: 245, 245, 245;
     --bg-main-content: 250, 250, 250;
@@ -46,6 +51,11 @@
     --initial-foreground-color: 255, 255, 255;
     --foreground-color: 255, 255, 255;
     --error-color: 255, 49, 89;
+
+    --initial-bg-status-bar: 0, 0, 0;
+    --initial-bg-app-bar: 33, 33, 33;
+    --initial-bg-main-content: 48, 48, 48;
+    --initial-bg-cards: 66, 66, 66;
 
     --bg-status-bar: 0, 0, 0;
     --bg-app-bar: 33, 33, 33;
