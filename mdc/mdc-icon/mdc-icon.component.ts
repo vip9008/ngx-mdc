@@ -17,14 +17,18 @@ export class MdcIconComponent implements AfterViewInit {
     constructor(private el: ElementRef) {
     }
 
+    public get element(): HTMLElement {
+        return this.el.nativeElement as HTMLElement;
+    }
+
     ngAfterViewInit(): void {
         let iconSize = 'md-' + this.iconSize.toString();
-        this.el.nativeElement.classList.add(iconSize);
+        this.element.classList.add(iconSize);
 
         let iconStyle = this.iconStyle == 'normal' ? null : this.iconStyle;
 
         if (this.iconVersion == 'MaterialSymbols') {
-            this.el.nativeElement.classList.add('symbol');
+            this.element.classList.add('symbol');
 
             if (iconStyle == 'two-tone') {
                 iconStyle = null;
@@ -32,11 +36,11 @@ export class MdcIconComponent implements AfterViewInit {
         }
 
         if (iconStyle !== null) {
-            this.el.nativeElement.classList.add(iconStyle);
+            this.element.classList.add(iconStyle);
         }
 
         if (this.biDirectional) {
-            this.el.nativeElement.classList.add('bi-directional');
+            this.element.classList.add('bi-directional');
         }
     }
 }
