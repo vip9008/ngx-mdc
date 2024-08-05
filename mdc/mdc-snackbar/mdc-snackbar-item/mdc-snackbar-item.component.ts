@@ -11,6 +11,7 @@ import { SnackbarMessage } from '../snackbar-message.interface';
 })
 export class MdcSnackbarItemComponent {
     @Input() message: SnackbarMessage;
+    @Input() actionColor: string;
     @Output() hideMessage: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
     public get messageString(): string {

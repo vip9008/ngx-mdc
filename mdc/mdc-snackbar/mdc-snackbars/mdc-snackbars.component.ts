@@ -20,6 +20,7 @@ export class MdcSnackbarsComponent implements AfterViewInit {
     @Input() startPosition: boolean = false;
     @Input() standardStyle: boolean = false;
     @Input() theme: 'light' | 'dark' | '' = '';
+    @Input() actionColor: string = 'accent-color';
 
     public get themeClass(): string {
         switch (this.theme) {
