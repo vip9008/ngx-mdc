@@ -45,7 +45,7 @@
         }
     }
 
-    & > .mdc-card-primary {
+    .mdc-card-primary {
         display: block;
         width: 100%;
         padding: 0;
@@ -71,9 +71,9 @@
         }
     }
 
-    & > .interactive.mdc-card-primary,
-    & > a.mdc-card-primary,
-    & > button.mdc-card-primary {
+    .interactive.mdc-card-primary,
+    a.mdc-card-primary,
+    button.mdc-card-primary {
         cursor: pointer;
         text-align: inherit;
         text-decoration: none;
@@ -204,22 +204,12 @@
         color: rgba(var(--foreground-color), var(--opacity-secondary));
     }
 
-    & > .mdc-button-group {
+    .mdc-button-group {
         padding: 0;
         margin: 0.25rem 0.25rem;
 
         .mdc-button, .mdc-toggle-buttons {
             margin: 0.25rem 0.25rem;
         }
-    }
-
-    & > .mdc-card-primary:first-child, .card-header:first-child, .media:first-child, .supporting-text:first-child {
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
-    }
-
-    & > .mdc-card-primary:last-child, & > .mdc-button-group:last-child {
-        border-top-left-radius: 0.25rem;
-        border-top-right-radius: 0.25rem;
     }
 }
