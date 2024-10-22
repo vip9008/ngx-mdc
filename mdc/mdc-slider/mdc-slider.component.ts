@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, Renderer2, ViewChild, EventEmitter, ContentChild } from '@angular/core';
 import { SliderInputDirective } from './slider-input.directive';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { FormControlName } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -15,6 +16,7 @@ export class MdcSliderComponent implements AfterViewInit {
     @Input() discrete: boolean = false;
 
     @ContentChild(SliderInputDirective) sliderInput!: SliderInputDirective;
+    @ContentChild(FormControlName) controlName: FormControlName;
     @ViewChild('highlight') highlight!: ElementRef;
 
     private disabledState: EventEmitter<boolean> = new EventEmitter<boolean>(false);
@@ -43,7 +45,7 @@ export class MdcSliderComponent implements AfterViewInit {
         let value = this.sliderInputElement.step;
 
         if (!value) {
-            return 0;
+            return 1;
         }
 
         return Number(value);
@@ -98,6 +100,12 @@ export class MdcSliderComponent implements AfterViewInit {
                 this.updateSlider();
             }
         });
+
+        if (this.controlName) {
+            this.controlName.valueChanges.pipe(untilDestroyed(this)).subscribe(() => {
+                this.updateSlider();
+            });
+        }
     }
 
     private updateSlider() {
