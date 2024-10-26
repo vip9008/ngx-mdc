@@ -545,6 +545,7 @@ a.material-icon, button.material-icon, .material-icon.interactive {
     text-decoration: none;
 
     &.disabled, &[disabled], &:disabled {
+        --foreground-color: var(--initial-foreground-color);
         color: rgba(var(--foreground-color), var(--opacity-hint));
         cursor: default;
     }
