@@ -35,14 +35,14 @@
     opacity: 0;
     will-change: opacity, transform;
     transition: opacity 75ms cubic-bezier(0.4, 0, 0.2, 1), transform 75ms cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-.mdc-tooltip.active {
-    -ms-transform: scale(1);
-    -webkit-transform: scale(1);
-    transform: scale(1);
-    opacity: 1;
-    transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    &.active {
+        -ms-transform: scale(1);
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+        transition: opacity 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
 }
 
 @media (max-width: 719px) {
