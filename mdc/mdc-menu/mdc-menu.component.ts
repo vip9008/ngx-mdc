@@ -116,7 +116,7 @@ export class MdcMenuComponent implements AfterViewInit {
             };
 
             if ((menuPosition.top + menuHeight) > viewportHeight) {
-                position.bottom = baseSize.toString() + 'rem';
+                position.bottom = baseSize.toString() + 'px';
             } else {
                 position.top = menuPosition.top.toString() + 'px';
             }
