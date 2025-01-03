@@ -10,6 +10,7 @@ import { LayoutStatus } from './layout-status.interface';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'mdc-layout',
     templateUrl: './mdc-layout.component.html',
     styleUrls: ['./mdc-layout.component.scss']

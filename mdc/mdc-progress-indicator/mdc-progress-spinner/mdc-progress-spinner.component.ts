@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'mdc-progress-spinner',
     templateUrl: './mdc-progress-spinner.component.html',
     styleUrls: ['./mdc-progress-spinner.component.scss'],

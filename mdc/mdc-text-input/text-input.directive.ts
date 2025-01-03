@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, Output, EventEmitter, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 
 @Directive({
+  standalone: false,
     selector: '[text-input]',
     host: {
         'class': 'input-element'

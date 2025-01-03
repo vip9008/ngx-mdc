@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'button[mdc-button], button[mdc-button-outlined], button[mdc-button-contained], a[mdc-button], a[mdc-button-outlined], a[mdc-button-contained]',
     templateUrl: './mdc-button.component.html',
     styleUrls: ['./mdc-button.component.scss'],

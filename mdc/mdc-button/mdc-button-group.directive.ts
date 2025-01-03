@@ -1,6 +1,7 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
+    standalone: false,
     selector: 'div[mdc-button-group], div[mdc-toggle-buttons]',
 })
 export class MdcButtonGroupDirective implements OnInit {

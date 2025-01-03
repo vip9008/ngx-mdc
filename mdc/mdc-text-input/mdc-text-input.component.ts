@@ -5,6 +5,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'mdc-text-field, mdc-text-area',
     templateUrl: './mdc-text-input.component.html',
     styleUrls: ['./mdc-text-input.component.scss']

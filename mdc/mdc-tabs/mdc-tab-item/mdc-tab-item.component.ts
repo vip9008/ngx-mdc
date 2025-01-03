@@ -4,6 +4,7 @@ import { MdcTabPageComponent } from '../mdc-tab-page/mdc-tab-page.component';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'button[mdc-tab-item], a[mdc-tab-item]',
     templateUrl: './mdc-tab-item.component.html',
     styleUrl: './mdc-tab-item.component.scss',

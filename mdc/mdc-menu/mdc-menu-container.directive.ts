@@ -1,6 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
+  standalone: false,
     selector: '[mdc-menu-container]',
     host: {
         'class': 'menu-container'

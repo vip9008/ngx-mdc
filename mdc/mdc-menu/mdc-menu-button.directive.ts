@@ -1,6 +1,7 @@
 import { Directive, ElementRef } from '@angular/core';
 
 @Directive({
+  standalone: false,
     selector: '[mdc-menu-button]',
     host: {
         'class': 'menu-button'

@@ -5,6 +5,7 @@ import { FormControlName } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'mdc-slider',
     templateUrl: './mdc-slider.component.html',
     styleUrl: './mdc-slider.component.scss',

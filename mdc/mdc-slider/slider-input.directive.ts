@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, EventEmitter, Inject, Output, PLATFORM_ID } from '@angular/core';
 
 @Directive({
+  standalone: false,
     selector: '[slider-input]',
     host: {
         'class': 'slider-input'

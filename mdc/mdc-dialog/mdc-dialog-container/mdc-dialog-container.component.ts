@@ -2,6 +2,7 @@ import { Component, ElementRef, Output, EventEmitter, AfterContentInit, Componen
 import { timer } from 'rxjs';
 
 @Component({
+    standalone: false,
     selector: 'mdc-dialog-container',
     templateUrl: './mdc-dialog-container.component.html',
     styleUrls: ['./mdc-dialog-container.component.scss'],

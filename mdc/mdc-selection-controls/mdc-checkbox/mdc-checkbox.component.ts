@@ -2,6 +2,7 @@ import { Component, ContentChild } from '@angular/core';
 import { MdcCheckDirective } from './mdc-check.directive';
 
 @Component({
+    standalone: false,
     selector: 'mdc-checkbox',
     templateUrl: './mdc-checkbox.component.html',
     styleUrls: ['./mdc-checkbox.component.scss'],

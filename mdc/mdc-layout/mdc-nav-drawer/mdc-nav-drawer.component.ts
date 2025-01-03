@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'nav[id="mdc-nav-drawer"]',
     templateUrl: './mdc-nav-drawer.component.html',
     styleUrls: ['./mdc-nav-drawer.component.scss']

@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 
 @Directive({
+  standalone: false,
     selector: '[mdc-tooltip]'
 })
 export class MdcTooltipDirective implements OnInit {

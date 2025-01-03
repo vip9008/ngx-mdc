@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/cor
 import { SnackbarMessage } from '../snackbar-message.interface';
 
 @Component({
+    standalone: false,
     selector: 'mdc-snackbar-item',
     templateUrl: './mdc-snackbar-item.component.html',
     styleUrls: ['./mdc-snackbar-item.component.scss'],

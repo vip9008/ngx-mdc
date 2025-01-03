@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ElementRef, Input } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'mdc-divider',
     templateUrl: './mdc-divider.component.html',
     styleUrls: ['./mdc-divider.component.scss'],

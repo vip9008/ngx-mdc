@@ -1,6 +1,7 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
+  standalone: false,
     selector: '[nav-drawer-toggle]',
     host: {
         'class': 'nav-icon'

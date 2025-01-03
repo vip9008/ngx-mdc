@@ -8,6 +8,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'mdc-menu',
     templateUrl: './mdc-menu.component.html',
     styleUrls: ['./mdc-menu.component.scss'],

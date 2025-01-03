@@ -7,6 +7,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'mdc-snackbars',
     templateUrl: './mdc-snackbars.component.html',
     styleUrls: ['./mdc-snackbars.component.scss']

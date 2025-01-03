@@ -2,6 +2,7 @@ import { AfterContentInit, Component, ContentChild, Input } from '@angular/core'
 import { MdcFabButtonDirective } from './mdc-fab-button.directive';
 
 @Component({
+    standalone: false,
     selector: 'mdc-fab',
     templateUrl: './mdc-fab.component.html',
     styleUrl: './mdc-fab.component.scss',

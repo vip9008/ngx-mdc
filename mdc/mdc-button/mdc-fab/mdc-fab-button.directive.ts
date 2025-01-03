@@ -3,6 +3,7 @@ import { MdcFabLabelDirective } from './mdc-fab-label.directive';
 import { MdcIconElementDirective } from '@ngx-mdc/mdc/mdc-common/mdc-icon-element.directive';
 
 @Directive({
+    standalone: false,
     selector: '[mdc-fab-button]',
     host: {
         'class': 'mdc-fab-button'

@@ -8,6 +8,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 @UntilDestroy()
 @Component({
+    standalone: false,
     selector: 'mdc-tabs',
     templateUrl: './mdc-tabs.component.html',
     styleUrl: './mdc-tabs.component.scss',

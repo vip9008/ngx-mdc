@@ -3,6 +3,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
 @Directive({
+  standalone: false,
     selector: 'input[type="radio"][mdc-radio]'
 })
 export class MdcRadioDirective implements OnInit {

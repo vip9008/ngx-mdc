@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'mdc-icon, div[mdc-icon], span[mdc-icon], a[mdc-icon], button[mdc-icon]',
     templateUrl: './mdc-icon.component.html',
     styleUrls: ['./mdc-icon.component.scss'],

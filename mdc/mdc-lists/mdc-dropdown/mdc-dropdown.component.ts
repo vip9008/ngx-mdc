@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'mdc-dropdown',
     templateUrl: './mdc-dropdown.component.html',
     styleUrl: './mdc-dropdown.component.scss',

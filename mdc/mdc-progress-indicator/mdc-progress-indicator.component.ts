@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, ElementRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'mdc-progress-indicator',
     templateUrl: './mdc-progress-indicator.component.html',
     styleUrls: ['./mdc-progress-indicator.component.scss'],

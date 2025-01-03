@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ContentChild, ElementRef } from '@angular/cor
 import { MdcTabItemComponent } from '../mdc-tab-item/mdc-tab-item.component';
 
 @Component({
+    standalone: false,
     selector: 'mdc-tab-page',
     templateUrl: './mdc-tab-page.component.html',
     styleUrl: './mdc-tab-page.component.scss',

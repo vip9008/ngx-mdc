@@ -4,6 +4,7 @@ import { DatePipe, isPlatformBrowser } from '@angular/common';
 import { MdcDateInputConfig } from '../mdc-date-input.interface';
 
 @Component({
+    standalone: false,
     selector: 'mdc-date-input',
     templateUrl: './mdc-date-input.component.html',
     styleUrl: './mdc-date-input.component.scss',

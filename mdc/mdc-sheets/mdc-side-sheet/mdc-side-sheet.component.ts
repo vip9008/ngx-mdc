@@ -2,6 +2,7 @@ import { AfterContentInit, AfterViewInit, Component, ComponentRef, effect, Eleme
 import { MdcLayoutService } from '@ngx-mdc/mdc/mdc-layout/mdc-layout.service';
 
 @Component({
+    standalone: false,
     selector: 'mdc-side-sheet',
     templateUrl: './mdc-side-sheet.component.html',
     styleUrl: './mdc-side-sheet.component.scss'

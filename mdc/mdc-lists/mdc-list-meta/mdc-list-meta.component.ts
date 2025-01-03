@@ -1,6 +1,7 @@
 import { Component, ElementRef, AfterViewInit, Input } from '@angular/core';
 
 @Component({
+    standalone: false,
     selector: 'mdc-list-meta',
     templateUrl: './mdc-list-meta.component.html',
     styleUrls: ['./mdc-list-meta.component.scss'],
