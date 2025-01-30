@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  standalone: false,
+    standalone: false,
     selector: '[mdc-dialog]',
     host: {
         'class': 'mdc-dialog'
