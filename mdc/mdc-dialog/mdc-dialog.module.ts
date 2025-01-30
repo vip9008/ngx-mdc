@@ -5,11 +5,13 @@ import { MdcDialogBodyDirective } from './mdc-dialog-body.directive';
 import { MdcButtonModule } from '../mdc-button/mdc-button.module';
 import { MdcDialogContainerComponent } from './mdc-dialog-container/mdc-dialog-container.component';
 import { MdcDialogDirective } from './mdc-dialog.directive';
+import { MdcFullScreenDirective } from './mdc-full-screen.directive';
 
 @NgModule({
     declarations: [
         MdcDialogContainerComponent,
         MdcDialogDirective,
+        MdcFullScreenDirective,
         MdcDialogHeaderDirective,
         MdcDialogBodyDirective
     ],
@@ -18,6 +20,7 @@ import { MdcDialogDirective } from './mdc-dialog.directive';
     ],
     exports: [
         MdcDialogDirective,
+        MdcFullScreenDirective,
         MdcDialogHeaderDirective,
         MdcDialogBodyDirective
     ]
