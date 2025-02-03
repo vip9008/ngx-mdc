@@ -5,8 +5,7 @@
 
     display: block;
     position: relative;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
     width: 17.5rem;
     max-width: 100%;
 
@@ -276,13 +275,14 @@
         }
 
         .label {
+            top: 1.625rem;
             inset-inline-start: 0;
             inset-inline-end: auto;
         }
 
         &.active, &.focus {
             .label {
-                transform: translateY(-68%);
+                transform: translateY(-100%);
                 font-size: 0.75rem;
             }
         }
@@ -325,6 +325,8 @@
     }
 
     &.outlined {
+        margin-top: 0.25rem;
+        
         .input {
             background-color: transparent;
             border: var(--border-size) solid rgba(var(--foreground-color), var(--opacity-hint));
