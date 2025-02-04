@@ -60,6 +60,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
             this.el.nativeElement.classList.add('active');
         }
         this.textInput.element.nativeElement.onblur = () => {
+            this.el.nativeElement.classList.remove('active');
             this.onBlur();
         }
         this.textInput.element.nativeElement.onChange = () => {
@@ -90,19 +91,18 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
         if (this.textInput?.element?.nativeElement?.attributes?.type?.nodeValue?.toLowerCase() == 'file') {
             this.fileInput = true;
         }
-        
+
         this.onBlur();
     }
 
     private onBlur(): void {
         this.inputValue = this.textInput.element.nativeElement.value;
-        
+
         if (this.staticLabel || this.inputValue?.length) {
             this.el.nativeElement.classList.add('focus');
         } else {
             this.el.nativeElement.classList.remove('focus');
         }
-        this.el.nativeElement.classList.remove('active');
 
         if (this.hasError) {
             this.el.nativeElement.classList.add('has-error');

@@ -341,9 +341,9 @@
             .outline {
                 position: absolute;
                 top: 0;
-                bottom: 0;
-                left: var(--border-size);
-                right: var(--border-size);
+                bottom: calc(var(--border-size) * -1);
+                left: calc(var(--border-size) * -1);
+                right: calc(var(--border-size) * -1);
                 margin: 0 0.5rem;
                 pointer-events: none;
                 opacity: 0;
