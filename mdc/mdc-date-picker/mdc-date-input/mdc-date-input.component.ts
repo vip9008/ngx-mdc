@@ -25,11 +25,28 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
     private dateFormat: string = 'yyyy-MM-dd';
 
     private _weekDays = {
-        'en-US': ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
-        'ar-BH': ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'],
-    }
+        'en-US': [
+            { full: 'Sunday', oneLetter: 'S' },
+            { full: 'Monday', oneLetter: 'M' },
+            { full: 'Tuesday', oneLetter: 'T' },
+            { full: 'Wednesday', oneLetter: 'W' },
+            { full: 'Thursday', oneLetter: 'T' },
+            { full: 'Friday', oneLetter: 'F' },
+            { full: 'Saturday', oneLetter: 'S' }
+        ],
+        'ar-BH': [
+            { full: 'الأحد', oneLetter: 'ح' },
+            { full: 'الاثنين', oneLetter: 'ن' },
+            { full: 'الثلاثاء', oneLetter: 'ث' },
+            { full: 'الأربعاء', oneLetter: 'ر' },
+            { full: 'الخميس', oneLetter: 'خ' },
+            { full: 'الجمعة', oneLetter: 'ج' },
+            { full: 'السبت', oneLetter: 'س' }
+        ]
+    };
 
-    public get weekDays(): string[] {
+
+    public get weekDays(): { full: string, oneLetter: string }[] {
         if (!this._weekDays[this.config.locale]) {
             return this._weekDays['en-US'];
         }
@@ -112,7 +129,7 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
     private getAvailableYears() {
         let startingYear: number = this.startDate.getFullYear();
         let totalYears: number = this.endDate.getFullYear() - startingYear;
-        
+
         this.availableYears = [];
         this.showYearsList = totalYears > 1;
 
@@ -272,7 +289,7 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
 
             let viewportWidth = document.documentElement.clientWidth || document.body.clientWidth;
             let viewportHeight = document.documentElement.clientHeight || document.body.clientHeight;
-            
+
             if (viewportWidth >= 960) {
                 this.isInline = true;
 
@@ -287,7 +304,7 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
                     "left": "auto",
                     "position": "fixed"
                 };
-    
+
                 if ((calPosition.top + calHeight) > viewportHeight) {
                     position.bottom = (1 * baseSize).toString() + 'px';
                 } else {
@@ -295,7 +312,7 @@ export class MdcDateInputComponent implements OnInit, AfterContentInit {
                 }
 
                 let direction = this.direction;
-    
+
                 if (direction == 'ltr') {
                     position.left = calPosition.left.toString() + 'px';
                     position.right = "auto";

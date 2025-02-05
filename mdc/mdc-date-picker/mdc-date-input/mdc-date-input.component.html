@@ -12,42 +12,46 @@
         <div class="mdc-calendar-controls">
             <div class="selected-month">{{currentMonth | date: 'MMMM y' : null : config.locale ?? 'en-US' }}</div>
             @if (showYearsList) {
-                <button mdc-icon class="dense toggle-years" (click)="showYears = !showYears">arrow_drop_down</button>
+            <button mdc-icon class="dense toggle-years" (click)="showYears = !showYears">arrow_drop_down</button>
             }
             <div class="month-controls">
-                <button mdc-icon [biDirectional]="true" class="dense" (click)="prevMonth()" [disabled]="!canGoPrevMonth">chevron_left</button>
-                <button mdc-icon [biDirectional]="true" class="dense" (click)="nextMonth()" [disabled]="!canGoNextMonth">chevron_right</button>
+                <button mdc-icon [biDirectional]="true" class="dense" (click)="prevMonth()"
+                    [disabled]="!canGoPrevMonth">chevron_left</button>
+                <button mdc-icon [biDirectional]="true" class="dense" (click)="nextMonth()"
+                    [disabled]="!canGoNextMonth">chevron_right</button>
             </div>
         </div>
         <div class="month-days">
-            @for (day of weekDays; track day) {
-                <div class="week-day">{{day}}</div>
+            @for (day of weekDays; track day.full) {
+            <div class="week-day">{{day.oneLetter}}</div>
             }
 
             @if (monthData.startingDay.length > 0) {
-                @for (i of monthData.startingDay; track monthData.startingDay.length) {
-                    <div class="month-day"></div>
-                }
+            @for (i of monthData.startingDay; track $index) {
+            <div class="month-day"></div>
             }
-            
-            @for (x of monthData.monthDays; track monthData.monthDays.length; let index = $index) {
-                @if (isDayAvailable(index + 1)) {
-                    <button class="month-day" [class.today]="checkIsToday(index + 1)" [class.active]="checkIsSelected(index + 1)" (click)="selectDate(index + 1)">{{index + 1}}</button>
-                } @else {
-                    <div class="month-day disabled">{{index + 1}}</div>
-                }
             }
-            
-            @for (x of monthData.nextMonthDays; track monthData.nextMonthDays.length; let index = $index) {
-                <div class="month-day disabled">{{index + 1}}</div>
+
+            @for (x of monthData.monthDays; track $index; let index = $index) {
+            @if (isDayAvailable(index + 1)) {
+            <button class="month-day" [class.today]="checkIsToday(index + 1)"
+                [class.active]="checkIsSelected(index + 1)" (click)="selectDate(index + 1)">{{index + 1}}</button>
+            } @else {
+            <div class="month-day disabled">{{index + 1}}</div>
+            }
+            }
+
+            @for (x of monthData.nextMonthDays; track $index; let index = $index) {
+            <div class="month-day disabled">{{index + 1}}</div>
             }
         </div>
         <div class="years-list">
             <div class="years-items">
-                @for (year of availableYears; track availableYears.length) {
-                    <div class="year-box">
-                        <button [class.active]="year == currentMonth.getFullYear()" (click)="changeYear(year)">{{year}}</button>
-                    </div>
+                @for (year of availableYears; track $index) {
+                <div class="year-box">
+                    <button [class.active]="year == currentMonth.getFullYear()"
+                        (click)="changeYear(year)">{{year}}</button>
+                </div>
                 }
             </div>
         </div>
