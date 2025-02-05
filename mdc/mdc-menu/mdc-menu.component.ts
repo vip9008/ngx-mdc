@@ -44,6 +44,10 @@ export class MdcMenuComponent implements AfterViewInit {
         return getComputedStyle(this.menuContainer.element.nativeElement).direction.toLowerCase() as 'ltr' | 'rtl';
     }
 
+    public get element(): ElementRef {
+        return this.el;
+    }
+
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private el: ElementRef
@@ -98,9 +102,11 @@ export class MdcMenuComponent implements AfterViewInit {
             let adiitionalMargin = baseSize * 1.5;
             let menuHeight = this.menuContainer.element.nativeElement.offsetHeight;
             let menuWidth = this.menuContainer.element.nativeElement.offsetWidth + adiitionalMargin;
+            let buttonHeight = 0;
 
             if (this.menuButton.element.nativeElement.classList.contains('mdc-text-field')) {
                 menuWidth = this.menuButton.element.nativeElement.offsetWidth;
+                buttonHeight = this.menuButton.element.nativeElement.offsetHeight;
             }
 
             let menuPosition = this.menuButton.element.nativeElement.getBoundingClientRect();
@@ -116,17 +122,22 @@ export class MdcMenuComponent implements AfterViewInit {
                 "position": "fixed"
             };
 
-            if ((menuPosition.top + menuHeight) > viewportHeight) {
-                position.bottom = baseSize.toString() + 'px';
+            if ((menuPosition.top + menuHeight + buttonHeight) > viewportHeight) {
+                position.bottom = (buttonHeight > 0 ? buttonHeight : baseSize).toString() + 'px';
             } else {
-                position.top = menuPosition.top.toString() + 'px';
+                position.top = (menuPosition.top + buttonHeight).toString() + 'px';
             }
 
             if (this.openDirection == 'bottom') {
-                if (menuPosition.bottom - menuHeight > baseSize) {
+                if (menuPosition.bottom - menuHeight - buttonHeight > baseSize) {
                     this.el.nativeElement.classList.add('bottom');
                     position.top = 'auto';
-                    position.bottom = (viewportHeight - menuPosition.bottom).toString() + 'px';
+
+                    if (buttonHeight > 0 && this.menuButton.element.nativeElement.classList.contains('outlined')) {
+                        buttonHeight += baseSize * 0.25;
+                    }
+
+                    position.bottom = (viewportHeight - menuPosition.bottom + buttonHeight).toString() + 'px';
                 } else {
                     this.el.nativeElement.classList.remove('bottom');
                 }

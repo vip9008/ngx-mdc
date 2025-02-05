@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, AfterViewInit, ContentChild, ViewChild, AfterContentInit } from '@angular/core';
 import { TextInputDirective } from './text-input.directive';
-import { FormControlName } from '@angular/forms';
+import { AbstractControl, FormControl, FormControlName } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -16,13 +16,22 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
     @ViewChild('outlineTopDiv') outlineTopDiv: ElementRef;
     @ViewChild('labelTag') labelTag: ElementRef;
 
+    @Input() control: FormControl | AbstractControl;
     @Input() staticLabel: boolean = false;
     @Input() appearance: 'default' | 'standard' | 'outlined' = 'default';
-    @Input() label: string = 'Label';
+    @Input() label: string = '';
     @Input() disabled: boolean = false;
 
     public fileInput: boolean = false;
     public inputValue = '';
+
+    public get formControl(): FormControl | AbstractControl {
+        if (this.control) {
+            return this.control;
+        }
+
+        return this.controlName?.control;
+    }
 
     private get baseSize(): number {
         let baseSize = getComputedStyle(this.el.nativeElement).getPropertyValue('font-size');
@@ -30,7 +39,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
     }
 
     public get hasError(): boolean {
-        return this.controlName?.control?.invalid && (this.controlName?.control?.touched || this.controlName?.control?.dirty);
+        return this.formControl?.invalid && (this.formControl?.touched || this.formControl?.dirty);
     }
 
     constructor(private el: ElementRef) {
@@ -49,7 +58,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
             this.el.nativeElement.classList.add(this.appearance);
         }
 
-        if (this.appearance == 'outlined') {
+        if (this.appearance == 'outlined' && this.labelTag.nativeElement.offsetWidth) {
             let labelWidth = Math.ceil(this.labelTag.nativeElement.offsetWidth * 0.75) / this.baseSize + 0.125;
             this.outlineTopDiv.nativeElement.style.width = 'calc(100% - ' + (labelWidth + 0.5) + 'rem)';
         }
@@ -75,7 +84,7 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
 
         if (this.disabled) {
             if (this.controlName) {
-                this.controlName?.control?.disable();
+                this.formControl?.disable();
             } else {
                 this.textInput.element.nativeElement.disabled = true;
             }
@@ -113,8 +122,8 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
 
     public setValue(value: any) {
         if (!this.disabled) {
-            if (this.controlName) {
-                this.controlName?.control?.setValue(value);
+            if (this.formControl) {
+                this.formControl?.setValue(value);
             } else {
                 this.textInput.element.nativeElement.value = value;
             }

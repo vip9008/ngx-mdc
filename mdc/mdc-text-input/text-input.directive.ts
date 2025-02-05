@@ -2,7 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, Output, EventEmitter, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 
 @Directive({
-  standalone: false,
+    standalone: false,
     selector: '[text-input]',
     host: {
         'class': 'input-element'
@@ -20,7 +20,7 @@ export class TextInputDirective implements OnDestroy {
             this.inputChanges = new MutationObserver((mutations: MutationRecord[]) => {
                 mutations.forEach((mutation: MutationRecord) => this.domChange.emit(mutation));
             });
-    
+
             this.inputChanges.observe(this.el.nativeElement, {
                 attributes: true
             });

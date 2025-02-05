@@ -5,23 +5,30 @@ import { MdcListsModule } from '../mdc-lists/mdc-lists.module';
 import { MdcMenuButtonDirective } from './mdc-menu-button.directive';
 import { MdcMenuContainerDirective } from './mdc-menu-container.directive';
 import { MdcMenuCloseDirective } from './mdc-menu-close.directive';
+import { MdcSelectMenuComponent } from './mdc-select-menu/mdc-select-menu.component';
+import { MdcTextInputModule } from '../mdc-text-input/mdc-text-input.module';
+import { MdcCommonModule } from '../mdc-common/mdc-common.module';
 
 @NgModule({
     declarations: [
         MdcMenuComponent,
         MdcMenuButtonDirective,
         MdcMenuContainerDirective,
-        MdcMenuCloseDirective
+        MdcMenuCloseDirective,
+        MdcSelectMenuComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        MdcCommonModule,
+        MdcTextInputModule
     ],
     exports: [
         MdcListsModule,
         MdcMenuComponent,
         MdcMenuButtonDirective,
         MdcMenuContainerDirective,
-        MdcMenuCloseDirective
+        MdcMenuCloseDirective,
+        MdcSelectMenuComponent
     ]
 })
 export class MdcMenuModule {

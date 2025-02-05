@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MdcTextInputComponent } from './mdc-text-input.component';
 import { TextInputDirective } from './text-input.directive';
 import { MdcInputErrorComponent } from '../mdc-common/input-error/input-error.component';
+import { MdcIconModule } from '../mdc-icon/mdc-icon.module';
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { MdcInputErrorComponent } from '../mdc-common/input-error/input-error.co
     ],
     exports: [
         MdcTextInputComponent,
-        TextInputDirective
+        TextInputDirective,
+        MdcIconModule
     ]
 })
 export class MdcTextInputModule { }

@@ -1,16 +1,16 @@
 <ng-content select="[mdc-icon-element]"></ng-content>
 <div class="input" [class.disabled]="disabled">
     @if (fileInput) {
-        <div class="input-element">{{textInput?.element?.nativeElement?.value}}</div>
+    <div class="input-element">{{textInput?.element?.nativeElement?.value}}</div>
     }
     <ng-content select="[text-input]"></ng-content>
     @if (appearance == 'outlined') {
-        <div class="outline">
-            <div #outlineTopDiv class="top"></div>
-        </div>
+    <div class="outline">
+        <div #outlineTopDiv class="top"></div>
+    </div>
     }
 </div>
 <label #labelTag class="label">{{label}}</label>
 @if (hasError) {
-    <mdc-input-error [label]="label" [input]="controlName.control"></mdc-input-error>
+<mdc-input-error [label]="label" [input]="formControl"></mdc-input-error>
 }

@@ -1,0 +1,22 @@
+<mdc-menu [openDirection]="openDirection">
+    <mdc-text-field mdc-menu-button [staticLabel]="staticLabel" [appearance]="appearance" [label]="label"
+        [disabled]="disabled" [control]="control">
+        <mdc-icon mdc-icon-element class="trailing">arrow_drop_down</mdc-icon>
+        <div text-input></div>
+    </mdc-text-field>
+    <mdc-list-container mdc-menu-container>
+        <div class="mdc-list-container">
+            <div class="mdc-list-group">
+                <button class="mdc-list-item">
+                    <div class="text">Item 1</div>
+                </button>
+                <button class="mdc-list-item">
+                    <div class="text">Item 2</div>
+                </button>
+                <button class="mdc-list-item">
+                    <div class="text">Item 3</div>
+                </button>
+            </div>
+        </div>
+    </mdc-list-container>
+</mdc-menu>
