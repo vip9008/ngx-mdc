@@ -69,7 +69,7 @@
 
         .mdc-list-item {
             &.mdc-error-message {
-                display: none;
+                --foreground-color: var(--initial-foreground-color);
             }
     
             &.selected::after {
