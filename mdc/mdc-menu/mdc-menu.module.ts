@@ -20,7 +20,8 @@ import { MdcCommonModule } from '../mdc-common/mdc-common.module';
     imports: [
         CommonModule,
         MdcCommonModule,
-        MdcTextInputModule
+        MdcTextInputModule,
+        MdcListsModule
     ],
     exports: [
         MdcListsModule,

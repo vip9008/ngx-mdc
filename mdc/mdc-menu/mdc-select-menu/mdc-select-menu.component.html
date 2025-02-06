@@ -9,18 +9,16 @@
         }
     </mdc-text-field>
     <mdc-list-container mdc-menu-container>
-        <div class="mdc-list-container">
-            <div class="mdc-list-group">
-                @for (item of filteredOptions; track item) {
-                <button class="mdc-list-item" (click)="selectOption(item)">
-                    <div class="text">{{ item.label }}</div>
-                </button>
-                } @empty {
-                <div class="mdc-list-item mdc-error-message">
-                    <div class="text text-hint">{{ notFoundText }}</div>
-                </div>
-                }
+        <div mdc-list-group>
+            @for (item of filteredOptions; track $index) {
+            <button mdc-list-item (click)="selectOption(item)">
+                <mdc-list-text>{{ item.label }}</mdc-list-text>
+            </button>
+            } @empty {
+            <div mdc-list-item class="mdc-error-message">
+                <mdc-list-text class="text-hint">{{ notFoundText }}</mdc-list-text>
             </div>
+            }
         </div>
     </mdc-list-container>
 </mdc-menu>
