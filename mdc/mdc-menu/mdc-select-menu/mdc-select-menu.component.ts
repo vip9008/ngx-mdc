@@ -35,6 +35,10 @@ export class MdcSelectMenuComponent implements OnInit, AfterViewInit {
         value: string | number | boolean,
     }[] = [];
 
+    private get formControl(): FormControl {
+        return this.control as FormControl;
+    }
+
     ngOnInit(): void {
         this.filteredOptions = cloneDeep(this.options);
     }
@@ -42,7 +46,7 @@ export class MdcSelectMenuComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.notFoundText = this.notFoundText?.length ? this.notFoundText : 'Can\'t find any item!';
         this.menuComponent.element.nativeElement.classList.add('select-menu');
-        let selected = this.control?.value;
+        let selected = this.formControl?.value;
         if (selected && selected?.toString().length) {
             let selectedOption = find(this.options, (item) => item.value == selected);
             this.selectedLabel = selectedOption?.label;
@@ -54,10 +58,9 @@ export class MdcSelectMenuComponent implements OnInit, AfterViewInit {
         label: string,
         value: string | number | boolean,
     }) {
-        this.control?.setValue(option.value);
-
         this.selectedLabel = option?.label;
         this.selectedValue = option?.value;
+        this.formControl?.setValue(this.selectedValue);
     }
 
     public searchOptions(event: Event) {
