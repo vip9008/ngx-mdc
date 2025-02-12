@@ -390,7 +390,7 @@ html[dir] .mdc-list-container[dir="rtl"] > .mdc-list-item > .mdc-switch .mdc-con
     right: 1.375rem;
 }
 
-.mdc-list-group .hint-block, .mdc-list-group .help-block {
+.mdc-list-group .mdc-help-block {
     font-size: 0.75rem;
     line-height: 1.25rem;
     letter-spacing: 0.033333em;
@@ -401,6 +401,6 @@ html[dir] .mdc-list-container[dir="rtl"] > .mdc-list-item > .mdc-switch .mdc-con
     user-select: none;
 }
 
-.mdc-list-group.has-error .hint-block, .mdc-list-group.has-error .help-block {
+.mdc-list-group.has-error .mdc-help-block {
     color: rgb(var(--error-color));
 }

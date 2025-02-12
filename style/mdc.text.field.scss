@@ -245,22 +245,8 @@
         --border-color: var(--error-color) !important;
     }
 
-    .hint-block, .help-block {
+    .mdc-help-block {
         padding: 0.0625rem 0.75rem 0;
-        font-size: 0.75rem;
-        line-height: 1.25rem;
-        letter-spacing: 0.033333em;
-        color: rgba(var(--initial-foreground-color), var(--opacity-hint));
-        cursor: default;
-        pointer-events: none;
-        word-break: break-word;
-        display: block;
-    
-        -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none;   /* Chrome/Safari/Opera */
-        -moz-user-select: none;      /* Firefox */
-        -ms-user-select: none;       /* Internet Explorer/Edge */
-        user-select: none;
     }
 
     &.standard {
@@ -319,7 +305,7 @@
             }
         }
 
-        .hint-block, .help-block {
+        .mdc-help-block {
             padding: 0.0625rem 0 0;
         }
     }
@@ -480,7 +466,7 @@
     }
 
     &.has-error {
-        .hint-block, .help-block {
+        .mdc-help-block {
             color: rgb(var(--error-color));
         }
     }

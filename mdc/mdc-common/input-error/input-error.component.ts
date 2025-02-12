@@ -15,7 +15,7 @@ import { CapitalizePipe } from '@pipes';
     templateUrl: './input-error.component.html',
     styleUrls: ['./input-error.component.scss'],
     host: {
-        'class': 'help-block'
+        'class': 'mdc-help-block'
     }
 })
 export class MdcInputErrorComponent {

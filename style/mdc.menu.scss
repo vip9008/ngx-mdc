@@ -8,14 +8,6 @@
         width: 100%;
     }
 
-    &.has-error {
-        .mdc-text-field {
-            .hint-block, .help-block {
-                color: rgb(var(--error-color));
-            }
-        }
-    }
-
     .menu-scrim {
         position: fixed;
         display: block;
