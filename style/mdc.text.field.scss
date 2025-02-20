@@ -428,7 +428,7 @@
                     }
                     
                     &, &::before, &::after, .top {
-                        border-color: var(--bg-border) !important;
+                        border-color: rgb(var(--border-color)) !important;
                     }
                 }
             }
