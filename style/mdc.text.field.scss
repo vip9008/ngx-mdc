@@ -458,8 +458,8 @@
 
             &.trailing {
                 & + .input + .label {
-                    inset-inline-start: 0;
-                    inset-inline-end: calc(0.8rem + var(--focus-border-size));
+                    inset-inline-start: calc(0.8rem + var(--focus-border-size));
+                    inset-inline-end: auto;
                 }
             }
         }
