@@ -9,6 +9,7 @@
         outline: none;
         border-radius: 3.5rem;
         color: rgba(var(--foreground-color), var(--opacity-primary));
+        background-color: rgb(var(--bg-cards));
         cursor: pointer;
         z-index: var(--z-axis-6-index);
         box-shadow: var(--z-axis-6-shadow);
@@ -116,15 +117,15 @@
             --initial-text-divider: inherit;
 
             cursor: default;
-            color: rgba(var(--foreground-color), var(--opacity-hint));
-            background-color: rgba(var(--foreground-color), var(--opacity-divider));
+            color: rgba(var(--initial-foreground-color), var(--opacity-hint));
+            background-color: rgba(var(--initial-bg-cards), var(--opacity-divider));
 
             &::before {
                 display: none;
             }
 
             .icon, .label {
-                color: rgba(var(--foreground-color), var(--opacity-hint));
+                color: inherit;
             }
         }
     }
