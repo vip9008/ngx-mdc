@@ -33,8 +33,10 @@ export class MdcTooltipDirective implements OnInit {
 
             this.renderer.listen(this.el.nativeElement, 'mouseenter', () => this.showTooltip());
             this.renderer.listen(this.el.nativeElement, 'focus', () => this.showTooltip());
+            this.renderer.listen(this.el.nativeElement, 'touchstart', () => this.showTooltip());
             this.renderer.listen(this.el.nativeElement, 'mouseleave', () => this.hideTooltip());
             this.renderer.listen(this.el.nativeElement, 'blur', () => this.hideTooltip());
+            this.renderer.listen(this.el.nativeElement, 'touchend', () => this.hideTooltip());
         }
     }
 
