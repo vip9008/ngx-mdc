@@ -24,9 +24,9 @@ export class MdcSideSheetComponent<T = any> implements AfterViewInit, AfterConte
             const status = this.layoutService.layoutStatus;
 
             if (status.topAppBarVisible) {
-                this.sideSheet.nativeElement.classList.add('app-bar-visible');
+                this.sideSheet?.nativeElement.classList.add('app-bar-visible');
             } else {
-                this.sideSheet.nativeElement.classList.remove('app-bar-visible');
+                this.sideSheet?.nativeElement.classList.remove('app-bar-visible');
             }
         });
     }
