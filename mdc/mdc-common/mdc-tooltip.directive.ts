@@ -1,6 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { TranslateService } from '@ngx-translate/core';
 
+@UntilDestroy()
 @Directive({
   standalone: false,
     selector: '[mdc-tooltip]'
@@ -20,15 +23,25 @@ export class MdcTooltipDirective implements OnInit {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private el: ElementRef,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private translation: TranslateService,
     ) {
+        this.translation.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
+            if (this.tooltipElement) {
+                this.tooltipElement.innerText = this.tooltipString;
+            }
+        });
+    }
+
+    private get tooltipString(): string {
+        return this.translation.instant(this.tooltipText);
     }
 
     ngOnInit(): void {
         if (this.tooltipText?.length) {
             this.tooltipElement = this.renderer.createElement('div');
             this.renderer.addClass(this.tooltipElement, 'mdc-tooltip');
-            this.tooltipElement.innerText = this.tooltipText;
+            this.tooltipElement.innerText = this.tooltipString;
             this.renderer.appendChild(this.el.nativeElement, this.tooltipElement);
 
             this.renderer.listen(this.el.nativeElement, 'mouseenter', () => this.showTooltip());
