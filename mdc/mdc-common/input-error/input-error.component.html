@@ -43,3 +43,6 @@
 @if (input.errors?.['fileSize']) {
     <div>{{ 'VALIDATION.FILE_SIZE' | translate: { size: input.errors?.['fileSize'].size } }}</div>
 }
+@if (input.errors?.['passwordMismatch']) {
+    <div>{{ 'VALIDATION.PASSWORD_MISMATCH' | translate }}</div>
+}
