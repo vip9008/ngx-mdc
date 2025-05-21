@@ -8,7 +8,7 @@
         <div text-input>{{ selectedLabel }}</div>
         }
     </mdc-text-field>
-    <mdc-list-container mdc-menu-container>
+    <mdc-list-container mdc-menu-container class="input-menu-container">
         <div mdc-list-group>
             @for (item of filteredOptions; track $index) {
             <button mdc-list-item (click)="selectOption(item)">
