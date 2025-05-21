@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/cor
 import { MdcMenuComponent } from '../mdc-menu.component';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { find, cloneDeep, filter } from 'lodash-es';
+import { MDCSelectOption } from './mdc-select-option.interface';
 
 @Component({
     standalone: false,
@@ -23,17 +24,11 @@ export class MdcSelectMenuComponent implements OnInit, AfterViewInit {
     @Input() disabled: boolean = false;
     @Input() searchable: boolean = false;
     @Input() notFoundText: string;
-    @Input() options: {
-        label: string,
-        value: string | number | boolean,
-    }[] = [];
+    @Input() options: MDCSelectOption[] = [];
 
     public selectedLabel: string = '';
     public selectedValue: string | number | boolean;
-    public filteredOptions: {
-        label: string,
-        value: string | number | boolean,
-    }[] = [];
+    public filteredOptions: MDCSelectOption[] = [];
 
     private get formControl(): FormControl {
         return this.control as FormControl;
@@ -65,8 +60,15 @@ export class MdcSelectMenuComponent implements OnInit, AfterViewInit {
 
     public searchOptions(event: Event) {
         let searchText: string = (event.target as HTMLInputElement)?.value;
-        this.filteredOptions = this.filteredOptions = (!searchText || searchText.length == 0) ? cloneDeep(this.options) : filter(this.options, (option: { label: string, value: string | number | boolean }) => {
-            let labelMatch = option.label.toLowerCase().includes(searchText.toLowerCase());
+        this.filteredOptions = this.filteredOptions = (!searchText || searchText.length == 0) ? cloneDeep(this.options) : filter(this.options, (option: MDCSelectOption) => {
+            let labelMatch: boolean = false;
+
+            if (option.searchData) {
+                labelMatch = option.searchData?.toLowerCase().includes(searchText.toLowerCase());
+            } else {
+                labelMatch = option.label.toLowerCase().includes(searchText.toLowerCase());
+            }
+
             let valueMatch = typeof option.value === 'string' && option.value.toLowerCase().includes(searchText.toLowerCase());
             return labelMatch || valueMatch;
         });
