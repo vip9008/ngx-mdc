@@ -305,80 +305,86 @@ html[dir] .has-datepicker[dir="rtl"] .mdc-datepicker > .mdc-calendar-controls > 
     transform: rotate(180deg);
 }
 
-@media (max-width: 320px) {
-    .mdc-datepicker-container:not(.inline) > .mdc-datepicker {
+.mdc-datepicker-container:not(.inline) > .mdc-datepicker {
+    @media (max-width: 320px) {
+        transform: scale(0.8);
+    }
+
+    @media (max-height: 460px) {
         transform: scale(0.8);
     }
 }
 
-@media (max-height: 460px) {
-    .mdc-datepicker-container:not(.inline) > .mdc-datepicker {
-        transform: scale(0.8);
+@mixin dialog-style-picker {
+    .mdc-datepicker {
+        padding-inline-start: 10.5rem;
+        padding-inline-end: 0;
+
+        .header {
+            width: 10.5rem;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            inset-inline-start: 0;
+            inset-inline-end: auto;
+
+            .selected-date {
+                margin-top: 3.125rem;
+
+                span {
+                    white-space: nowrap;
+
+                    &.first {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        .mdc-calendar-controls {
+            margin-bottom: 0.5rem;
+        }
+
+        .month-days {
+            margin: 0 1.125rem;
+
+            .week-day {
+                line-height: 1.75rem;
+                padding: 0 0.25rem;
+            }
+        }
+
+        .years-list {
+            top: 3rem;
+            inset-inline-start: 10.5rem;
+            inset-inline-end: auto;
+            width: 21.5rem;
+
+            .years-items {
+                .year-box {
+                    width: 4.75rem;
+                    height: 2.75rem;
+
+                    button {
+                        margin: 0.25rem 0.125rem;
+                    }
+                }
+            }
+        }
+
+        .mdc-button-group {
+            padding-top: 0;
+        }
     }
+}
+
+.mdc-datepicker-container.dialog-mode {
+    @include dialog-style-picker;
 }
 
 @media (orientation: landscape) {
     .mdc-datepicker-container {
-        .mdc-datepicker {
-            padding-inline-start: 10.5rem;
-            padding-inline-end: 0;
-
-            .header {
-                width: 10.5rem;
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                inset-inline-start: 0;
-                inset-inline-end: auto;
-
-                .selected-date {
-                    margin-top: 3.125rem;
-
-                    span {
-                        white-space: nowrap;
-
-                        &.first {
-                            display: block;
-                        }
-                    }
-                }
-            }
-
-            .mdc-calendar-controls {
-                margin-bottom: 0.5rem;
-            }
-
-            .month-days {
-                margin: 0 1.125rem;
-
-                .week-day {
-                    line-height: 1.75rem;
-                    padding: 0 0.25rem;
-                }
-            }
-
-            .years-list {
-                top: 3rem;
-                inset-inline-start: 10.5rem;
-                inset-inline-end: auto;
-                width: 21.5rem;
-
-                .years-items {
-                    .year-box {
-                        width: 4.75rem;
-                        height: 2.75rem;
-
-                        button {
-                            margin: 0.25rem 0.125rem;
-                        }
-                    }
-                }
-            }
-
-            .mdc-button-group {
-                padding-top: 0;
-            }
-        }
+        @include dialog-style-picker;
     }
 }
 
