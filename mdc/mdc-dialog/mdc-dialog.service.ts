@@ -62,6 +62,7 @@ export class MdcDialogService {
             this.dialogsStack.pop();
             setTimeout(() => {
                 dialogRef.instance.dialogClosed.emit(true);
+                dialogRef.instance.componentRef.destroy();
                 dialogRef.destroy();
             }, 320);
         });
