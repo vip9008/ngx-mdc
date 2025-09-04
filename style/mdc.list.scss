@@ -271,20 +271,20 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
 
 .md-3line {
     &.mdc-list-item, .mdc-list-item {
-        .text {
+        & > .text {
             .secondary {
                 max-height: 2.5rem;
                 margin: 0 !important;
                 white-space: normal;
             }
         }
-    }
-
-    .icon, .graphic {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        -webkit-align-self: flex-start;
-        align-self: flex-start;
+    
+        & > .icon, & > .graphic {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            -webkit-align-self: flex-start;
+            align-self: flex-start;
+        }
     }
 }
 
