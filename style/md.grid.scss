@@ -507,6 +507,10 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         font-family: 'Material Symbols Outlined' !important;
 
+        &.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
         &.outlined {
             font-family: 'Material Symbols Outlined' !important;
         }

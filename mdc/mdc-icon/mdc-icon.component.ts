@@ -11,6 +11,7 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
 })
 export class MdcIconComponent implements AfterViewInit {
     @Input() iconVersion: 'MaterialIcons' | 'MaterialSymbols' = 'MaterialSymbols';
+    @Input() filled: boolean = false;
     @Input() iconStyle: 'normal' | 'outlined' | 'rounded' | 'sharp' | 'two-tone' = 'normal';
     @Input() iconSize: 48 | 36 | 24 | 18 = 24;
     @Input() biDirectional: boolean = false;
@@ -25,6 +26,10 @@ export class MdcIconComponent implements AfterViewInit {
     ngAfterViewInit(): void {
         let iconSize = 'md-' + this.iconSize.toString();
         this.element.classList.add(iconSize);
+
+        if (this.filled) {
+            this.element.classList.add('filled');
+        }
 
         let iconStyle = this.iconStyle == 'normal' ? null : this.iconStyle;
 
