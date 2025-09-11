@@ -1,6 +1,7 @@
-import { Component, ElementRef, Input, AfterViewInit, Output } from '@angular/core';
+import { Component, ElementRef, Input, AfterViewInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, filter } from 'rxjs';
 
 @UntilDestroy()
 @Component({
@@ -15,7 +16,10 @@ export class MdcNavDrawerComponent implements AfterViewInit {
 
     public active: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-    constructor(private el: ElementRef) {
+    constructor(
+        private el: ElementRef,
+        private router: Router
+    ) {
     }
 
     ngAfterViewInit(): void {
@@ -30,6 +34,15 @@ export class MdcNavDrawerComponent implements AfterViewInit {
                 this.el.nativeElement.classList.add('active');
             } else {
                 this.el.nativeElement.classList.remove('active');
+            }
+        });
+
+        this.router.events.pipe(
+            filter(e => e instanceof NavigationStart),
+            untilDestroyed(this)
+        ).subscribe(() => {
+            if (this.active.value) {
+                this.active.next(false);
             }
         });
     }
