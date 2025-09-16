@@ -17,6 +17,8 @@ export class MdcTooltipDirective implements OnInit {
 
     private pointerTimer: any;
     private isTouchPointer: boolean = false;
+    private hadKeyboardNav: boolean = false;
+    private longPressTriggered: boolean = false;
     private longPressDelay: number = 600; // ms to press before showing
     private moveTolerance: number = 8; // px finger can move before cancel
     private startX: number = 0;
@@ -61,6 +63,14 @@ export class MdcTooltipDirective implements OnInit {
             // this.renderer.listen(this.el.nativeElement, 'blur', () => this.hideTooltip());
             // this.renderer.listen(this.el.nativeElement, 'touchend', () => this.hideTooltip());
 
+            // Track keyboard nav (Tab/Arrows) to allow focus-based tooltip only then
+            this.renderer.listen(this.el.nativeElement, 'keydown', (event: KeyboardEvent) => {
+                const keys = ['tab', 'arrowup', 'arrowdown', 'arrowleft', 'arrowright'];
+                if (keys.includes(event.key?.toLowerCase())) {
+                    this.hadKeyboardNav = true;
+                }
+            }),
+
             // Touch accessibility: touch hold shows tooltip
             this.renderer.listen(this.el.nativeElement, 'pointerdown', (event: PointerEvent) => this.onPointerDown(event));
             this.renderer.listen(this.el.nativeElement, 'pointermove', (event: PointerEvent) => this.onPointerMove(event));
@@ -68,15 +78,32 @@ export class MdcTooltipDirective implements OnInit {
             this.renderer.listen(this.el.nativeElement, 'pointercancel', () => this.onPointerEnd());
 
             // Non-touch accessibility: hover/focus still shows tooltip
-            this.renderer.listen(this.el.nativeElement, 'mouseenter', () => this.showTooltip());
-            this.renderer.listen(this.el.nativeElement, 'focus', (event: PointerEvent) => {
-                this.isTouchPointer = event.pointerType?.toLowerCase() === 'touch' || event.pointerType?.toLowerCase() === 'pen';
+            // this.renderer.listen(this.el.nativeElement, 'mouseenter', () => this.showTooltip());
+            // this.renderer.listen(this.el.nativeElement, 'mouseleave', () => this.hideTooltip());
+            this.renderer.listen(this.el.nativeElement, 'pointerenter', (event: PointerEvent) => {
+                if (event.pointerType !== 'mouse') {
+                    return;
+                }
+                
+                this.showTooltip();
+            }),
 
-                if (!this.isTouchPointer) {
+            this.renderer.listen(this.el.nativeElement, 'pointerleave', (event: PointerEvent) => {
+                if (event.pointerType !== 'mouse') {
+                    return;
+                }
+                
+                this.hideTooltip();
+            }),
+
+            this.renderer.listen(this.el.nativeElement, 'focus', () => {
+                if (this.longPressTriggered || this.isTouchPointer) {
+                    return;
+                }
+                if (this.hadKeyboardNav) {
                     return this.showTooltip();
                 }
             });
-            this.renderer.listen(this.el.nativeElement, 'mouseleave', () => this.hideTooltip());
             this.renderer.listen(this.el.nativeElement, 'blur', () => this.hideTooltip());
 
             // Optional: prevent system context menu on long press (iOS)
@@ -89,6 +116,8 @@ export class MdcTooltipDirective implements OnInit {
     }
 
     private onPointerDown(event: PointerEvent) {
+        this.hadKeyboardNav = false;
+        this.longPressTriggered = false;
         this.isTouchPointer = event.pointerType?.toLowerCase() === 'touch' || event.pointerType?.toLowerCase() === 'pen';
 
         if (this.isTouchPointer) {
@@ -98,6 +127,7 @@ export class MdcTooltipDirective implements OnInit {
 
             this.clearPointerTimer();
             this.pointerTimer = setTimeout(() => {
+                this.longPressTriggered = true;
                 this.showTooltip();
                 this.pointerTimer = null;
             }, this.longPressDelay);
@@ -108,6 +138,8 @@ export class MdcTooltipDirective implements OnInit {
     }
 
     private onPointerMove(event: PointerEvent) {
+        this.isTouchPointer = event.pointerType?.toLowerCase() === 'touch' || event.pointerType?.toLowerCase() === 'pen';
+
         if (!this.isTouchPointer || !this.pointerTimer) {
             return;
         }
@@ -122,6 +154,7 @@ export class MdcTooltipDirective implements OnInit {
 
     private onPointerEnd() {
         // Finger lifted or canceled—don’t show on taps
+        this.isTouchPointer = false;
         this.clearPointerTimer();
     }
 
@@ -169,6 +202,7 @@ export class MdcTooltipDirective implements OnInit {
     }
 
     private hideTooltip(): void {
+        this.longPressTriggered = false;
         this.clearTimer();
         this.renderer.removeClass(this.tooltipElement, 'active');
     }
