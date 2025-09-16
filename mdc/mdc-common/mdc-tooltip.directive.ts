@@ -64,14 +64,20 @@ export class MdcTooltipDirective implements OnInit {
             // Touch accessibility: touch hold shows tooltip
             this.renderer.listen(this.el.nativeElement, 'pointerdown', (event: PointerEvent) => this.onPointerDown(event));
             this.renderer.listen(this.el.nativeElement, 'pointermove', (event: PointerEvent) => this.onPointerMove(event));
-            this.renderer.listen(this.el.nativeElement, 'pointerup',    () => this.onPointerEnd());
+            this.renderer.listen(this.el.nativeElement, 'pointerup', () => this.onPointerEnd());
             this.renderer.listen(this.el.nativeElement, 'pointercancel', () => this.onPointerEnd());
 
             // Non-touch accessibility: hover/focus still shows tooltip
             this.renderer.listen(this.el.nativeElement, 'mouseenter', () => this.showTooltip());
-            this.renderer.listen(this.el.nativeElement, 'focus',      () => this.showTooltip());
+            this.renderer.listen(this.el.nativeElement, 'focus', (event: PointerEvent) => {
+                this.isTouchPointer = event.pointerType?.toLowerCase() === 'touch' || event.pointerType?.toLowerCase() === 'pen';
+
+                if (!this.isTouchPointer) {
+                    return this.showTooltip();
+                }
+            });
             this.renderer.listen(this.el.nativeElement, 'mouseleave', () => this.hideTooltip());
-            this.renderer.listen(this.el.nativeElement, 'blur',       () => this.hideTooltip());
+            this.renderer.listen(this.el.nativeElement, 'blur', () => this.hideTooltip());
 
             // Optional: prevent system context menu on long press (iOS)
             this.renderer.listen(this.el.nativeElement, 'contextmenu', (e: Event) => {
@@ -83,7 +89,7 @@ export class MdcTooltipDirective implements OnInit {
     }
 
     private onPointerDown(event: PointerEvent) {
-        this.isTouchPointer = event.pointerType?.toLowerCase() === 'touch' || event.pointerType === 'pen'?.toLowerCase();
+        this.isTouchPointer = event.pointerType?.toLowerCase() === 'touch' || event.pointerType?.toLowerCase() === 'pen';
 
         if (this.isTouchPointer) {
             // Start a long-press timer; do NOT show on tap
