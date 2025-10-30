@@ -35,11 +35,15 @@ export class MdcTooltipDirective implements OnInit {
         private renderer: Renderer2,
         private translation: TranslateService,
     ) {
-        this.translation.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
-            if (this.tooltipElement) {
-                this.tooltipElement.innerText = this.tooltipString;
-            }
-        });
+        if (this.translation) {
+            this.translation.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
+                if (this.tooltipElement) {
+                    this.tooltipElement.innerText = this.tooltipString;
+                }
+            });
+        } else {
+            this.tooltipElement.innerText = this.tooltipString;
+        }
     }
 
     private get tooltipString(): string {
