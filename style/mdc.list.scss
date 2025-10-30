@@ -335,7 +335,7 @@ a.mdc-list-item, button.mdc-list-item, .mdc-list-item.interactive {
             border-bottom: none;
         }
 
-        & > .meta.icon {
+        & .mdc-list-item > .meta.icon {
             color: rgba(var(--foreground-color), var(--opacity-secondary));
 
             .material-icon {
