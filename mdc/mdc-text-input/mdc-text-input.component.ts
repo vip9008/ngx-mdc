@@ -57,14 +57,14 @@ export class MdcTextInputComponent implements AfterContentInit, AfterViewInit {
         if (this.appearance != 'default') {
             this.el.nativeElement.classList.add(this.appearance);
         }
+    }
 
+    ngAfterContentInit(): void {
         if (this.appearance == 'outlined' && this.labelTag.nativeElement.offsetWidth) {
             let labelWidth = Math.ceil(this.labelTag.nativeElement.offsetWidth * 0.75) / this.baseSize + 0.125;
             this.outlineTopDiv.nativeElement.style.width = 'calc(100% - ' + (labelWidth + 0.5) + 'rem)';
         }
-    }
 
-    ngAfterContentInit(): void {
         this.textInput.element.nativeElement.onfocus = () => {
             this.el.nativeElement.classList.add('active');
         }
