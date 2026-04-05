@@ -13,12 +13,19 @@
     z-index: var(--z-axis-6-index);
     bottom: 0;
     inset-inline-start: calc(50% - 12.25rem);
+    inset-inline-end: auto;
     padding: 0;
     margin: 0;
     pointer-events: none;
 
     &.position-start {
         inset-inline-start: 0;
+        inset-inline-end: auto;
+    }
+
+    &.position-end {
+        inset-inline-start: auto;
+        inset-inline-end: 0;
     }
 
     .mdc-snackbar {
