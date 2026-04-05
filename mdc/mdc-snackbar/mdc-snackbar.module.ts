@@ -4,6 +4,7 @@ import { MdcSnackbarsComponent } from './mdc-snackbars/mdc-snackbars.component';
 import { MdcSnackbarItemComponent } from './mdc-snackbar-item/mdc-snackbar-item.component';
 import { MdcButtonModule } from '../mdc-button/mdc-button.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { MdcIconModule } from '../mdc-icon/mdc-icon.module';
 
 @NgModule({
     declarations: [
@@ -13,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [
         CommonModule,
         TranslateModule,
+        MdcIconModule,
         MdcButtonModule
     ],
     exports: [

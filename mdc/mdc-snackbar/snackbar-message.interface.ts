@@ -3,6 +3,7 @@ export interface SnackbarMessage {
         msg: string,
         args: Object
     },
-    closeButton: string,
+    closeButton?: string,
+    closeIcon?: boolean,
     duration?: number
 }
