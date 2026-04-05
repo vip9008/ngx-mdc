@@ -18,17 +18,25 @@ export class MdcSnackbarsComponent implements AfterViewInit {
     private messageStack: SnackbarMessage[] = [];
     public activeMessage: SnackbarMessage = null;
 
-    @Input() startPosition: boolean = false;
+    @Input() position: 'start' | 'center' | 'end' = 'center';
     @Input() standardStyle: boolean = false;
     @Input() theme: 'light' | 'dark' | '' = '';
     @Input() actionColor: string = 'accent-color';
 
-    public get themeClass(): string {
+    public get themeClass(): string[] {
+        let cssClass: string[] = [];
+
         switch (this.theme) {
-            case 'light': return 'md-theme-dark';
-            case 'dark': return 'md-theme-light';
-            default: return '';
+            case 'light': cssClass.push('md-theme-dark'); break;
+            case 'dark': cssClass.push('md-theme-light'); break;
         }
+
+        switch (this.position) {
+            case 'start': cssClass.push('position-start'); break;
+            case 'end': cssClass.push('position-end'); break;
+        }
+
+        return cssClass;
     }
 
     constructor(
