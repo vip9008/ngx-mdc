@@ -84,9 +84,11 @@ export class MdcSnackbarsComponent implements AfterViewInit {
 
         this.visibleMessages.push(instance);
 
-        timer(request.options.duration).pipe(untilDestroyed(this)).subscribe(() => {
-            this.dismissById(instance.id);
-        });
+        if (request.options.duration !== false) {
+            timer(request.options.duration).pipe(untilDestroyed(this)).subscribe(() => {
+                this.dismissById(instance.id);
+            });
+        }
     }
 
     public dismissById(id: string): void {

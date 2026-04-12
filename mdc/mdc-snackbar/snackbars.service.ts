@@ -50,17 +50,19 @@ export class SnackbarsService {
         });
     }
 
-    private normalizeDuration(duration?: number): number {
-        let value = duration ?? 4000;
-
-        if (value < 4000) {
-            value = 4000;
+    private normalizeDuration(duration: number | false = 4000): number | false {
+        if (duration === false) {
+            return false;
         }
 
-        if (value > 10000) {
-            value = 10000;
+        if (duration < 4000) {
+            duration = 4000;
         }
 
-        return value - 200;
+        if (duration > 10000) {
+            duration = 10000;
+        }
+
+        return duration - 200;
     }
 }

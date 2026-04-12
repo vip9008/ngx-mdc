@@ -13,12 +13,12 @@ export interface SnackbarMessage {
     },
     closeButton?: string,
     closeIcon?: boolean,
-    duration?: number
+    duration?: number | false
 }
 
 export interface SnackbarOpenOptions {
     stacked?: boolean;
-    duration?: number;
+    duration?: number | false;
     closeButton?: string;
     closeIcon?: boolean;
     actionColor?: string;
