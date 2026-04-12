@@ -6,10 +6,12 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
     templateUrl: './mdc-progress-spinner.component.html',
     styleUrls: ['./mdc-progress-spinner.component.scss'],
     host: {
-        'class': 'mdc-progress-wrapper'
+        '[class.mdc-progress-wrapper]': 'progress === null',
+        '[class.mdc-determinate-wrapper]': 'progress !== null',
     }
 })
 export class MdcProgressSpinnerComponent implements AfterViewInit {
+    @Input() progress: number = null;
     @Input() active: boolean = true;
     @Input() mini: boolean = false;
 
