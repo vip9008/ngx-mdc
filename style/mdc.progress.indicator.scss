@@ -578,6 +578,7 @@ html[dir="rtl"] .mdc-progress-track > .indeterminate::after, html[dir] .mdc-prog
     --stroke-width: 0.1875rem;
 
     display: inline-block;
+    pointer-events: none;
     position: relative;
     width: 2rem;
     height: 2rem;
@@ -590,10 +591,14 @@ html[dir="rtl"] .mdc-progress-track > .indeterminate::after, html[dir] .mdc-prog
     }
 
     .circle-container {
-        transform: rotate(-90deg);
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        
         .determinate-spinner {
             fill: transparent;
+            transform: rotate(-90deg);
 
             .track {
                 stroke-width: var(--stroke-width);
@@ -608,6 +613,10 @@ html[dir="rtl"] .mdc-progress-track > .indeterminate::after, html[dir] .mdc-prog
                 stroke-dasharray: 100.53;
                 stroke-dashoffset: calc(100.53 - (100.53 * var(--progress, 0) / 100));
             }
+        }
+
+        .mdt-overline {
+            position: absolute;
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
+import { Component, Input, ElementRef } from '@angular/core';
 
 @Component({
     standalone: false,
@@ -8,23 +8,29 @@ import { Component, AfterViewInit, Input, ElementRef } from '@angular/core';
     host: {
         '[class.mdc-progress-wrapper]': 'progress === null',
         '[class.mdc-determinate-wrapper]': 'progress !== null',
+        '[class.active]': 'active',
+        '[class.mini]': 'mini',
     }
 })
-export class MdcProgressSpinnerComponent implements AfterViewInit {
+export class MdcProgressSpinnerComponent {
     @Input() progress: number = null;
     @Input() active: boolean = true;
     @Input() mini: boolean = false;
+    @Input() showPercentage: boolean = false;
 
     constructor(private el: ElementRef) {
     }
 
-    ngAfterViewInit(): void {
-        if (this.active) {
-            this.el.nativeElement.classList.add('active');
-        }
+    private constrainPercentage(percent: number): number {
+        let x = percent < 0 ? 0 : percent;
+        x = percent > 100 ? 100 : percent;
 
-        if (this.mini) {
-            this.el.nativeElement.classList.add('mini');
-        }
+        return x;
+    }
+
+    public get progressed(): string {
+        let percent = this.constrainPercentage(this.progress);
+
+        return percent.toFixed(0);
     }
 }
