@@ -1,14 +1,15 @@
-<div class="text">{{messageString | translate: messageArgs}}</div>
+<div class="text">{{ messageString | translate: messageArgs }}</div>
+
 @if (message?.closeButton?.length) {
     <div mdc-button-group>
         @if (message?.closeIcon === true) {
-        <button mdc-icon [ngClass]="actionColor" (click)="hideMessage.emit(true)">
-            {{message?.closeButton}}
-        </button>
+            <button mdc-icon [ngClass]="actionColor" (click)="hideMessage.emit(true)">
+                {{ message?.closeButton }}
+            </button>
         } @else {
-        <button mdc-button [ngClass]="actionColor" (click)="hideMessage.emit(true)">
-            {{message?.closeButton | translate}}
-        </button>
+            <button mdc-button [ngClass]="actionColor" (click)="hideMessage.emit(true)">
+                {{ message?.closeButton | translate }}
+            </button>
         }
     </div>
 }

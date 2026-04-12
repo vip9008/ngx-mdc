@@ -1,32 +1,66 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { SnackbarMessage } from './snackbar-message.interface';
+import { Injectable, Type } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { SnackbarMessage, SnackbarOpenOptions, SnackbarRequest } from './snackbar-message.interface';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SnackbarsService {
-    private messageSubject: BehaviorSubject<SnackbarMessage>;
+    private messageSubject = new Subject<SnackbarRequest>();
 
-    constructor() {
-        this.messageSubject = new BehaviorSubject<SnackbarMessage>(null);
-    }
-
-    public get message(): Observable<SnackbarMessage> {
+    public get message(): Observable<SnackbarRequest> {
         return this.messageSubject.asObservable();
     }
 
-    public open(message: SnackbarMessage) {
-        if (!message.duration || message.duration < 4000) {
-            message.duration = 4000;
+    public open(message: SnackbarMessage, stacked: boolean = false): void {
+        const normalizedMessage: SnackbarMessage = {
+            ...message,
+            duration: this.normalizeDuration(message?.duration)
+        };
+
+        this.messageSubject.next({
+            kind: 'default',
+            message: normalizedMessage,
+            options: {
+                stacked: stacked,
+                duration: normalizedMessage.duration,
+                closeButton: normalizedMessage.closeButton,
+                closeIcon: normalizedMessage.closeIcon
+            }
+        });
+    }
+
+    public openComponent<TInputs>(
+        component: Type<any>,
+        inputs?: TInputs,
+        options?: SnackbarOpenOptions
+    ): void {
+        const duration = this.normalizeDuration(options?.duration);
+
+        this.messageSubject.next({
+            kind: 'component',
+            options: {
+                ...options,
+                duration
+            },
+            componentConfig: {
+                component,
+                inputs
+            }
+        });
+    }
+
+    private normalizeDuration(duration?: number): number {
+        let value = duration ?? 4000;
+
+        if (value < 4000) {
+            value = 4000;
         }
 
-        if (message.duration > 10000) {
-            message.duration = 10000;
+        if (value > 10000) {
+            value = 10000;
         }
 
-        message.duration -= 200;
-
-        this.messageSubject.next(message);
+        return value - 200;
     }
 }

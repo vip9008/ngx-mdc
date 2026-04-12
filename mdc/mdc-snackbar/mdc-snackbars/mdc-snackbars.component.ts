@@ -1,9 +1,8 @@
-import { Component, ElementRef, AfterViewInit, ViewChild, Input } from '@angular/core';
-import { SnackbarsService } from '../snackbars.service';
-import { Subscription, timer } from 'rxjs';
-import { MdcSnackbarItemComponent } from '../mdc-snackbar-item/mdc-snackbar-item.component';
-import { SnackbarMessage } from '../snackbar-message.interface';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { timer } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { SnackbarsService } from '../snackbars.service';
+import { SnackbarInstance, SnackbarRequest } from '../snackbar-message.interface';
 
 @UntilDestroy()
 @Component({
@@ -13,18 +12,19 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     styleUrls: ['./mdc-snackbars.component.scss']
 })
 export class MdcSnackbarsComponent implements AfterViewInit {
-    @ViewChild(MdcSnackbarItemComponent) snackbarItem: MdcSnackbarItemComponent;
-    private messageTimer: Subscription = null;
-    private messageStack: SnackbarMessage[] = [];
-    public activeMessage: SnackbarMessage = null;
+    private messageQueue: SnackbarRequest[] = [];
+    public visibleMessages: SnackbarInstance[] = [];
 
     @Input() position: 'start' | 'center' | 'end' = 'center';
     @Input() standardStyle: boolean = false;
     @Input() theme: 'light' | 'dark' | '' = '';
     @Input() actionColor: string = 'accent-color';
 
+    @Input() multiple: boolean = false;
+    @Input() maxVisible: number = 3;
+
     public get themeClass(): string[] {
-        let cssClass: string[] = [];
+        const cssClass: string[] = [];
 
         switch (this.theme) {
             case 'light': cssClass.push('md-theme-dark'); break;
@@ -39,54 +39,80 @@ export class MdcSnackbarsComponent implements AfterViewInit {
         return cssClass;
     }
 
-    constructor(
-        private snackbarsService: SnackbarsService
-    ) {
+    constructor(private snackbarsService: SnackbarsService) {
     }
 
     ngAfterViewInit(): void {
-        this.snackbarsService.message.pipe(untilDestroyed(this)).subscribe((message) => {
-            this.messageStack.push(message);
-
-            if (!this.activeMessage) {
-                this.activateMessage(this.messageStack.shift());
+        this.snackbarsService.message.pipe(untilDestroyed(this)).subscribe((request) => {
+            if (!request) {
+                return;
             }
+
+            if (!this.multiple) {
+                this.messageQueue.push(request);
+
+                if (!this.visibleMessages.length) {
+                    this.activateNextQueued();
+                }
+
+                return;
+            }
+
+            if (this.visibleMessages.length >= this.maxVisible) {
+                this.messageQueue.push(request);
+                return;
+            }
+
+            this.showRequest(request);
         });
     }
 
-    private activateMessage(message: SnackbarMessage): void {
-        if (message == null) {
+    private activateNextQueued(): void {
+        if (!this.messageQueue.length || this.visibleMessages.length) {
             return;
         }
 
-        if (this.messageTimer) {
-            this.messageTimer.unsubscribe();
-        }
+        this.showRequest(this.messageQueue.shift()!);
+    }
 
-        this.activeMessage = message;
-        this.snackbarItem.show();
-        this.messageTimer = timer(this.activeMessage.duration).pipe(untilDestroyed(this)).subscribe(() => {
-            this.hideMessage();
+    private showRequest(request: SnackbarRequest): void {
+        const instance: SnackbarInstance = {
+            id: this.generateId(),
+            request,
+            visible: true
+        };
+
+        this.visibleMessages.push(instance);
+
+        timer(request.options.duration).pipe(untilDestroyed(this)).subscribe(() => {
+            this.dismissById(instance.id);
         });
     }
 
-    private hideMessage(): void {
-        this.snackbarItem.hide();
+    public dismissById(id: string): void {
+        const instance = this.visibleMessages.find((item) => item.id === id);
+
+        if (!instance || !instance.visible) {
+            return;
+        }
+
+        instance.visible = false;
 
         timer(200).pipe(untilDestroyed(this)).subscribe(() => {
-            this.activeMessage = null;
-            if (this.messageStack.length) {
-                this.activateMessage(this.messageStack.shift());
+            this.visibleMessages = this.visibleMessages.filter((item) => item.id !== id);
+
+            if (!this.multiple) {
+                this.activateNextQueued();
+                return;
+            }
+
+            if (this.messageQueue.length && this.visibleMessages.length < this.maxVisible) {
+                this.showRequest(this.messageQueue.shift()!);
             }
         });
     }
 
-    public dismiss(state: boolean): void {
-        if (state == false) {
-            return;
-        }
-
-        this.messageTimer.unsubscribe();
-        this.hideMessage();
+    private generateId(): string {
+        return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
     }
 }

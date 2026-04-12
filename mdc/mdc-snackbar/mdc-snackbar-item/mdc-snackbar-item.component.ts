@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { SnackbarMessage } from '../snackbar-message.interface';
 
 @Component({
@@ -6,17 +6,18 @@ import { SnackbarMessage } from '../snackbar-message.interface';
     selector: 'mdc-snackbar-item',
     templateUrl: './mdc-snackbar-item.component.html',
     styleUrls: ['./mdc-snackbar-item.component.scss'],
-    host: {
-        'class': 'mdc-snackbar'
-    }
+    'host': {
+        '[class.stacked]': 'stacked',
+    },
 })
 export class MdcSnackbarItemComponent {
-    @Input() message: SnackbarMessage;
+    @Input({ required: true }) message: SnackbarMessage;
+    @Input() stacked: boolean = false;
     @Input() actionColor: string;
     @Output() hideMessage: EventEmitter<boolean> = new EventEmitter<boolean>(false);
 
     public get messageString(): string {
-        if (typeof this.message?.message != 'string') {
+        if (typeof this.message?.message !== 'string') {
             return this.message?.message?.msg;
         }
 
@@ -24,21 +25,10 @@ export class MdcSnackbarItemComponent {
     }
 
     public get messageArgs(): Object {
-        if (typeof this.message?.message != 'string') {
+        if (typeof this.message?.message !== 'string') {
             return this.message?.message?.args;
         }
 
         return {};
-    }
-
-    constructor(private el: ElementRef) {
-    }
-
-    show(): void {
-        this.el.nativeElement.classList.add('active');
-    }
-
-    hide(): void {
-        this.el.nativeElement.classList.remove('active');
     }
 }

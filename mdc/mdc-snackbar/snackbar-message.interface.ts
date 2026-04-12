@@ -1,3 +1,11 @@
+import { Type } from "@angular/core";
+
+export interface SnackbarInstance {
+    id: string;
+    request: SnackbarRequest;
+    visible: boolean;
+}
+
 export interface SnackbarMessage {
     message: string | {
         msg: string,
@@ -6,4 +14,25 @@ export interface SnackbarMessage {
     closeButton?: string,
     closeIcon?: boolean,
     duration?: number
+}
+
+export interface SnackbarOpenOptions {
+    stacked?: boolean;
+    duration?: number;
+    closeButton?: string;
+    closeIcon?: boolean;
+    actionColor?: string;
+}
+
+export interface SnackbarComponentConfig<TInputs = any> {
+    component: Type<any>;
+    inputs?: TInputs;
+}
+
+export interface SnackbarRequest {
+    kind: 'default' | 'component';
+    options: SnackbarOpenOptions;
+
+    message?: SnackbarMessage;
+    componentConfig?: SnackbarComponentConfig;
 }

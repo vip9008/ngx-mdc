@@ -1,0 +1,9 @@
+@if (instance.request.kind === 'default') {
+    <mdc-snackbar-item
+        [message]="instance.request.message"
+        [actionColor]="instance.request.options.actionColor || defaultActionColor"
+        (hideMessage)="onDismiss()">
+    </mdc-snackbar-item>
+} @else {
+    <ng-template #dynamicHost></ng-template>
+}
