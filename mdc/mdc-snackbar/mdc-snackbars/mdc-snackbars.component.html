@@ -1,9 +1,9 @@
 <div id="mdc-snackbars" [class.standard]="standardStyle" [ngClass]="themeClass">
-    @for (item of visibleMessages; track item.id) {
+    @for (item of visibleMessages; track item.request.id) {
         <mdc-snackbar-host
             [instance]="item"
             [defaultActionColor]="actionColor"
-            (dismiss)="dismissById(item.id)">
+            (dismiss)="dismissById(item.request.id)">
         </mdc-snackbar-host>
     }
 </div>

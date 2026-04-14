@@ -1,7 +1,6 @@
 import { Type } from "@angular/core";
 
 export interface SnackbarInstance {
-    id: string;
     request: SnackbarRequest;
     visible: boolean;
 }
@@ -30,6 +29,7 @@ export interface SnackbarComponentConfig<TInputs = any> {
 }
 
 export interface SnackbarRequest {
+    id: string;
     kind: 'default' | 'component';
     options: SnackbarOpenOptions;
 

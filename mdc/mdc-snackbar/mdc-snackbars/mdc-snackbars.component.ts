@@ -65,6 +65,14 @@ export class MdcSnackbarsComponent implements AfterViewInit {
 
             this.showRequest(request);
         });
+
+        this.snackbarsService.dismissed.pipe(untilDestroyed(this)).subscribe((id) => {
+            this.dismissById(id);
+        });
+
+        this.snackbarsService.dismissedAll.pipe(untilDestroyed(this)).subscribe(() => {
+            this.dismissAllVisible();
+        });
     }
 
     private activateNextQueued(): void {
@@ -77,7 +85,6 @@ export class MdcSnackbarsComponent implements AfterViewInit {
 
     private showRequest(request: SnackbarRequest): void {
         const instance: SnackbarInstance = {
-            id: this.generateId(),
             request,
             visible: true
         };
@@ -86,14 +93,23 @@ export class MdcSnackbarsComponent implements AfterViewInit {
 
         if (request.options.duration !== false) {
             timer(request.options.duration).pipe(untilDestroyed(this)).subscribe(() => {
-                this.dismissById(instance.id);
+                this.dismissById(request.id);
             });
         }
     }
 
     public dismissById(id: string): void {
-        const instance = this.visibleMessages.find((item) => item.id === id);
+        const instance = this.visibleMessages.find((item) => item.request.id === id);
+        this.dismiss(instance);
+    }
 
+    public dismissAllVisible(): void {
+        this.visibleMessages.forEach((instance) => {
+            this.dismiss(instance);
+        });
+    }
+
+    private dismiss(instance: SnackbarInstance): void {
         if (!instance || !instance.visible) {
             return;
         }
@@ -101,7 +117,7 @@ export class MdcSnackbarsComponent implements AfterViewInit {
         instance.visible = false;
 
         timer(200).pipe(untilDestroyed(this)).subscribe(() => {
-            this.visibleMessages = this.visibleMessages.filter((item) => item.id !== id);
+            this.visibleMessages = this.visibleMessages.filter((item) => item.request.id !== instance.request.id);
 
             if (!this.multiple) {
                 this.activateNextQueued();
@@ -112,9 +128,5 @@ export class MdcSnackbarsComponent implements AfterViewInit {
                 this.showRequest(this.messageQueue.shift()!);
             }
         });
-    }
-
-    private generateId(): string {
-        return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
     }
 }

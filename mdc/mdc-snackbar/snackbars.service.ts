@@ -7,18 +7,35 @@ import { SnackbarMessage, SnackbarOpenOptions, SnackbarRequest } from './snackba
 })
 export class SnackbarsService {
     private messageSubject = new Subject<SnackbarRequest>();
+    private dismissSubject = new Subject<string>();
+    private dismissAllSubject = new Subject<void>();
 
     public get message(): Observable<SnackbarRequest> {
         return this.messageSubject.asObservable();
     }
 
-    public open(message: SnackbarMessage, stacked: boolean = false): void {
+    public get dismissed(): Observable<string> {
+        return this.dismissSubject.asObservable();
+    }
+
+    public get dismissedAll(): Observable<void> {
+        return this.dismissAllSubject.asObservable();
+    }
+
+    private generateId(): string {
+        return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+    }
+
+    public open(message: SnackbarMessage, stacked: boolean = false): string {
         const normalizedMessage: SnackbarMessage = {
             ...message,
             duration: this.normalizeDuration(message?.duration)
         };
 
+        const id: string = this.generateId();
+
         this.messageSubject.next({
+            id: id,
             kind: 'default',
             message: normalizedMessage,
             options: {
@@ -28,16 +45,20 @@ export class SnackbarsService {
                 closeIcon: normalizedMessage.closeIcon
             }
         });
+
+        return id;
     }
 
     public openComponent<TInputs>(
         component: Type<any>,
         inputs?: TInputs,
         options?: SnackbarOpenOptions
-    ): void {
+    ): string {
         const duration = this.normalizeDuration(options?.duration);
+        const id: string = this.generateId();
 
         this.messageSubject.next({
+            id: id,
             kind: 'component',
             options: {
                 ...options,
@@ -48,6 +69,16 @@ export class SnackbarsService {
                 inputs
             }
         });
+
+        return id;
+    }
+
+    public dismiss(id: string): void {
+        this.dismissSubject.next(id);
+    }
+
+    public dismissAll(): void {
+        this.dismissAllSubject.next();
     }
 
     private normalizeDuration(duration: number | false = 4000): number | false {
