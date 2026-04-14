@@ -33,6 +33,10 @@ export class MdcProgressIndicatorComponent implements AfterViewInit, OnChanges {
     }
 
     private constrainPercentage(percent: number) {
+        if (isNaN(percent)) {
+            return 0;
+        }
+        
         let x = percent < 0 ? 0 : percent;
         x = percent > 100 ? 100 : percent;
 
