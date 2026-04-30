@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { CapitalizePipe } from '@pipes';
+import { CapitalizePipe } from '../../../../src/_pipes/capitalize.pipe';
 
 @Component({
     standalone: true,

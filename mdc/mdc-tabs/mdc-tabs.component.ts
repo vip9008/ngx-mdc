@@ -3,7 +3,7 @@ import { MdcTabPageComponent } from './mdc-tab-page/mdc-tab-page.component';
 import { MdcTabItemComponent } from './mdc-tab-item/mdc-tab-item.component';
 import { fromEvent, timer } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { LayoutDirectionService } from '@services';
+import { LayoutDirectionService } from '../../../src/_services/layout-direction.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @UntilDestroy()
